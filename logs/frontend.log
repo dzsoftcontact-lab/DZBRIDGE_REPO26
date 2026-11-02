@@ -1,0 +1,138 @@
+
+> react-example@0.0.0 dev
+> tsx server.ts --port 3000 --host 0.0.0.0
+
+◇ injected env (7) from .env // tip: ⌁ auth for agents [www.vestauth.com]
+[Database] Loaded persistent data from /home/pc-2026-1/Desktop/DZbridge/DzBridge_Platform2/data/db.json
+4:56:58 PM [vite] (client) Re-optimizing dependencies because vite config has changed
+[DZ-Bridge Server] Running on http://0.0.0.0:3000
+
+> react-example@0.0.0 dev
+> tsx server.ts --port 3000 --host 0.0.0.0
+
+◇ injected env (7) from .env // tip: ⌘ override existing { override: true }
+[Database] Loaded persistent data from /home/pc-2026-1/Desktop/DZbridge/DzBridge_Platform2/data/db.json
+5:15:03 PM [vite] (client) Re-optimizing dependencies because vite config has changed
+[DZ-Bridge Server] Running on http://0.0.0.0:3000
+5:16:57 PM [vite] (client) page reload frontend/login.html
+5:17:13 PM [vite] (client) page reload frontend/landing_page.html
+5:17:24 PM [vite] (client) page reload frontend/landing_page.html
+5:17:43 PM [vite] (client) Pre-transform error: Failed to resolve import "react-is" from "node_modules/.vite/deps/recharts.js?v=b3b188e6". Does the file exist?
+  Plugin: vite:import-analysis
+  File: /home/pc-2026-1/Desktop/DZbridge/DzBridge_Platform2/node_modules/.vite/deps/recharts.js?v=b3b188e6:4:28
+  2  |  import { t as require_react_dom } from "./react-dom-DJUU8sTs.js";
+  3  |  import { B as line_default, Bn as linear, C as wye_default, E as star_default, Fn as pow, Gn as ordinal, Hn as band, ...
+  4  |  import { isFragment } from "react-is";
+     |                              ^
+  5  |  //#region node_modules/clsx/dist/clsx.mjs
+  6  |  var import_react = /* @__PURE__ */ __toESM(require_react());
+
+> react-example@0.0.0 dev
+> tsx server.ts --port 3000 --host 0.0.0.0
+
+◇ injected env (7) from .env // tip: ⌁ auth for agents [www.vestauth.com]
+[Database] Loaded persistent data from /home/pc-2026-1/Desktop/DZbridge/DzBridge_Platform2/data/db.json
+[DZ-Bridge Server] Running on http://0.0.0.0:3000
+5:19:57 PM [vite] (client) Pre-transform error: Failed to resolve import "react-is" from "node_modules/.vite/deps/recharts.js?v=4c29e36c". Does the file exist?
+  Plugin: vite:import-analysis
+  File: /home/pc-2026-1/Desktop/DZbridge/DzBridge_Platform2/node_modules/.vite/deps/recharts.js?v=4c29e36c:4:28
+  2  |  import { t as require_react_dom } from "./react-dom-DJUU8sTs.js";
+  3  |  import { B as line_default, Bn as linear, C as wye_default, E as star_default, Fn as pow, Gn as ordinal, Hn as band, ...
+  4  |  import { isFragment } from "react-is";
+     |                              ^
+  5  |  //#region node_modules/clsx/dist/clsx.mjs
+  6  |  var import_react = /* @__PURE__ */ __toESM(require_react());
+5:30:45 PM [vite] (client) hmr update /src/index.css
+5:31:00 PM [vite] (client) hmr update /src/index.css
+5:31:19 PM [vite] (client) page reload frontend/login.html
+5:31:45 PM [vite] (client) page reload frontend/landing_page.html
+5:31:59 PM [vite] (client) hmr update /src/components/DashboardOverview.tsx
+5:32:37 PM [vite] (client) hmr update /src/components/Sidebar.tsx, /src/index.css
+5:32:52 PM [vite] (client) hmr update /src/components/Sidebar.tsx, /src/index.css
+5:33:22 PM [vite] (client) hmr update /src/App.tsx, /src/index.css
+5:33:38 PM [vite] (client) hmr update /src/App.tsx, /src/index.css
+5:34:00 PM [vite] (client) hmr update /src/components/TopHeader.tsx, /src/index.css
+
+> react-example@0.0.0 dev
+> tsx server.ts --port 3000 --host 0.0.0.0
+
+
+> react-example@0.0.0 dev
+> tsx server.ts --port 3000 --host 0.0.0.0
+
+◇ injected env (7) from .env // tip: ◈ encrypted .env [www.dotenvx.com]
+[Database] Loaded persistent data from /home/pc-2026-1/Desktop/DZbridge/DzBridge_Platform2/data/db.json
+[DZ-Bridge Server] Running on http://0.0.0.0:3000
+◇ injected env (7) from .env // tip: ⌘ enable debugging { debug: true }
+[Database] Loaded persistent data from /home/pc-2026-1/Desktop/DZbridge/DzBridge_Platform2/data/db.json
+WebSocket server error: Port 24678 is already in use
+5:39:01 PM [vite] (client) Re-optimizing dependencies because vite config has changed
+node:events:497
+      throw er; // Unhandled 'error' event
+      ^
+
+Error: listen EADDRINUSE: address already in use 0.0.0.0:3000
+    at Server.setupListenHandle [as _listen2] (node:net:1941:16)
+    at listenInCluster (node:net:1998:12)
+    at node:net:2207:7
+    at process.processTicksAndRejections (node:internal/process/task_queues:89:21)
+Emitted 'error' event on Server instance at:
+    at emitErrorNT (node:net:1977:8)
+    at process.processTicksAndRejections (node:internal/process/task_queues:89:21) {
+  code: 'EADDRINUSE',
+  errno: -98,
+  syscall: 'listen',
+  address: '0.0.0.0',
+  port: 3000
+}
+
+Node.js v22.23.4
+◇ injected env (7) from .env // tip: ⌘ suppress logs { quiet: true }
+[Database] Loaded persistent data from /home/pc-2026-1/Desktop/DZbridge/DzBridge_Platform2/data/db.json
+[DZ-Bridge Server] Running on http://0.0.0.0:3000
+
+> react-example@0.0.0 dev
+> tsx server.ts --port 3000 --host 0.0.0.0
+
+◇ injected env (7) from .env // tip: ⌘ custom filepath { path: '/custom/path/.env' }
+[Database] Loaded persistent data from /home/pc-2026-1/Desktop/DZbridge/DzBridge_Platform2/data/db.json
+6:16:59 PM [vite] (client) Re-optimizing dependencies because vite config has changed
+[DZ-Bridge Server] Running on http://0.0.0.0:3000
+6:17:00 PM [vite] (client) [optimizer] scanning dependencies...
+6:17:02 PM [vite] (client) [optimizer] bundling dependencies...
+6:20:29 PM [vite] (client) page reload frontend/index.html
+6:20:47 PM [vite] (client) page reload frontend/index.html
+6:20:53 PM [vite] (client) page reload frontend/presentation.html
+
+> react-example@0.0.0 dev
+> tsx server.ts --port 3000 --host 0.0.0.0
+
+◇ injected env (7) from .env // tip: ⌘ suppress logs { quiet: true }
+[Database] Loaded persistent data from /home/pc-2026-1/Desktop/DZbridge/DzBridge_Platform2/data/db.json
+6:23:04 PM [vite] (client) Re-optimizing dependencies because vite config has changed
+[DZ-Bridge Server] Running on http://0.0.0.0:3000
+6:23:05 PM [vite] (client) [optimizer] bundling dependencies...
+
+> react-example@0.0.0 dev
+> tsx server.ts --port 3000 --host 0.0.0.0
+
+◇ injected env (7) from .env // tip: ⌘ custom filepath { path: '/custom/path/.env' }
+[Database] Loaded persistent data from /home/pc-2026-1/Desktop/DZbridge/DzBridge_Platform2/data/db.json
+[DZ-Bridge Server] Running on http://0.0.0.0:3000
+12:05:51 AM [vite] (client) hmr update /src/index.css
+12:06:02 AM [vite] (client) hmr update /src/App.tsx, /src/index.css
+
+> react-example@0.0.0 dev
+> tsx server.ts --port 3000 --host 0.0.0.0
+
+◇ injected env (7) from .env // tip: ⌘ enable debugging { debug: true }
+[Database] Loaded persistent data from /home/pc-2026-1/Desktop/DZbridge/DzBridge_Platform2/data/db.json
+7:32:27 AM [vite] (client) Re-optimizing dependencies because vite config has changed
+[DZ-Bridge Server] Running on http://0.0.0.0:3000
+7:32:29 AM [vite] (client) [optimizer] bundling dependencies...
+7:40:42 AM [vite] changed tsconfig file detected: /home/pc-2026-1/Desktop/DZbridge/DzBridge_Platform2/tsconfig.json - Clearing cache and forcing full-reload to ensure TypeScript is compiled with updated config values.
+7:47:48 AM [vite] (client) page reload frontend/manager.html
+8:00:00 AM [vite] changed tsconfig file detected: /home/pc-2026-1/Desktop/DZbridge/DzBridge_Platform2/django-portal-manager-ADMIN/tsconfig.json - Clearing cache and forcing full-reload to ensure TypeScript is compiled with updated config values.
+8:00:00 AM [vite] (client) page reload django-portal-manager-ADMIN/django_backend/templates/test_client.html
+8:00:00 AM [vite] (client) page reload django-portal-manager-ADMIN/index.html
+8:00:05 AM [vite] changed tsconfig file detected: /home/pc-2026-1/Desktop/DZbridge/DzBridge_Platform2/tsconfig.json - Clearing cache and forcing full-reload to ensure TypeScript is compiled with updated config values.

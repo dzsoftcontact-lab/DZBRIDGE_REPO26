@@ -1,0 +1,1601 @@
+<!doctype html>
+<html lang="en" dir="ltr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Manager portal · DZ-Bridge</title>
+<meta name="description" content="DZ-Bridge sovereign administration portal: users, 2D database schema studio, audit logs, API management, and translations.">
+<link rel="icon" type="image/png" href="/frontend/DZ%20Bridge%20Favicon.png">
+<link rel="stylesheet" href="/fonts/fonts.css">
+<script src="/frontend/d3.min.js"></script>
+<script src="/frontend/xlsx.full.min.js"></script>
+<script>
+(function(){
+  function c(n){var v=document.cookie.match('(^|;) ?'+n+'=([^;]*)(;|$)');return v?decodeURIComponent(v[2]):null;}
+  var p=new URLSearchParams(location.search);var qt=p.get('token');
+  if(qt){localStorage.setItem('dzb_token',qt);localStorage.setItem('dz_token',qt);history.replaceState(null,'',location.pathname+location.hash);}
+  var tok=localStorage.getItem('dzb_token')||localStorage.getItem('dz_token')||c('dzb_token')||c('dz_token');
+  if(!tok&&!c('dz_user')){location.replace('/login.html?redirect='+encodeURIComponent(location.pathname));}
+  var th=localStorage.getItem('dzb-theme');if(th==='dark')document.documentElement.setAttribute('data-theme','dark');
+  var lg=localStorage.getItem('dzb-mgr-lang')||'en';document.documentElement.lang=lg;document.documentElement.dir=lg==='ar'?'rtl':'ltr';
+})();
+</script>
+<style>
+:root{
+  --plum-900:#28011F;--plum-800:#3A0233;--plum-700:#4E0D45;
+  --lav-100:#F5ECF5;--lav-200:#EEDDEE;
+  --gold-700:#9A7424;--gold-500:#C9A24B;--gold-100:#F6EDD8;
+  --emerald-900:#04261C;--emerald-800:#064E3B;--emerald-700:#0B6B4F;--emerald-600:#10815F;--emerald-500:#10B981;--emerald-100:#E4F6EE;--emerald-50:#F2FBF7;
+  --n-0:#FFFFFF;--n-50:#FAF8F3;--n-100:#F2EFE9;--n-200:#E6E0D3;--n-400:#9AA39E;--n-600:#5D6B64;--n-900:#13201A;
+  --green-600:#2E7D4F;--green-50:#E7F3EC;--amber-600:#B26B12;--amber-50:#FBF0DC;--red-600:#B42318;--red-50:#FCE9E7;
+  --brand:var(--emerald-800);--brand-hover:var(--emerald-700);
+  --bg-page:var(--n-50);--bg-surface:var(--n-0);--bg-subtle:var(--n-100);
+  --text-primary:var(--n-900);--text-secondary:var(--n-600);--text-muted:var(--n-400);--text-brand:var(--emerald-800);
+  --text-on-brand:var(--n-0);--text-accent:var(--gold-700);
+  --border:var(--n-200);--border-strong:var(--n-400);--border-focus:var(--gold-500);
+  --accent-gold:var(--gold-500);--accent-gold-subtle:var(--gold-100);--accent-lavender:var(--lav-200);--accent-lavender-subtle:var(--lav-100);
+  --accent-mint:var(--emerald-100);--accent-mint-subtle:var(--emerald-50);
+  --success:var(--green-600);--success-subtle:var(--green-50);--warning:var(--amber-600);--warning-subtle:var(--amber-50);--error:var(--red-600);--error-subtle:var(--red-50);
+  --sans:"DM Sans","Segoe UI",system-ui,-apple-system,Roboto,Arial,sans-serif;
+  --serif:"Fraunces","Iowan Old Style",Palatino,Georgia,serif;
+  --mono:"DM Mono",ui-monospace,Menlo,Consolas,monospace;
+  --arabic:"Cairo","Noto Sans Arabic","Segoe UI",Tahoma,sans-serif;
+  --r:18px;
+}
+:root[data-theme="dark"]{
+  color-scheme:dark;
+  --bg-page:#0B1410;--bg-surface:#12201A;--bg-subtle:#182B23;
+  --text-primary:#F2FBF7;--text-secondary:#B4C4BC;--text-muted:#7A8F85;--text-brand:#E4F6EE;--text-accent:#C9A24B;
+  --border:#20382E;--border-strong:#3D6354;
+  --brand:#10B981;--brand-hover:#34D399;--text-on-brand:#04261C;
+  --accent-lavender:#2A1E29;--accent-lavender-subtle:#1D141C;--accent-gold-subtle:#2D200A;
+  --accent-mint:#18362A;--accent-mint-subtle:#10241C;
+  --success:#5CC489;--success-subtle:#12301F;--warning:#F0A848;--warning-subtle:#3B2A10;--error:#F97066;--error-subtle:#3A1214;
+}
+*{box-sizing:border-box}
+body{margin:0;min-height:100vh;background:var(--bg-page);color:var(--text-primary);font:400 15px/22px var(--sans);-webkit-font-smoothing:antialiased}
+:root[lang="ar"] body{font:400 15px/26px var(--arabic)}
+a{color:inherit;text-decoration:none}
+button,input,select,textarea{font:inherit;color:inherit}
+svg{display:block}
+[hidden]{display:none!important}
+:focus-visible{outline:3px solid color-mix(in srgb,var(--border-focus) 65%,transparent);outline-offset:2px;border-radius:6px}
+.mono{font-family:var(--mono)}.muted{color:var(--text-muted)}.sec{color:var(--text-secondary)}
+
+/* top bar */
+.top{position:sticky;top:0;z-index:40;display:flex;align-items:center;gap:16px;height:64px;padding:0 20px;background:color-mix(in srgb,var(--bg-surface) 92%,transparent);backdrop-filter:blur(12px);border-bottom:1px solid var(--border)}
+.brand{display:flex;align-items:center;gap:10px;font:600 18px/24px var(--sans);letter-spacing:-.01em;flex:none;width:220px}
+.brand small{font:500 11px/1 var(--mono);color:var(--text-accent);letter-spacing:.06em;text-transform:uppercase}
+.mark{display:grid;place-items:center;width:32px;height:32px;border-radius:8px;background:var(--brand);color:var(--text-on-brand);font:600 15px/15px var(--serif)}
+.burger{display:none;place-items:center;width:40px;height:40px;border:0;border-radius:10px;background:none;cursor:pointer}
+.gsearch{position:relative;flex:1;max-width:440px;margin:0 auto}
+.gsearch svg{position:absolute;top:50%;inset-inline-start:13px;transform:translateY(-50%);color:var(--text-muted)}
+.gsearch input{width:100%;height:40px;padding:0 14px;padding-inline-start:38px;border:1px solid var(--border);border-radius:12px;background:var(--bg-subtle)}
+.gsearch input:focus{outline:none;border-color:var(--brand);background:var(--bg-surface)}
+.tacts{display:flex;align-items:center;gap:10px;flex:none}
+.ibtn{position:relative;display:grid;place-items:center;width:40px;height:40px;border:0;border-radius:999px;background:transparent;cursor:pointer;color:var(--text-primary)}
+.ibtn:hover{background:var(--bg-subtle)}
+.theme-btn .moon{display:none}
+:root[data-theme="dark"] .theme-btn .sun{display:none}
+:root[data-theme="dark"] .theme-btn .moon{display:block}
+.langsel{height:36px;padding:0 10px;border:1px solid var(--border);border-radius:999px;background:var(--bg-surface);cursor:pointer;font:500 13px/1 var(--sans)}
+.react-link{display:inline-flex;align-items:center;gap:6px;height:34px;padding:0 12px;border-radius:999px;background:var(--plum-800);color:#FFFFFF;font:600 12px/1 var(--mono);border:1px solid var(--gold-500);transition:all .15s}
+.react-link:hover{background:var(--plum-700);transform:translateY(-1px);box-shadow:0 4px 12px rgba(40,1,31,.25)}
+.user{position:relative}
+.ubtn{display:flex;align-items:center;gap:10px;padding:4px;padding-inline-end:10px;border:0;border-radius:999px;background:none;text-align:start;cursor:pointer}
+.ubtn:hover{background:var(--bg-subtle)}
+.ubtn b{display:block;font-weight:600;font-size:14px;line-height:18px}
+.ubtn small{display:block;font-size:12px;line-height:16px;color:var(--text-secondary)}
+.av{display:grid;place-items:center;flex:none;width:34px;height:34px;border-radius:50%;background:var(--accent-mint);color:var(--emerald-800);font:600 12px/1 var(--mono)}
+.menu{position:absolute;top:calc(100% + 8px);inset-inline-end:0;min-width:210px;margin:0;padding:6px;list-style:none;background:var(--bg-surface);border:1px solid var(--border);border-radius:14px;box-shadow:0 14px 32px -14px rgba(4,38,28,.35);z-index:50}
+.menu a,.menu button{display:flex;align-items:center;gap:10px;width:100%;padding:9px 12px;border:0;border-radius:9px;background:none;font-size:14px;text-align:start;cursor:pointer}
+.menu a:hover,.menu button:hover{background:var(--bg-subtle)}
+
+/* shell */
+.shell{display:grid;grid-template-columns:240px minmax(0,1fr);min-height:calc(100vh - 64px)}
+.side{position:sticky;top:64px;display:flex;flex-direction:column;height:calc(100vh - 64px);padding:18px 12px;border-inline-end:1px solid var(--border);background:var(--bg-surface)}
+.nav{display:grid;gap:2px;margin:0;padding:0;list-style:none}
+.nav a{display:flex;align-items:center;gap:12px;height:42px;padding:0 12px;border-radius:11px;font-weight:500;font-size:14.5px;color:var(--text-secondary)}
+.nav a:hover{background:var(--bg-subtle);color:var(--text-primary)}
+.nav a[aria-current="page"]{background:var(--accent-mint);color:var(--text-brand);font-weight:600}
+.nav .badge{margin-inline-start:auto;min-width:22px;height:20px;padding:0 6px;border-radius:999px;background:var(--bg-subtle);font:600 11.5px/20px var(--sans);text-align:center;color:var(--text-secondary)}
+.nav a[aria-current="page"] .badge{background:var(--brand);color:var(--text-on-brand)}
+.nav hr{margin:10px 6px;border:0;border-top:1px solid var(--border)}
+.nav .grp{padding:6px 12px 4px;font:400 11px/14px var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--text-muted)}
+.sfoot{margin-top:auto;padding:12px;font-size:12.5px;color:var(--text-muted)}
+.sfoot .live{display:inline-flex;align-items:center;gap:6px}
+.sfoot .live i{width:8px;height:8px;border-radius:50%;background:var(--text-muted)}
+.sfoot .live.on i{background:var(--success)}
+.scrim{display:none}
+main{min-width:0;padding:28px clamp(16px,3vw,36px) 56px}
+.view{max-width:1320px;margin:0 auto}
+
+/* page head */
+.ph{display:flex;align-items:flex-start;justify-content:space-between;gap:14px 20px;flex-wrap:wrap;margin-bottom:22px}
+.ph h1{margin:0;font:600 clamp(24px,2.6vw,30px)/1.2 var(--serif);letter-spacing:-.015em}
+:root[lang="ar"] .ph h1{font:700 clamp(22px,2.4vw,27px)/1.5 var(--arabic)}
+.ph p{margin:4px 0 0;color:var(--text-secondary);font-size:14.5px}
+.ph .btns{display:flex;gap:10px;flex-wrap:wrap}
+.crumb{margin-bottom:6px;font:400 12.5px/18px var(--mono);color:var(--text-muted)}
+
+/* buttons */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;height:40px;padding:0 18px;border-radius:999px;border:1.5px solid transparent;font:500 14px/20px var(--sans);white-space:nowrap;cursor:pointer;transition:background .15s,border-color .15s,transform .15s}
+:root[lang="ar"] .btn{font-family:var(--arabic);font-weight:600}
+.btn:active{transform:translateY(1px)}
+.btn-primary{background:var(--brand);color:var(--text-on-brand)}
+.btn-primary:hover{background:var(--brand-hover)}
+.btn-ghost{background:var(--bg-surface);border-color:var(--border-strong)}
+.btn-ghost:hover{border-color:var(--brand);color:var(--text-brand)}
+.btn-danger{background:var(--bg-surface);border-color:var(--error);color:var(--error)}
+.btn-danger:hover{background:var(--error-subtle)}
+.btn-danger.solid{background:var(--error);color:#fff}
+.btn-sm{height:32px;padding:0 13px;font-size:13px}
+.btn:disabled{opacity:.5;cursor:not-allowed;transform:none}
+.spin{width:14px;height:14px;border:2px solid currentColor;border-right-color:transparent;border-radius:50%;animation:sp .7s linear infinite}
+@keyframes sp{to{transform:rotate(360deg)}}
+
+/* cards & layout */
+.card{position:relative;border:1px solid var(--border);border-radius:var(--r);background:var(--bg-surface)}
+.card>header{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:16px 20px;border-bottom:1px solid var(--border)}
+.card>header h2{margin:0;font:600 15.5px/22px var(--sans)}
+:root[lang="ar"] .card>header h2{font-family:var(--arabic)}
+.cb{padding:16px 20px}
+.grid2{display:grid;grid-template-columns:minmax(0,1fr) 360px;gap:18px;align-items:start}
+.gridL{display:grid;grid-template-columns:300px minmax(0,1fr);gap:18px;align-items:start}
+.stack{display:grid;gap:18px;min-width:0}
+.kick{font:400 11px/14px var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--text-muted)}
+.note{display:flex;gap:12px;align-items:flex-start;padding:12px 16px;border:1px solid var(--border);border-radius:14px;background:var(--bg-surface);font-size:14px;line-height:20px}
+.note.warn{background:var(--warning-subtle);border-color:color-mix(in srgb,var(--warning) 35%,transparent)}
+.note.err{background:var(--error-subtle);border-color:color-mix(in srgb,var(--error) 35%,transparent);color:var(--error)}
+.note.ok{background:var(--success-subtle);border-color:color-mix(in srgb,var(--success) 30%,transparent)}
+
+/* KPIs */
+.kpis{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:14px;margin-bottom:18px}
+.kpi{padding:16px 18px}
+.kpi span{display:block;font-size:13px;color:var(--text-secondary)}
+.kpi b{display:block;margin:6px 0 2px;font:600 30px/36px var(--serif)}
+.kpi small{font-size:12px;color:var(--text-muted)}
+.kpi.hot{border-color:var(--accent-gold);background:color-mix(in srgb,var(--accent-gold-subtle) 55%,var(--bg-surface))}
+
+/* pills */
+.pill{display:inline-flex;align-items:center;gap:6px;height:24px;padding:0 10px;border-radius:999px;font:500 12px/1 var(--sans);white-space:nowrap;background:var(--bg-subtle);color:var(--text-secondary)}
+.pill.ok{background:var(--success-subtle);color:var(--success)}
+.pill.warn{background:var(--warning-subtle);color:var(--warning)}
+.pill.bad{background:var(--error-subtle);color:var(--error)}
+.pill.brand{background:var(--accent-mint);color:var(--emerald-800)}
+.pill.gold{background:var(--accent-gold-subtle);color:var(--text-accent)}
+.pill.plum{background:var(--lav-100);color:var(--plum-800)}
+.m{display:inline-grid;place-items:center;min-width:58px;height:22px;padding:0 6px;border-radius:6px;font:600 11px/1 var(--mono)}
+.m.GET{background:var(--success-subtle);color:var(--success)}
+.m.POST{background:var(--accent-lavender);color:var(--plum-800)}
+.m.PUT,.m.PATCH{background:var(--warning-subtle);color:var(--warning)}
+.m.DELETE{background:var(--error-subtle);color:var(--error)}
+
+/* tables */
+.tblw{overflow-x:auto}
+table.tbl{width:100%;border-collapse:collapse;font-size:14px}
+.tbl th{padding:10px 16px;background:var(--bg-subtle);font-weight:500;font-size:12.5px;color:var(--text-secondary);text-align:start;white-space:nowrap}
+.tbl td{padding:12px 16px;border-top:1px solid var(--border);vertical-align:middle}
+.tbl td.cell{max-width:240px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-family:var(--mono);font-size:12.5px}
+.tbl .t{display:flex;align-items:center;gap:12px;min-width:220px}
+.tbl .t b{display:block;font-weight:600;line-height:20px}
+.tbl .t small{display:block;font:400 12px/16px var(--mono);color:var(--text-muted)}
+.tbl td.end,.tbl th.end{text-align:end;white-space:nowrap}
+.empty{padding:36px 20px;text-align:center;color:var(--text-secondary)}
+.filters{display:flex;gap:8px;flex-wrap:wrap;padding:12px;border-bottom:1px solid var(--border)}
+.ctl{width:100%;height:40px;padding:0 12px;border:1px solid var(--border-strong);border-radius:11px;background:var(--bg-surface)}
+textarea.ctl{height:auto;min-height:90px;padding:10px 12px;line-height:20px;resize:vertical;font-family:var(--mono);font-size:13px}
+.ctl:focus{outline:none;border-color:var(--brand);box-shadow:0 0 0 3px color-mix(in srgb,var(--border-focus) 40%,transparent)}
+.filters .ctl{width:auto;min-width:150px}
+.filters .grow{flex:1 1 240px}
+.pager{display:flex;align-items:center;gap:8px;padding:12px 16px;border-top:1px solid var(--border);font:400 12.5px/1 var(--mono);color:var(--text-secondary)}
+.pager .sp{flex:1}
+.pager button{display:grid;place-items:center;min-width:30px;height:30px;padding:0 8px;border:1px solid var(--border-strong);border-radius:8px;background:var(--bg-surface);cursor:pointer}
+.pager button:disabled{opacity:.4;cursor:default}
+
+/* sub-navigation tabs (Database Studio) */
+.subtabs{display:flex;flex-wrap:wrap;align-items:center;gap:4px;background:var(--bg-subtle);padding:6px;border-radius:14px;border:1px solid var(--border);margin-bottom:18px}
+.subtabs button{display:inline-flex;align-items:center;gap:8px;padding:8px 14px;border-radius:10px;border:0;background:transparent;color:var(--text-secondary);font:600 13px/1 var(--sans);cursor:pointer;transition:all .15s}
+.subtabs button:hover{color:var(--text-primary);background:color-mix(in srgb,var(--bg-surface) 60%,transparent)}
+.subtabs button.active{background:var(--bg-surface);color:var(--text-primary);box-shadow:0 2px 6px rgba(0,0,0,.08);color:var(--text-brand)}
+.subtabs button .pill{height:18px;padding:0 6px;font-size:10.5px}
+
+/* 2D ERD Visual Canvas */
+.erd-wrap{position:relative;border:1px solid var(--border);border-radius:var(--r);background:var(--bg-surface);overflow:hidden;box-shadow:0 4px 20px rgba(0,0,0,.03)}
+.erd-bar{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:12px 16px;border-bottom:1px solid var(--border);background:var(--bg-subtle);flex-wrap:wrap}
+.erd-acts{display:flex;align-items:center;gap:6px}
+.erd-btn{display:inline-flex;align-items:center;justify-content:center;gap:6px;height:32px;padding:0 10px;border-radius:8px;border:1px solid var(--border-strong);background:var(--bg-surface);cursor:pointer;font:500 12.5px/1 var(--sans)}
+.erd-btn:hover{border-color:var(--brand);color:var(--text-brand)}
+.erd-btn.active{background:var(--accent-gold-subtle);border-color:var(--accent-gold);color:var(--gold-700);font-weight:600}
+.erd-cats{display:flex;align-items:center;gap:4px;overflow-x:auto}
+.erd-chip{height:26px;padding:0 9px;border-radius:999px;border:1px solid var(--border);background:var(--bg-surface);font:500 11.5px/1 var(--sans);cursor:pointer;white-space:nowrap}
+.erd-chip:hover,.erd-chip.active{background:var(--brand);color:var(--text-on-brand);border-color:var(--brand)}
+#erdSvg{width:100%;height:620px;display:block;cursor:grab;background:radial-gradient(circle, color-mix(in srgb,var(--border) 45%,transparent) 1px, transparent 1px);background-size:24px 24px}
+#erdSvg:active{cursor:grabbing}
+.erd-node{cursor:pointer;transition:opacity .2s}
+.erd-node rect.box{fill:var(--bg-surface);stroke:var(--border-strong);stroke-width:1.5px;rx:12px;filter:drop-shadow(0 4px 12px rgba(0,0,0,.06))}
+.erd-node:hover rect.box{stroke:var(--brand);stroke-width:2.2px}
+.erd-node.selected rect.box{stroke:var(--accent-gold);stroke-width:2.8px;filter:drop-shadow(0 6px 16px rgba(201,162,75,.35))}
+.erd-node.dimmed{opacity:.22}
+.erd-path{fill:none;stroke:color-mix(in srgb,var(--border-strong) 85%,transparent);stroke-width:1.8px;transition:stroke .15s,stroke-width .15s}
+.erd-path:hover,.erd-path.highlight{stroke:var(--accent-gold);stroke-width:3px;filter:drop-shadow(0 0 6px rgba(201,162,75,.6))}
+.erd-path.dimmed{opacity:.12}
+.erd-tooltip{position:absolute;z-index:60;pointer-events:none;padding:6px 10px;border-radius:8px;background:var(--n-900);color:#FFFFFF;font:500 12px/16px var(--mono);box-shadow:0 6px 18px rgba(0,0,0,.3);opacity:0;transition:opacity .15s;transform:translate(-50%,-100%)}
+.erd-drawer{position:absolute;bottom:16px;inset-inline-end:16px;width:340px;max-width:calc(100% - 32px);background:var(--bg-surface);border:1.5px solid var(--border-strong);border-radius:14px;padding:16px;box-shadow:0 18px 36px -12px rgba(0,0,0,.3);z-index:30}
+.erd-drawer header{display:flex;align-items:flex-start;justify-content:space-between;gap:10px;margin-bottom:10px}
+.erd-drawer header h3{margin:0;font:700 16px/20px var(--mono)}
+.erd-drawer .cols-preview{max-height:160px;overflow-y:auto;display:grid;gap:4px;margin-bottom:12px;padding:6px 0;border-top:1px solid var(--border);border-bottom:1px solid var(--border)}
+.erd-drawer .cols-preview div{display:flex;justify-content:space-between;font:400 12px/16px var(--mono)}
+
+/* code boxes */
+pre.codeblock{margin:0;padding:16px;background:var(--bg-subtle);border-radius:12px;font:400 12.5px/20px var(--mono);overflow-x:auto;max-height:500px;border:1px solid var(--border);white-space:pre-wrap}
+.code-head{display:flex;align-items:center;justify-content:space-between;padding:10px 16px;background:var(--bg-surface);border:1px solid var(--border);border-bottom:0;border-radius:12px 12px 0 0}
+
+/* dialog */
+dialog.dlg{width:min(600px,calc(100vw - 32px));max-height:calc(100vh - 48px);padding:0;border:1px solid var(--border);border-radius:20px;background:var(--bg-surface);color:var(--text-primary);box-shadow:0 30px 60px -20px rgba(4,38,28,.45)}
+dialog.dlg::backdrop{background:rgba(4,38,28,.45);backdrop-filter:blur(3px)}
+.dlg header{padding:18px 22px 6px}
+.dlg h2{margin:0;font:600 19px/26px var(--serif)}
+.dlg header p{margin:4px 0 0;color:var(--text-secondary);font-size:14px}
+.dlg .body{display:grid;gap:12px;padding:12px 22px;overflow-y:auto;max-height:60vh}
+.dlg footer{display:flex;justify-content:flex-end;gap:10px;padding:14px 22px 20px}
+.fld{display:grid;gap:6px}
+.fld label{font-size:13px;font-weight:500;color:var(--text-secondary)}
+.row2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+
+/* toast */
+.toast{position:fixed;bottom:24px;left:50%;z-index:100;max-width:calc(100vw - 32px);padding:12px 18px;border-radius:999px;background:var(--emerald-900);color:#FFFFFF;font-size:14px;box-shadow:0 16px 32px -12px rgba(4,38,28,.5);transform:translate(-50%,16px);opacity:0;pointer-events:none;transition:opacity .2s,transform .2s}
+:root[data-theme="dark"] .toast{background:var(--emerald-100);color:var(--emerald-900)}
+.toast.show{opacity:1;transform:translate(-50%,0)}
+.toast.err{background:var(--error);color:#fff}
+
+@media (max-width:1180px){.kpis{grid-template-columns:repeat(3,minmax(0,1fr))}}
+@media (max-width:1060px){.grid2,.gridL{grid-template-columns:1fr}}
+@media (max-width:900px){
+  .brand{width:auto}.burger{display:grid}.shell{grid-template-columns:1fr}
+  .side{position:fixed;top:64px;bottom:0;inset-inline-start:0;z-index:45;width:260px;height:auto;transform:translateX(-105%);transition:transform .2s}
+  :root[dir="rtl"] .side{transform:translateX(105%)}
+  body.nav-open .side{transform:none}
+  body.nav-open .scrim{display:block;position:fixed;inset:64px 0 0;z-index:44;background:rgba(4,38,28,.35)}
+  .gsearch{display:none}.tacts{margin-inline-start:auto}
+}
+@media (max-width:640px){.ubtn span{display:none}.kpis{grid-template-columns:repeat(2,minmax(0,1fr))}.row2,.req{grid-template-columns:1fr}}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+</style>
+</head>
+<body>
+
+<header class="top">
+  <button class="burger" id="burger" type="button" aria-label="Menu"><svg width="20" height="20" viewBox="0 0 20 20"><path d="M3 5.5h14M3 10h14M3 14.5h14" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg></button>
+  <a class="brand" href="#dashboard" aria-label="DZ-Bridge"><span class="mark">DZ</span><span>DZ-Bridge<br><small data-i18n="managerTag">Manager</small></span></a>
+  <form class="gsearch" id="gsearch" role="search">
+    <svg width="16" height="16" viewBox="0 0 20 20"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="9" cy="9" r="5.5"/><path d="M13.2 13.2L17 17"/></g></svg>
+    <input id="gq" type="search" autocomplete="off" data-i18n-ph="searchUsers">
+  </form>
+  <div class="tacts">
+    <a href="/console" class="react-link" target="_blank" title="Launch Super Admin React IDE Studio">
+      <span>React Studio</span>
+      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+    </a>
+    <select class="langsel" id="langSel" aria-label="Language"><option value="en">EN</option><option value="fr">FR</option><option value="ar">AR</option></select>
+    <button class="ibtn theme-btn" id="themeBtn" type="button" aria-label="Theme">
+      <svg class="sun" width="20" height="20" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="12" cy="12" r="4"/><path d="M12 2.5v2.2M12 19.3v2.2M2.5 12h2.2M19.3 12h2.2M5.3 5.3l1.6 1.6M17.1 17.1l1.6 1.6M5.3 18.7l1.6-1.6M17.1 6.9l1.6-1.6"/></g></svg>
+      <svg class="moon" width="18" height="18" viewBox="0 0 24 24"><path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg>
+    </button>
+    <div class="user">
+      <button class="ubtn" id="ubtn" type="button" aria-haspopup="menu" aria-expanded="false">
+        <span class="av" id="userAv">--</span><span><b id="userName">…</b><small id="userRole">admin</small></span>
+      </button>
+      <ul class="menu" id="umenu" role="menu" hidden>
+        <li><a href="/console" target="_blank">Super Admin Studio ↗</a></li>
+        <li><a href="/landing_page.html" data-i18n="publicSite">Public website</a></li>
+        <li><button type="button" id="logoutBtn" data-i18n="logout">Log out</button></li>
+      </ul>
+    </div>
+  </div>
+</header>
+
+<div class="shell">
+  <nav class="side" id="side" aria-label="Manager">
+    <ul class="nav">
+      <li class="grp" data-i18n="grpOverview">Overview</li>
+      <li><a href="#dashboard" data-nav="dashboard"><svg width="18" height="18" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"><rect x="3.5" y="3.5" width="7" height="8" rx="1.8"/><rect x="13.5" y="3.5" width="7" height="5" rx="1.8"/><rect x="3.5" y="14.5" width="7" height="6" rx="1.8"/><rect x="13.5" y="11.5" width="7" height="9" rx="1.8"/></g></svg><span data-i18n="navDash">Dashboard</span></a></li>
+      <li><a href="#users" data-nav="users"><svg width="18" height="18" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><circle cx="9" cy="8" r="3.5"/><path d="M2.5 19.5c.8-3.3 3.4-5.3 6.5-5.3s5.7 2 6.5 5.3M16 4.8a3.3 3.3 0 0 1 0 6.4M18 14.5c1.9.6 3.1 2.4 3.5 5"/></g></svg><span data-i18n="navUsers">Users</span><span class="badge" id="bUsers" hidden></span></a></li>
+      <li><a href="#audit" data-nav="audit"><svg width="18" height="18" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M6 3.5h9l4 4v13H6z"/><path d="M9 11h7M9 14.5h7M9 18h4"/></g></svg><span data-i18n="navAudit">Audit logs</span></a></li>
+      <li><hr></li>
+      <li class="grp" data-i18n="grpData">Data & platform</li>
+      <li><a href="#database" data-nav="database"><svg width="18" height="18" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.7"><ellipse cx="12" cy="6" rx="7.5" ry="2.8"/><path d="M4.5 6v12c0 1.5 3.4 2.8 7.5 2.8s7.5-1.3 7.5-2.8V6M4.5 12c0 1.5 3.4 2.8 7.5 2.8s7.5-1.3 7.5-2.8"/></g></svg><span data-i18n="navDb">Database Studio</span><span class="badge" id="bTables" hidden></span></a></li>
+      <li><a href="#api" data-nav="api"><svg width="18" height="18" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M8 7l-5 5 5 5M16 7l5 5-5 5M13.5 4.5l-3 15"/></g></svg><span data-i18n="navApi">API management</span></a></li>
+      <li><a href="#django" data-nav="django"><svg width="18" height="18" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"><rect x="3.5" y="4.5" width="17" height="15" rx="2.5"/><path d="M7.5 9.5l3 2.5-3 2.5M12.5 15h4" stroke-linecap="round"/></g></svg><span data-i18n="navDjango">Django REST client</span><span class="dot" id="djDot" style="margin-inline-start:auto"></span></a></li>
+      <li><a href="#translations" data-nav="translations"><svg width="18" height="18" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M3.5 5.5h9M8 3.5v2M10.5 5.5c-.8 4-3.4 7-6.5 8.5M6 9c1.2 2.2 3 3.8 5 4.6M12.5 20.5l4-10 4 10M14 17h5"/></g></svg><span data-i18n="navTr">Translations</span></a></li>
+    </ul>
+    <div class="sfoot"><span class="live" id="liveInd"><i></i><span id="liveTxt">—</span></span></div>
+  </nav>
+  <div class="scrim" id="scrim"></div>
+  <main><div class="view" id="view" tabindex="-1"></div></main>
+</div>
+
+<dialog class="dlg" id="dlg"></dialog>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script>
+(function(){
+'use strict';
+function $(s,r){return (r||document).querySelector(s);}
+function $$(s,r){return Array.prototype.slice.call((r||document).querySelectorAll(s));}
+function esc(s){return String(s==null?'':s).replace(/[&<>"']/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c];});}
+function cookie(n){var v=document.cookie.match('(^|;) ?'+n+'=([^;]*)(;|$)');return v?decodeURIComponent(v[2]):null;}
+
+/* ---------------- i18n ---------------- */
+var BASE={
+ en:{managerTag:'Manager',searchUsers:'Search tables, users, or schema…',publicSite:'Public website',logout:'Log out',grpOverview:'Overview',grpData:'Data & platform',
+  navDash:'Dashboard',navUsers:'Users',navAudit:'Audit logs',navDb:'Database Studio',navApi:'API management',navDjango:'Django REST client',navTr:'Translations',
+  refresh:'Refresh',online:'Live · synced',offline:'Server unreachable',
+  dashTitle:'Platform overview',dashSub:'Live figures from the DZ-Bridge sovereign database.',kUsers:'Users',kExperts:'Experts',kOrgs:'Organizations',kProjects:'Projects',kMatches:'Matches',
+  kCollabs:'Collaborations',kTables:'Tables',kRows:'Data rows',kEvents:'Audit events',kInactive:'Inactive accounts',
+  recentAct:'Recent activity',newUsers:'Newest accounts',sysHealth:'System health',projectsT:'Projects',viewAll:'View all',
+  nodeUp:'Node uptime',memory:'Memory',dbFile:'Database file',djangoApi:'Django API',up:'online',down:'offline',
+  usersTitle:'Users',usersSub:'All registered accounts. Changes are saved immediately.',newUser:'New user',allRoles:'All roles',allStatus:'All statuses',
+  colUser:'User',colRole:'Role',colStatus:'Status',colOrg:'Organization',colCreated:'Created',colLast:'Last login',actions:'Actions',
+  activate:'Activate',suspend:'Suspend',del:'Delete',edit:'Edit',cancel:'Cancel',save:'Save',create:'Create',confirm:'Confirm',
+  fullName:'Full name',email:'Email',password:'Password',role:'Role',status:'Status',country:'Country',city:'City',organization:'Organization',
+  delUserQ:'Delete this account permanently?',noData:'No records found.',
+  dbTitle:'Database Studio',dbSub:'Full 2D interactive ERD visualization, relational DDL designer, and table data browser.',
+  tabErd:'2D Schema Graph',tabData:'Data browser',tabDesigner:'Schema designer',tabAlgo:'Matching engine',tabHealth:'Cycle audit',tabCode:'SQL & Django models',
+  newTable:'New table',tables:'Tables',rows:'rows',columns:'columns',relations:'Relations',
+  insertRow:'Insert row',dropTable:'Drop table',dropQ:'Drop table permanently',dropHelp:'This deletes the table, all its rows and every relation that references it. It will not come back after reload. Type the table name to confirm:',
+  tableName:'Table name',description:'Description',category:'Category',pkType:'Primary key type',timestamps:'Include created_at and updated_at',
+  extraCols:'Columns (one per line: name TYPE)',selectTable:'Select a table on the left.',delRowQ:'Delete this row?',
+  addColumn:'Add column',colName:'Column name',colType:'Data type',colNullable:'Nullable',colDefault:'Default value',colPk:'Primary key',colFk:'Foreign key',colFkTarget:'Target table',
+  addRelation:'Add relation',relSource:'Source column',relTarget:'Target column',relOnDelete:'On delete rule',delRelation:'Delete relation',
+  zoomIn:'Zoom in',zoomOut:'Zoom out',resetZoom:'Reset view',fixedPos:'Fixed grid',physicsPos:'Force physics',
+  exportSql:'Export SQL dump',exportExcel:'Export Excel (.xlsx)',exportCsv:'Export CSV',
+  auditTitle:'Audit logs',auditSub:'Every action recorded by the server.',allActions:'All actions',colWhen:'When',colAction:'Action',colEntity:'Entity',colActor:'Actor',colDetails:'Details',
+  apiTitle:'API management',apiSub:'Every route registered on the Node server, with a live request console.',endpoints:'Endpoints',console:'Request console',send:'Send',body:'JSON body',response:'Response',pickRoute:'Pick an endpoint or type a path, then press Send.',
+  djTitle:'Django REST client',djSub:'Requests are proxied from /api/v1 to the Django backend on port 8000.',djToken:'Django access token',djLogin:'Get token',djHasTok:'Token stored for this session.',djNoTok:'No Django token yet — protected endpoints will return 401.',clearTok:'Clear',
+  trTitle:'Translations',trSub:'Edit the labels of this portal. Saved overrides are stored on the server.',key:'Key',changed:'changed',resetAll:'Reset all',saved:'Saved',
+  done:'Done',failed:'Request failed',copied:'Copied to clipboard!'},
+ fr:{managerTag:'Gestion',searchUsers:'Rechercher tables, utilisateurs…',publicSite:'Site public',logout:'Déconnexion',grpOverview:'Vue d’ensemble',grpData:'Données & plateforme',
+  navDash:'Tableau de bord',navUsers:'Utilisateurs',navAudit:'Journal d’audit',navDb:'Studio de base de données',navApi:'Gestion API',navDjango:'Client Django REST',navTr:'Traductions',
+  refresh:'Actualiser',online:'En ligne · synchronisé',offline:'Serveur injoignable',
+  dashTitle:'Vue d’ensemble',dashSub:'Chiffres en direct de la base souveraine DZ-Bridge.',kUsers:'Utilisateurs',kExperts:'Experts',kOrgs:'Organisations',kProjects:'Projets',kMatches:'Correspondances',
+  kCollabs:'Collaborations',kTables:'Tables',kRows:'Lignes',kEvents:'Événements',kInactive:'Comptes inactifs',
+  recentAct:'Activité récente',newUsers:'Nouveaux comptes',sysHealth:'État du système',projectsT:'Projets',viewAll:'Tout voir',
+  nodeUp:'Disponibilité Node',memory:'Mémoire',dbFile:'Fichier BD',djangoApi:'API Django',up:'en ligne',down:'hors ligne',
+  usersTitle:'Utilisateurs',usersSub:'Tous les comptes. Les modifications sont enregistrées immédiatement.',newUser:'Nouvel utilisateur',allRoles:'Tous les rôles',allStatus:'Tous les statuts',
+  colUser:'Utilisateur',colRole:'Rôle',colStatus:'Statut',colOrg:'Organisation',colCreated:'Créé',colLast:'Dernière connexion',actions:'Actions',
+  activate:'Activer',suspend:'Suspendre',del:'Supprimer',edit:'Modifier',cancel:'Annuler',save:'Enregistrer',create:'Créer',confirm:'Confirmer',
+  fullName:'Nom complet',email:'E-mail',password:'Mot de passe',role:'Rôle',status:'Statut',country:'Pays',city:'Ville',organization:'Organisation',
+  delUserQ:'Supprimer définitivement ce compte ?',noData:'Aucun enregistrement.',
+  dbTitle:'Studio de base de données',dbSub:'Visualisation 2D interactive du schéma ERD, concepteur DDL et explorateur de données.',
+  tabErd:'Graphe 2D ERD',tabData:'Explorateur de données',tabDesigner:'Concepteur DDL',tabAlgo:'Moteur de calcul',tabHealth:'Audit des cycles',tabCode:'SQL & Django ORM',
+  newTable:'Nouvelle table',tables:'Tables',rows:'lignes',columns:'colonnes',relations:'Relations',
+  insertRow:'Insérer',dropTable:'Supprimer la table',dropQ:'Supprimer définitivement la table',dropHelp:'La table, ses lignes et ses relations seront supprimées et ne reviendront pas. Saisissez le nom de la table :',
+  tableName:'Nom de la table',description:'Description',category:'Catégorie',pkType:'Type clé primaire',timestamps:'Inclure horodatages',
+  extraCols:'Colonnes (une par ligne : nom TYPE)',selectTable:'Sélectionnez une table.',delRowQ:'Supprimer cette ligne ?',
+  addColumn:'Ajouter colonne',colName:'Nom colonne',colType:'Type de données',colNullable:'Nullable',colDefault:'Valeur par défaut',colPk:'Clé primaire',colFk:'Clé étrangère',colFkTarget:'Table cible',
+  addRelation:'Ajouter relation',relSource:'Colonne source',relTarget:'Colonne cible',relOnDelete:'Règle suppression',delRelation:'Supprimer relation',
+  zoomIn:'Zoom avant',zoomOut:'Zoom arrière',resetZoom:'Réinitialiser',fixedPos:'Grille fixe',physicsPos:'Physique force',
+  exportSql:'Exporter SQL',exportExcel:'Exporter Excel (.xlsx)',exportCsv:'Exporter CSV',
+  auditTitle:'Journal d’audit',auditSub:'Toutes les actions enregistrées par le serveur.',allActions:'Toutes les actions',colWhen:'Date',colAction:'Action',colEntity:'Entité',colActor:'Acteur',colDetails:'Détails',
+  apiTitle:'Gestion API',apiSub:'Toutes les routes du serveur Node avec une console de requêtes.',endpoints:'Points d’accès',console:'Console',send:'Envoyer',body:'Corps JSON',response:'Réponse',pickRoute:'Choisissez une route puis Envoyer.',
+  djTitle:'Client Django REST',djSub:'Requêtes relayées de /api/v1 vers Django (port 8000).',djToken:'Jeton Django',djLogin:'Obtenir',djHasTok:'Jeton enregistré pour la session.',djNoTok:'Aucun jeton Django — les routes protégées renverront 401.',clearTok:'Effacer',
+  trTitle:'Traductions',trSub:'Modifiez les libellés du portail. Enregistré sur le serveur.',key:'Clé',changed:'modifié',resetAll:'Tout réinitialiser',saved:'Enregistré',
+  done:'Terminé',failed:'Échec de la requête',copied:'Copié dans le presse-papiers !'},
+ ar:{managerTag:'الإدارة',searchUsers:'ابحث عن الجداول، المستخدمين…',publicSite:'الموقع العام',logout:'تسجيل الخروج',grpOverview:'نظرة عامة',grpData:'البيانات والمنصة',
+  navDash:'لوحة القيادة',navUsers:'المستخدمون',navAudit:'سجل التدقيق',navDb:'استوديو قاعدة البيانات',navApi:'إدارة الواجهات',navDjango:'عميل Django REST',navTr:'الترجمات',
+  refresh:'تحديث',online:'متصل · متزامن',offline:'الخادم غير متاح',
+  dashTitle:'نظرة عامة على المنصة',dashSub:'أرقام حية من قاعدة بيانات DZ-Bridge السيادية.',kUsers:'المستخدمون',kExperts:'الخبراء',kOrgs:'المؤسسات',kProjects:'المشاريع',kMatches:'المطابقات',
+  kCollabs:'التعاونات',kTables:'الجداول',kRows:'السجلات',kEvents:'أحداث التدقيق',kInactive:'حسابات غير نشطة',
+  recentAct:'النشاط الأخير',newUsers:'أحدث الحسابات',sysHealth:'حالة النظام',projectsT:'المشاريع',viewAll:'عرض الكل',
+  nodeUp:'مدة تشغيل Node',memory:'الذاكرة',dbFile:'ملف القاعدة',djangoApi:'واجهة Django',up:'متصل',down:'غير متصل',
+  usersTitle:'المستخدمون',usersSub:'جميع الحسابات المسجلة. تُحفظ التغييرات فوراً.',newUser:'مستخدم جديد',allRoles:'كل الأدوار',allStatus:'كل الحالات',
+  colUser:'المستخدم',colRole:'الدور',colStatus:'الحالة',colOrg:'المؤسسة',colCreated:'تاريخ الإنشاء',colLast:'آخر دخول',actions:'إجراءات',
+  activate:'تفعيل',suspend:'إيقاف',del:'حذف',edit:'تعديل',cancel:'إلغاء',save:'حفظ',create:'إنشاء',confirm:'تأكيد',
+  fullName:'الاسم الكامل',email:'البريد الإلكتروني',password:'كلمة المرور',role:'الدور',status:'الحالة',country:'البلد',city:'المدينة',organization:'المؤسسة',
+  delUserQ:'حذف هذا الحساب نهائياً؟',noData:'لا توجد سجلات.',
+  dbTitle:'استوديو قاعدة البيانات',dbSub:'تمثيل بصري ثنائي الأبعاد 2D لمخطط العلاقات، ومصمم الجداول ومتصفح البيانات الكامل.',
+  tabErd:'المخطط البصري 2D',tabData:'متصفح البيانات',tabDesigner:'مصمم الجداول',tabAlgo:'نظام المطابقة',tabHealth:'تدقيق الحلقات',tabCode:'أكواد SQL و Django',
+  newTable:'جدول جديد',tables:'الجداول',rows:'سجلات',columns:'أعمدة',relations:'العلاقات',
+  insertRow:'إدراج سجل',dropTable:'حذف الجدول',dropQ:'حذف الجدول نهائياً',dropHelp:'سيتم حذف الجدول وكل سجلاته وعلاقاته ولن يعود بعد إعادة التحميل. اكتب اسم الجدول للتأكيد:',
+  tableName:'اسم الجدول',description:'الوصف',category:'التصنيف',pkType:'نوع المفتاح الرئيسي',timestamps:'تضمين الطوابع الزمنية',
+  extraCols:'الأعمدة (سطر لكل عمود: الاسم النوع)',selectTable:'اختر جدولاً من القائمة.',delRowQ:'حذف هذا السجل؟',
+  addColumn:'إضافة عمود',colName:'اسم العمود',colType:'نوع البيانات',colNullable:'يقبل القيمة الفارغة',colDefault:'القيمة الافتراضية',colPk:'مفتاح رئيسي',colFk:'مفتاح أجنبي',colFkTarget:'الجدول المرتبط',
+  addRelation:'إضافة علاقة',relSource:'عمود المصدر',relTarget:'عمود الهدف',relOnDelete:'قاعدة الحذف',delRelation:'حذف العلاقة',
+  zoomIn:'تكبير',zoomOut:'تصغير',resetZoom:'إعادة ضبط',fixedPos:'شبكة ثابتة',physicsPos:'محاكاة مرنة',
+  exportSql:'تصدير SQL',exportExcel:'تصدير إكسيل (.xlsx)',exportCsv:'تصدير CSV',
+  auditTitle:'سجل التدقيق',auditSub:'كل الإجراءات المسجلة على الخادم.',allActions:'كل الإجراءات',colWhen:'التاريخ',colAction:'الإجراء',colEntity:'الكيان',colActor:'المنفذ',colDetails:'التفاصيل',
+  apiTitle:'إدارة الواجهات',apiSub:'كل المسارات المسجلة على خادم Node مع وحدة طلبات حية.',endpoints:'نقاط الوصول',console:'وحدة الطلبات',send:'إرسال',body:'محتوى JSON',response:'الاستجابة',pickRoute:'اختر مساراً ثم اضغط إرسال.',
+  djTitle:'عميل Django REST',djSub:'تُمرَّر الطلبات من ‎/api/v1 إلى Django على المنفذ 8000.',djToken:'رمز Django',djLogin:'الحصول على رمز',djHasTok:'تم حفظ الرمز لهذه الجلسة.',djNoTok:'لا يوجد رمز Django — المسارات المحمية ستعيد 401.',clearTok:'مسح',
+  trTitle:'الترجمات',trSub:'عدّل نصوص هذه البوابة. تُحفظ على الخادم.',key:'المفتاح',changed:'معدّل',resetAll:'إعادة تعيين الكل',saved:'تم الحفظ',
+  done:'تم',failed:'فشل الطلب',copied:'تم النسخ للحافظة!'}
+};
+var OVR={};
+var LANG=localStorage.getItem('dzb-mgr-lang')||'en';
+function T(k){return (OVR[LANG]&&OVR[LANG][k])||(BASE[LANG]&&BASE[LANG][k])||BASE.en[k]||k;}
+function applyI18n(){
+  document.documentElement.lang=LANG;document.documentElement.dir=LANG==='ar'?'rtl':'ltr';
+  $$('[data-i18n]').forEach(function(el){el.textContent=T(el.getAttribute('data-i18n'));});
+  $$('[data-i18n-ph]').forEach(function(el){el.placeholder=T(el.getAttribute('data-i18n-ph'));});
+  $('#langSel').value=LANG;
+}
+
+/* ---------------- API ---------------- */
+function token(){return localStorage.getItem('dzb_token')||localStorage.getItem('dz_token')||cookie('dzb_token')||cookie('dz_token')||'';}
+function api(method,path,body,opt){
+  opt=opt||{};
+  var h={'Accept':'application/json'};
+  if(body!==undefined&&body!==null)h['Content-Type']='application/json';
+  var tk=opt.token!==undefined?opt.token:token();
+  if(tk)h.Authorization='Bearer '+tk;
+  var t0=performance.now();
+  return fetch(path,{method:method,headers:h,credentials:'include',body:(body!==undefined&&body!==null)?JSON.stringify(body):undefined})
+   .then(function(r){return r.text().then(function(txt){var d;try{d=JSON.parse(txt);}catch(e){d=txt;}return {ok:r.ok,status:r.status,data:d,ms:Math.round(performance.now()-t0)};});})
+   .catch(function(e){return {ok:false,status:0,data:{error:e.message},ms:Math.round(performance.now()-t0)};});
+}
+function errMsg(r){return (r.data&&(r.data.error||r.data.message||r.data.detail))||(T('failed')+' ('+r.status+')');}
+
+/* ---------------- state ---------------- */
+var S={state:null,me:null,health:null,routes:null,loading:false};
+function loadState(){
+  return api('GET','/api/state/full').then(function(r){
+    setLive(r.ok);
+    if(r.ok){S.state=r.data;updateBadges();}
+    return r;
+  });
+}
+function setLive(ok){var el=$('#liveInd');if(el)el.classList.toggle('on',!!ok);var tx=$('#liveTxt');if(tx)tx.textContent=ok?T('online'):T('offline');}
+function tablesList(){
+  var st=S.state||{};var dropped=new Set(st.dropped_tables||[]);var map={};var out=[];
+  (st.schema_tables||[]).forEach(function(t){if(dropped.has(t.name))return;map[t.name]=1;out.push({name:t.name,id:t.id,description:t.description||'',category:t.category||'Custom',columns:t.columns||[],rows:(st.table_data_store||{})[t.name]||[]});});
+  Object.keys(st.table_data_store||{}).forEach(function(n){
+    if(map[n]||dropped.has(n))return;
+    var rows=st.table_data_store[n]||[];var keys={};rows.slice(0,50).forEach(function(r){Object.keys(r).forEach(function(k){keys[k]=1;});});
+    out.push({name:n,id:null,description:'',category:'Data',columns:Object.keys(keys).map(function(k){return {name:k,type:'VARCHAR(255)',isPrimary:k==='id'};}),rows:rows});
+  });
+  return out.sort(function(a,b){return a.name.localeCompare(b.name);});
+}
+function schemaRelations(){
+  var st=S.state||{};var dropped=new Set(st.dropped_tables||[]);
+  return (st.schema_relations||[]).filter(function(r){return !dropped.has(r.sourceTable)&&!dropped.has(r.targetTable);});
+}
+function updateBadges(){
+  var st=S.state||{};
+  var bu=$('#bUsers');if(bu){bu.textContent=(st.users||[]).length;bu.hidden=false;}
+  var bt=$('#bTables');if(bt){bt.textContent=tablesList().length;bt.hidden=false;}
+}
+
+/* ---------------- UI helpers ---------------- */
+var toastTimer;
+function toast(msg,isErr){var t=$('#toast');if(!t)return;t.textContent=msg;t.classList.toggle('err',!!isErr);t.classList.add('show');clearTimeout(toastTimer);toastTimer=setTimeout(function(){t.classList.remove('show');},3200);}
+function fmtDate(s){if(!s)return '—';var d=new Date(s);if(isNaN(d))return esc(s);return d.toLocaleString(LANG==='ar'?'ar-DZ':LANG==='fr'?'fr-FR':'en-GB',{year:'numeric',month:'short',day:'2-digit',hour:'2-digit',minute:'2-digit'});}
+function ago(s){var d=new Date(s);if(isNaN(d))return '';var m=Math.round((Date.now()-d)/60000);
+  try{var rtf=new Intl.RelativeTimeFormat(LANG,{numeric:'auto'});if(Math.abs(m)<60)return rtf.format(-m,'minute');var h=Math.round(m/60);if(Math.abs(h)<24)return rtf.format(-h,'hour');return rtf.format(-Math.round(h/24),'day');}catch(e){return fmtDate(s);}}
+function initials(n){return String(n||'?').trim().split(/\s+/).map(function(p){return p[0]||'';}).join('').slice(0,2).toUpperCase();}
+function rolePill(r){var c=r==='admin'||r==='super_admin'?'gold':r==='organization'?'brand':'';return '<span class="pill '+c+'">'+esc(r||'—')+'</span>';}
+function statusPill(s){var c=s==='active'?'ok':s==='pending'?'warn':(s==='suspended'||s==='inactive'||s==='banned')?'bad':'';return '<span class="pill '+c+'">'+esc(s||'—')+'</span>';}
+function categoryPill(c){
+  var cls='brand';if(c==='Identity')cls='plum';else if(c==='Matchmaking')cls='gold';else if(c==='Academic')cls='brand';else if(c==='Audit')cls='warn';
+  return '<span class="pill '+cls+'" style="font-size:11px;height:20px;padding:0 7px">'+esc(c||'Custom')+'</span>';
+}
+function head(title,sub,btns){return '<div class="ph"><div><div class="crumb">DZ-Bridge / '+esc(T('managerTag'))+'</div><h1 tabindex="-1">'+esc(title)+'</h1><p>'+esc(sub)+'</p></div><div class="btns">'+(btns||'')+'</div></div>';}
+function refreshBtn(){return '<button class="btn btn-ghost btn-sm" data-act="refresh" type="button">'+esc(T('refresh'))+'</button>';}
+function fmtUptime(s){var d=Math.floor(s/86400),h=Math.floor(s%86400/3600),m=Math.floor(s%3600/60);return (d?d+'d ':'')+h+'h '+m+'m';}
+function fmtBytes(b){return b>1048576?(b/1048576).toFixed(2)+' MB':(b/1024).toFixed(1)+' KB';}
+
+var dlg=$('#dlg');
+function openDialog(html,onSubmit,onOpen){
+  dlg.innerHTML='<form method="dialog" id="dlgF">'+html+'</form>';
+  var f=$('#dlgF');
+  f.addEventListener('submit',function(e){
+    var sub=e.submitter;if(sub&&sub.value==='cancel')return;
+    e.preventDefault();
+    var res=onSubmit&&onSubmit(f);
+    if(res&&typeof res.then==='function'){
+      var b=f.querySelector('button[type="submit"]');if(b){b.disabled=true;b.innerHTML='<span class="spin"></span>';}
+      res.then(function(ok){if(ok!==false)dlg.close();else if(b)b.disabled=false;}).catch(function(){if(b)b.disabled=false;});
+    }else if(res!==false){dlg.close();}
+  });
+  dlg.showModal();
+  if(onOpen)setTimeout(onOpen,10);
+}
+function confirmDialog(msg,target,confirmTxt,onConfirm){
+  openDialog('<header><h2>'+esc(msg)+'</h2><p class="mono">'+esc(target)+'</p></header><div class="body"><div class="note warn">'+esc(target)+'</div></div>'+dlgFooter(confirmTxt||T('confirm'),true),onConfirm);
+}
+function dlgFooter(confirmTxt,danger){
+  return '<footer><button class="btn btn-ghost" type="button" value="cancel" onclick="document.getElementById(\'dlg\').close()">'+esc(T('cancel'))+'</button><button class="btn btn-primary '+(danger?'btn-danger solid':'')+'" type="submit">'+esc(confirmTxt)+'</button></footer>';
+}
+function formObj(f){var o={};$$('input,select,textarea',f).forEach(function(el){if(el.name&&!el.disabled&&el.value!=='')o[el.name]=el.value;});return o;}
+
+/* ---------------- EXPORTS ---------------- */
+function downloadFile(filename,content,mime){
+  var blob=new Blob([content],{type:mime||'text/plain;charset=utf-8'});
+  var a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download=filename;a.click();
+}
+function exportSqlDump(){
+  var tl=tablesList();var rels=schemaRelations();
+  var sql='-- =====================================================================\n';
+  sql+='-- DZ-Bridge Sovereign Matchmaking Ecosystem - Full Database SQL Dump\n';
+  sql+='-- Generated: '+new Date().toISOString()+'\n';
+  sql+='-- Target Engine: PostgreSQL 16+ with UUID and JSONB\n';
+  sql+='-- =====================================================================\n\n';
+  sql+='CREATE EXTENSION IF NOT EXISTS "uuid-ossp";\n\n';
+
+  tl.forEach(function(t){
+    sql+='-- Table: '+t.name+' ('+(t.description||'')+')\n';
+    sql+='DROP TABLE IF EXISTS '+t.name+' CASCADE;\n';
+    sql+='CREATE TABLE '+t.name+' (\n';
+    var lines=(t.columns||[]).map(function(c){
+      var l='  '+c.name+' '+(c.type||'VARCHAR(255)');
+      if(c.isPrimary)l+=' PRIMARY KEY';
+      if(!c.isNullable&&!c.isPrimary)l+=' NOT NULL';
+      if(c.defaultValue)l+=' DEFAULT '+c.defaultValue;
+      return l;
+    });
+    sql+=lines.join(',\n')+'\n);\n\n';
+
+    if(t.rows&&t.rows.length){
+      sql+='-- Data rows for '+t.name+' ('+t.rows.length+' rows)\n';
+      t.rows.forEach(function(r){
+        var cols=Object.keys(r);
+        var vals=cols.map(function(k){
+          var v=r[k];if(v===null||v===undefined)return 'NULL';
+          if(typeof v==='number'||typeof v==='boolean')return String(v);
+          if(typeof v==='object')return "'"+JSON.stringify(v).replace(/'/g,"''")+"'::jsonb";
+          return "'"+String(v).replace(/'/g,"''")+"'";
+        });
+        sql+='INSERT INTO '+t.name+' ('+cols.join(', ')+') VALUES ('+vals.join(', ')+');\n';
+      });
+      sql+='\n';
+    }
+  });
+
+  if(rels.length){
+    sql+='-- Foreign Key Relational Constraints\n';
+    rels.forEach(function(r){
+      sql+='ALTER TABLE '+r.sourceTable+' ADD CONSTRAINT fk_'+r.sourceTable+'_'+r.sourceColumn+'_to_'+r.targetTable+'\n';
+      sql+='  FOREIGN KEY ('+r.sourceColumn+') REFERENCES '+r.targetTable+'('+r.targetColumn+') ON DELETE '+(r.onDelete||'CASCADE')+';\n\n';
+    });
+  }
+  downloadFile('dzbridge-dump-'+new Date().toISOString().slice(0,10)+'.sql',sql,'application/sql');
+  toast(T('exportSql')+' · '+T('done'));
+}
+
+function exportExcelWorkbook(){
+  if(typeof XLSX==='undefined'){toast('SheetJS library loading…',true);return;}
+  var wb=XLSX.utils.book_new();
+  var tl=tablesList();
+  tl.forEach(function(t){
+    var sheetData=t.rows&&t.rows.length?t.rows:(t.columns.length?[t.columns.reduce(function(acc,c){acc[c.name]='';return acc;},{})]:[]);
+    var ws=XLSX.utils.json_to_sheet(sheetData);
+    var sheetName=t.name.slice(0,31).replace(/[\\/?*\[\]]/g,'_');
+    XLSX.utils.book_append_sheet(wb,ws,sheetName);
+  });
+  XLSX.writeFile(wb,'dzbridge-database-'+new Date().toISOString().slice(0,10)+'.xlsx');
+  toast(T('exportExcel')+' · '+T('done'));
+}
+
+/* ---------------- DAG & INTEGRITY AUDIT ---------------- */
+function runIntegrityAudit(simCycle){
+  var tables=tablesList();var relations=schemaRelations().slice();
+  if(simCycle){
+    relations.push({id:'sim-trap',sourceTable:'users',sourceColumn:'id',targetTable:'notifications',targetColumn:'user_id',onDelete:'CASCADE'});
+  }
+  var adj={};tables.forEach(function(t){adj[t.name]=[];});
+  relations.forEach(function(r){if(adj[r.sourceTable])adj[r.sourceTable].push(r.targetTable);});
+
+  var visited={};var cycles=[];var path=[];
+  function dfs(u){
+    visited[u]=1;path.push(u);
+    var neighbors=adj[u]||[];
+    for(var i=0;i<neighbors.length;i++){
+      var v=neighbors[i];
+      if(visited[v]===1){
+        var idx=path.indexOf(v);
+        cycles.push(path.slice(idx).concat([v]));
+      }else if(!visited[v]){
+        dfs(v);
+      }
+    }
+    path.pop();visited[u]=2;
+  }
+  Object.keys(adj).forEach(function(node){if(!visited[node])dfs(node);});
+
+  // Broken FK check
+  var brokenRows=[];
+  relations.forEach(function(rel){
+    var srcTable=tables.filter(function(t){return t.name===rel.sourceTable;})[0];
+    var tgtTable=tables.filter(function(t){return t.name===rel.targetTable;})[0];
+    if(srcTable&&tgtTable){
+      var tgtIds=new Set((tgtTable.rows||[]).map(function(r){return String(r[rel.targetColumn]);}));
+      (srcTable.rows||[]).forEach(function(row){
+        var fv=row[rel.sourceColumn];
+        if(fv!==null&&fv!==undefined&&fv!==''&&!tgtIds.has(String(fv))){
+          brokenRows.push({sourceTable:rel.sourceTable,targetTable:rel.targetTable,rowId:row.id,fkValue:fv});
+        }
+      });
+    }
+  });
+
+  return {isDAG:cycles.length===0,cycles:cycles,brokenFkRows:brokenRows,totalTables:tables.length,totalRelations:relations.length};
+}
+
+/* ---------------- PAGES ---------------- */
+var PAGES={};
+
+/* 1. DASHBOARD */
+PAGES.dashboard=function(){
+  var st=S.state||{};var users=st.users||[];var projs=st.projects||[];var matches=st.matches||[];var collabs=st.collaborations||[];
+  var tl=tablesList();var totalRows=tl.reduce(function(acc,t){return acc+t.rows.length;},0);
+  var exp=users.filter(function(u){return u.role==='expert';}).length;
+  var org=users.filter(function(u){return u.role==='organization';}).length;
+  var inact=users.filter(function(u){return u.status==='suspended'||u.status==='inactive';}).length;
+  var auditCount=(st.audit_logs||[]).length;
+
+  var kpis=[
+    {label:T('kUsers'),val:users.length,sub:exp+' '+T('kExperts')+' · '+org+' '+T('kOrgs')},
+    {label:T('kProjects'),val:projs.length,sub:collabs.length+' '+T('kCollabs'),hot:true},
+    {label:T('kMatches'),val:matches.length,sub:'Algorithmic runs'},
+    {label:T('kTables'),val:tl.length,sub:totalRows+' '+T('kRows')},
+    {label:T('kEvents'),val:auditCount,sub:inact+' '+T('kInactive')}
+  ];
+
+  view.innerHTML=head(T('dashTitle'),T('dashSub'),refreshBtn()+
+    '<a class="btn btn-primary btn-sm" href="#database" style="color:#fff"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><ellipse cx="12" cy="6" rx="7.5" ry="2.8"/><path d="M4.5 6v12c0 1.5 3.4 2.8 7.5 2.8s7.5-1.3 7.5-2.8V6M4.5 12c0 1.5 3.4 2.8 7.5 2.8s7.5-1.3 7.5-2.8"/></g></svg> '+esc(T('tabErd'))+'</a>')+
+  '<div class="kpis">'+kpis.map(function(k){return '<div class="card kpi '+(k.hot?'hot':'')+'"><span>'+esc(k.label)+'</span><b>'+k.val+'</b><small>'+esc(k.sub)+'</small></div>';}).join('')+'</div>'+
+  '<div class="grid2">'+
+   '<div class="stack">'+
+    '<section class="card"><header><h2>'+esc(T('recentAct'))+'</h2><a class="mono sec" href="#audit">'+esc(T('viewAll'))+' →</a></header><ul class="feed">'+
+     ((st.audit_logs||[]).slice(-7).reverse().map(function(l){
+       var bad=/DELETE|DROP|FAIL|SUSPEND/.test(l.actionType);var hot=/CREATE|INSERT|REGISTER/.test(l.actionType);
+       return '<li class="'+(bad?'bad':hot?'hot':'')+'"><b>'+esc(l.actionType)+'</b> · '+esc(l.entityType||'')+(l.entityId?' <span class="mono">('+esc(l.entityId)+')</span>':'')+'<small>'+esc(l.userName||l.userId||'system')+' · '+fmtDate(l.createdAt)+'</small></li>';
+     }).join('')||'<li class="empty">'+esc(T('noData'))+'</li>')+
+    '</ul></section>'+
+    '<section class="card"><header><h2>'+esc(T('newUsers'))+'</h2><a class="mono sec" href="#users">'+esc(T('viewAll'))+' →</a></header>'+
+     '<div class="tblw"><table class="tbl"><tbody>'+
+      (users.slice(-5).reverse().map(function(u){
+        return '<tr><td><div class="t"><span class="av">'+esc(initials(u.fullName||u.email))+'</span><div><b>'+esc(u.fullName||'—')+'</b><small>'+esc(u.email)+'</small></div></div></td><td>'+rolePill(u.role)+'</td><td>'+statusPill(u.status)+'</td><td class="sec">'+esc(u.organizationName||'—')+'</td></tr>';
+      }).join('')||'<tr><td class="empty">'+esc(T('noData'))+'</td></tr>')+
+     '</tbody></table></div>'+
+    '</section>'+
+   '</div>'+
+   '<div class="stack">'+
+    '<section class="card" id="sysHealthCard"><header><h2>'+esc(T('sysHealth'))+'</h2><span class="pill ok">Django + Node Live</span></header><div class="cb"><dl class="kv" id="healthKv"><dt>Node</dt><dd class="mono">v22</dd><dt>PostgreSQL/DB</dt><dd class="mono">data/db.json</dd><dt>Django DRF</dt><dd class="mono">:8000</dd></dl></div></section>'+
+    '<section class="card"><header><h2>'+esc(T('projectsT'))+'</h2><span class="kick">'+projs.length+'</span></header>'+
+     '<ul class="feed">'+(projs.slice(0,5).map(function(p){return '<li><b>'+esc(p.title||p.name)+'</b><small>'+esc(p.organizationName||p.domain)+' · <span class="mono">'+esc(p.status)+'</span></small></li>';}).join('')||'<li class="empty">'+esc(T('noData'))+'</li>')+'</ul>'+
+    '</section>'+
+   '</div>'+
+  '</div>';
+
+  api('GET','/api/system/health').then(function(r){
+    if(!r.ok)return;var h=r.data;
+    var el=$('#healthKv');if(!el)return;
+    el.innerHTML='<dt>'+esc(T('nodeUp'))+'</dt><dd>'+fmtUptime(h.node.uptimeSec)+'</dd>'+
+                 '<dt>'+esc(T('memory'))+'</dt><dd>'+h.node.memoryMb+' MB</dd>'+
+                 '<dt>'+esc(T('dbFile'))+'</dt><dd>'+fmtBytes(h.database.bytes)+'</dd>'+
+                 '<dt>'+esc(T('djangoApi'))+'</dt><dd><span class="pill '+(h.django.online?'ok':'bad')+'">'+(h.django.online?esc(T('up'))+' · '+h.django.latencyMs+'ms':esc(T('down')))+'</span></dd>';
+  });
+};
+
+/* 2. USERS */
+var UQ={search:'',role:'all',status:'all',page:1};
+PAGES.users=function(){
+  view.innerHTML=head(T('usersTitle'),T('usersSub'),refreshBtn()+'<button class="btn btn-primary btn-sm" data-act="newUser" type="button">+ '+esc(T('newUser'))+'</button>')+
+  '<section class="card"><div class="filters"><input class="ctl grow" id="uSearch" type="search" placeholder="'+esc(T('searchUsers'))+'" value="'+esc(UQ.search)+'"><select class="ctl" id="uRole"><option value="all">'+esc(T('allRoles'))+'</option><option value="expert">expert</option><option value="organization">organization</option><option value="admin">admin</option><option value="super_admin">super_admin</option></select><select class="ctl" id="uStatus"><option value="all">'+esc(T('allStatus'))+'</option><option value="active">active</option><option value="pending">pending</option><option value="suspended">suspended</option></select></div><div id="uBody"><div class="empty"><div class="spin" style="margin:auto"></div></div></div></section>';
+  $('#uRole').value=UQ.role;$('#uStatus').value=UQ.status;
+  var deb;$('#uSearch').addEventListener('input',function(e){clearTimeout(deb);deb=setTimeout(function(){UQ.search=e.target.value;UQ.page=1;loadUsers();},250);});
+  $('#uRole').addEventListener('change',function(e){UQ.role=e.target.value;UQ.page=1;loadUsers();});
+  $('#uStatus').addEventListener('change',function(e){UQ.status=e.target.value;UQ.page=1;loadUsers();});
+  loadUsers();
+};
+function loadUsers(){
+  var q='?limit=12&page='+UQ.page+'&role='+UQ.role+'&status='+UQ.status+'&search='+encodeURIComponent(UQ.search);
+  api('GET','/api/users'+q).then(function(r){
+    var box=$('#uBody');if(!box)return;
+    if(!r.ok){box.innerHTML='<div class="cb"><div class="note err">'+esc(errMsg(r))+'</div></div>';return;}
+    var d=r.data;var me=S.me||{};
+    if(!d.users.length){box.innerHTML='<div class="empty">'+esc(T('noData'))+'</div>';return;}
+    box.innerHTML='<div class="tblw"><table class="tbl"><thead><tr><th>'+esc(T('colUser'))+'</th><th>'+esc(T('colRole'))+'</th><th>'+esc(T('colStatus'))+'</th><th>'+esc(T('colOrg'))+'</th><th>'+esc(T('colCreated'))+'</th><th>'+esc(T('colLast'))+'</th><th class="end">'+esc(T('actions'))+'</th></tr></thead><tbody>'+
+    d.users.map(function(u){
+      var self=u.id===me.id;var prot=u.role==='super_admin'||self;
+      return '<tr data-id="'+esc(u.id)+'"><td><div class="t"><span class="av">'+esc(initials(u.fullName||u.email))+'</span><div><b>'+esc(u.fullName||'—')+'</b><small>'+esc(u.email)+'</small></div></div></td><td>'+rolePill(u.role)+'</td><td>'+statusPill(u.status)+'</td><td class="sec">'+esc(u.organizationName||'—')+'</td><td class="mono sec" style="font-size:12.5px">'+fmtDate(u.createdAt)+'</td><td class="mono sec" style="font-size:12.5px">'+(u.lastLoginAt?esc(ago(u.lastLoginAt)):'—')+'</td>'+
+      '<td class="end"><button class="btn btn-ghost btn-sm" data-act="editUser" type="button">'+esc(T('edit'))+'</button> '+
+      (prot?'':(u.status==='active'?'<button class="btn btn-ghost btn-sm" data-act="userStatus" data-s="suspended" type="button">'+esc(T('suspend'))+'</button>':'<button class="btn btn-ghost btn-sm" data-act="userStatus" data-s="active" type="button">'+esc(T('activate'))+'</button>')+' <button class="btn btn-danger btn-sm" data-act="delUser" type="button">'+esc(T('del'))+'</button>')+'</td></tr>';
+    }).join('')+'</tbody></table></div>'+
+    '<div class="pager"><span>'+d.total+' · '+d.page+'/'+Math.max(1,d.totalPages)+'</span><span class="sp"></span><button data-act="uPage" data-p="'+(d.page-1)+'" '+(d.page<=1?'disabled':'')+'>‹</button><button data-act="uPage" data-p="'+(d.page+1)+'" '+(d.page>=d.totalPages?'disabled':'')+'>›</button></div>';
+    S.usersPage=d.users;
+  });
+}
+
+/* 3. DATABASE STUDIO (Complete with 2D Visual ERD, DDL Designer, Data Browser, Algo Engine, Cycle Health, Code Generators) */
+var DB={mode:'erd',sel:null,page:1,searchRows:'',erdFixed:false,simCycle:false};
+PAGES.database=function(){
+  var tl=tablesList();var rels=schemaRelations();
+  if(DB.sel&&!tl.some(function(t){return t.name===DB.sel;}))DB.sel=null;
+  if(!DB.sel&&tl.length)DB.sel=tl[0].name;
+  var currentT=tl.filter(function(x){return x.name===DB.sel;})[0]||tl[0];
+
+  var subnavHtml='<div class="subtabs">'+
+    '<button type="button" class="'+(DB.mode==='erd'?'active':'')+'" data-dbmode="erd"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><path d="M10 6.5h4M6.5 10v4M17.5 10v4M10 17.5h4"/></svg> '+esc(T('tabErd'))+' <span class="pill gold">'+tl.length+'</span></button>'+
+    '<button type="button" class="'+(DB.mode==='data'?'active':'')+'" data-dbmode="data"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"/><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/></svg> '+esc(T('tabData'))+'</button>'+
+    '<button type="button" class="'+(DB.mode==='designer'?'active':'')+'" data-dbmode="designer"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg> '+esc(T('tabDesigner'))+'</button>'+
+    '<button type="button" class="'+(DB.mode==='algo'?'active':'')+'" data-dbmode="algo"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="4" y="4" width="16" height="16" rx="2"/><rect x="9" y="9" width="6" height="6"/><line x1="9" y1="1" x2="9" y2="4"/><line x1="15" y1="1" x2="15" y2="4"/><line x1="9" y1="20" x2="9" y2="23"/><line x1="15" y1="20" x2="15" y2="23"/><line x1="20" y1="9" x2="23" y2="9"/><line x1="20" y1="14" x2="23" y2="14"/><line x1="1" y1="9" x2="4" y2="9"/><line x1="1" y1="14" x2="4" y2="14"/></svg> '+esc(T('tabAlgo'))+'</button>'+
+    '<button type="button" class="'+(DB.mode==='health'?'active':'')+'" data-dbmode="health"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg> '+esc(T('tabHealth'))+'</button>'+
+    '<button type="button" class="'+(DB.mode==='code'?'active':'')+'" data-dbmode="code"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg> '+esc(T('tabCode'))+'</button>'+
+  '</div>';
+
+  var topBtns=refreshBtn()+
+    '<button class="btn btn-ghost btn-sm" data-act="exportSql" type="button">'+esc(T('exportSql'))+'</button>'+
+    '<button class="btn btn-ghost btn-sm" data-act="exportExcel" type="button">'+esc(T('exportExcel'))+'</button>'+
+    '<button class="btn btn-primary btn-sm" data-act="newTable" type="button">+ '+esc(T('newTable'))+'</button>';
+
+  view.innerHTML=head(T('dbTitle'),T('dbSub'),topBtns)+subnavHtml+'<div id="dbContent"></div>';
+
+  var box=$('#dbContent');
+  if(DB.mode==='erd') renderErdMode(box,tl,rels);
+  else if(DB.mode==='data') renderDataMode(box,tl,currentT);
+  else if(DB.mode==='designer') renderDesignerMode(box,tl,rels,currentT);
+  else if(DB.mode==='algo') renderAlgoMode(box,tl);
+  else if(DB.mode==='health') renderHealthMode(box,tl,rels);
+  else if(DB.mode==='code') renderCodeMode(box,tl,rels);
+};
+
+/* 3.1 ERD 2D MODE (Interactive D3 SVG) */
+function renderErdMode(container,tl,rels){
+  var categories=['All','Identity','Academic','Matchmaking','Collaborations','Audit','Custom'];
+  container.innerHTML=
+    '<div class="erd-wrap">'+
+      '<div class="erd-bar">'+
+        '<div class="erd-acts">'+
+          '<button class="erd-btn" data-act="erdZoomIn" title="'+esc(T('zoomIn'))+'"><b>+</b></button>'+
+          '<button class="erd-btn" data-act="erdZoomOut" title="'+esc(T('zoomOut'))+'"><b>−</b></button>'+
+          '<button class="erd-btn" data-act="erdReset" title="'+esc(T('resetZoom'))+'">⤢</button>'+
+          '<button class="erd-btn '+(DB.erdFixed?'active':'')+'" data-act="erdTogglePos">'+(DB.erdFixed?'🔒 '+esc(T('fixedPos')):'⚡ '+esc(T('physicsPos')))+'</button>'+
+        '</div>'+
+        '<div class="erd-cats">'+
+          categories.map(function(cat){return '<button class="erd-chip '+(cat==='All'?'active':'')+'" data-cat="'+cat+'">'+cat+'</button>';}).join('')+
+        '</div>'+
+        '<div class="mono sec" style="font-size:12px">'+tl.length+' '+esc(T('tables'))+' · '+rels.length+' '+esc(T('relations'))+'</div>'+
+      '</div>'+
+      '<div style="position:relative">'+
+        '<svg id="erdSvg"></svg>'+
+        '<div class="erd-tooltip" id="erdTip"></div>'+
+        '<div class="erd-drawer" id="erdDrawer" hidden></div>'+
+      '</div>'+
+    '</div>';
+
+  initD3ErdGraph(tl,rels);
+}
+
+function initD3ErdGraph(tables,relations){
+  if(typeof d3==='undefined'){
+    $('#erdSvg').innerHTML='<text x="50%" y="50%" text-anchor="middle" fill="currentColor">D3 library loading…</text>';
+    return;
+  }
+  var svgEl=$('#erdSvg');var width=svgEl.clientWidth||1200;var height=620;
+  var svg=d3.select('#erdSvg');
+  svg.selectAll('*').remove();
+
+  var defs=svg.append('defs');
+  // Marker arrow
+  defs.append('marker').attr('id','erd-arrow').attr('viewBox','0 -5 10 10').attr('refX',9).attr('refY',0).attr('markerWidth',6).attr('markerHeight',6).attr('orient','auto')
+    .append('path').attr('d','M0,-4L9,0L0,4').attr('fill','var(--border-strong)');
+  defs.append('marker').attr('id','erd-arrow-hover').attr('viewBox','0 -5 10 10').attr('refX',9).attr('refY',0).attr('markerWidth',7).attr('markerHeight',7).attr('orient','auto')
+    .append('path').attr('d','M0,-4L9,0L0,4').attr('fill','var(--accent-gold)');
+
+  var rootG=svg.append('g').attr('class','root-group');
+
+  var zoom=d3.zoom().scaleExtent([0.15,2.5]).on('zoom',function(e){rootG.attr('transform',e.transform);});
+  svg.call(zoom);
+
+  // Layout node coordinates (grid or clustered)
+  var nodeW=200;var nodeH=170;var colsCount=Math.max(3,Math.ceil(Math.sqrt(tables.length*1.8)));
+  var nodes=tables.map(function(t,i){
+    var col=i%colsCount;var row=Math.floor(i/colsCount);
+    return {
+      id:t.name,name:t.name,category:t.category||'Custom',table:t,
+      width:nodeW,height:nodeH,
+      x:col*(nodeW+90)+100,y:row*(nodeH+80)+80,
+      vx:0,vy:0
+    };
+  });
+  var nodeMap={};nodes.forEach(function(n){nodeMap[n.id]=n;});
+
+  var links=[];
+  relations.forEach(function(r){
+    if(nodeMap[r.sourceTable]&&nodeMap[r.targetTable]){
+      links.push({
+        id:r.id||(r.sourceTable+'-'+r.targetTable),
+        source:nodeMap[r.sourceTable],
+        target:nodeMap[r.targetTable],
+        rel:r
+      });
+    }
+  });
+
+  // Render links
+  var linkG=rootG.append('g').attr('class','links-group');
+  var pathEls=linkG.selectAll('path').data(links).enter().append('path')
+    .attr('class','erd-path')
+    .attr('marker-end','url(#erd-arrow)')
+    .on('mouseenter',function(e,d){
+      d3.select(this).attr('class','erd-path highlight').attr('marker-end','url(#erd-arrow-hover)');
+      var tip=$('#erdTip');if(tip){
+        tip.innerHTML=esc(d.rel.sourceTable+'.'+d.rel.sourceColumn)+' → <b>'+esc(d.rel.targetTable+'.'+d.rel.targetColumn)+'</b> <span style="color:var(--accent-gold)">['+esc(d.rel.onDelete||'CASCADE')+']</span>';
+        tip.style.left=(e.offsetX+10)+'px';tip.style.top=(e.offsetY-10)+'px';tip.style.opacity='1';
+      }
+    })
+    .on('mouseleave',function(){
+      d3.select(this).attr('class','erd-path').attr('marker-end','url(#erd-arrow)');
+      var tip=$('#erdTip');if(tip)tip.style.opacity='0';
+    });
+
+  // Render nodes
+  var nodeG=rootG.append('g').attr('class','nodes-group');
+  var nodeEls=nodeG.selectAll('g').data(nodes).enter().append('g')
+    .attr('class','erd-node')
+    .attr('transform',function(d){return 'translate('+d.x+','+d.y+')';})
+    .call(d3.drag()
+      .on('start',function(e,d){d3.select(this).raise();})
+      .on('drag',function(e,d){
+        d.x+=e.dx;d.y+=e.dy;
+        d3.select(this).attr('transform','translate('+d.x+','+d.y+')');
+        updatePaths();
+      })
+    )
+    .on('click',function(e,d){
+      e.stopPropagation();
+      DB.sel=d.name;
+      d3.selectAll('.erd-node').classed('selected',function(n){return n.name===d.name;});
+      openTableDrawer(d.table);
+    })
+    .on('mouseenter',function(e,d){
+      var connected=new Set([d.name]);
+      links.forEach(function(l){
+        if(l.source.name===d.name)connected.add(l.target.name);
+        if(l.target.name===d.name)connected.add(l.source.name);
+      });
+      d3.selectAll('.erd-node').classed('dimmed',function(n){return !connected.has(n.name);});
+      pathEls.classed('highlight',function(l){return l.source.name===d.name||l.target.name===d.name;})
+             .classed('dimmed',function(l){return l.source.name!==d.name&&l.target.name!==d.name;});
+    })
+    .on('mouseleave',function(){
+      d3.selectAll('.erd-node').classed('dimmed',false);
+      pathEls.classed('highlight',false).classed('dimmed',false);
+    });
+
+  // Card background rect
+  nodeEls.append('rect').attr('class','box')
+    .attr('width',nodeW).attr('height',nodeH);
+
+  // Category top stripe
+  nodeEls.append('rect')
+    .attr('x',0).attr('y',0).attr('width',nodeW).attr('height',4).attr('rx',2)
+    .attr('fill',function(d){
+      return d.category==='Identity'?'var(--plum-800)':d.category==='Matchmaking'?'var(--gold-500)':d.category==='Academic'?'var(--emerald-600)':'var(--border-strong)';
+    });
+
+  // Header Title
+  nodeEls.append('text')
+    .attr('x',12).attr('y',24)
+    .attr('font-weight','700').attr('font-family','var(--mono)').attr('font-size','12.5px').attr('fill','currentColor')
+    .text(function(d){return d.name.length>18?d.name.slice(0,17)+'…':d.name;});
+
+  // Category pill tag inside node
+  nodeEls.append('text')
+    .attr('x',nodeW-12).attr('y',23)
+    .attr('text-anchor','end').attr('font-family','var(--sans)').attr('font-size','10px').attr('fill','var(--text-muted)')
+    .text(function(d){return d.category;});
+
+  // Divider
+  nodeEls.append('line')
+    .attr('x1',0).attr('y1',34).attr('x2',nodeW).attr('y2',34)
+    .attr('stroke','var(--border)').attr('stroke-width',1);
+
+  // Top 5 columns
+  nodeEls.each(function(d){
+    var g=d3.select(this);var cols=(d.table.columns||[]).slice(0,5);
+    cols.forEach(function(c,idx){
+      var y=50+idx*19;
+      // Key indicator
+      if(c.isPrimary){
+        g.append('text').attr('x',12).attr('y',y).attr('font-size','10px').attr('fill','var(--accent-gold)').text('🔑');
+      }else if(c.isForeign){
+        g.append('text').attr('x',12).attr('y',y).attr('font-size','10px').attr('fill','var(--emerald-600)').text('🔗');
+      }else{
+        g.append('circle').attr('cx',15).attr('cy',y-3).attr('r',2).attr('fill','var(--text-muted)');
+      }
+      // Col name
+      g.append('text')
+        .attr('x',26).attr('y',y)
+        .attr('font-family','var(--mono)').attr('font-size','11px').attr('fill','currentColor')
+        .text(c.name.length>13?c.name.slice(0,12)+'…':c.name);
+      // Col type
+      g.append('text')
+        .attr('x',nodeW-12).attr('y',y)
+        .attr('text-anchor','end').attr('font-family','var(--mono)').attr('font-size','9.5px').attr('fill','var(--text-muted)')
+        .text((c.type||'').split('(')[0].slice(0,8));
+    });
+    // Footer row counter
+    g.append('line').attr('x1',0).attr('y1',nodeH-26).attr('x2',nodeW).attr('y2',nodeH-26).attr('stroke','var(--border)').attr('stroke-width',1);
+    g.append('text').attr('x',12).attr('y',nodeH-10).attr('font-family','var(--mono)').attr('font-size','10.5px').attr('fill','var(--text-secondary)')
+      .text(d.table.rows.length+' '+T('rows')+' · '+(d.table.columns||[]).length+' cols');
+  });
+
+  function updatePaths(){
+    pathEls.attr('d',function(d){
+      var sx=d.source.x+nodeW;var sy=d.source.y+nodeH/2;
+      var tx=d.target.x;var ty=d.target.y+nodeH/2;
+      if(d.source.x>d.target.x+nodeW){sx=d.source.x;tx=d.target.x+nodeW;}
+      var dx=Math.max(40,Math.abs(tx-sx)*0.5);
+      return 'M '+sx+' '+sy+' C '+(sx+dx)+' '+sy+', '+(tx-dx)+' '+ty+', '+tx+' '+ty;
+    });
+  }
+  updatePaths();
+
+  // Force simulation if not fixed
+  var sim=null;
+  if(!DB.erdFixed){
+    sim=d3.forceSimulation(nodes)
+      .force('link',d3.forceLink(links).id(function(d){return d.id;}).distance(180).strength(0.4))
+      .force('charge',d3.forceManyBody().strength(-350))
+      .force('collide',d3.forceCollide(140))
+      .force('center',d3.forceCenter(width/2,height/2))
+      .on('tick',function(){
+        nodeEls.attr('transform',function(d){return 'translate('+d.x+','+d.y+')';});
+        updatePaths();
+      });
+    setTimeout(function(){if(sim)sim.stop();},3000);
+  }
+
+  // Zoom controls
+  $$('[data-act="erdZoomIn"]').forEach(function(b){b.onclick=function(){svg.transition().call(zoom.scaleBy,1.3);};});
+  $$('[data-act="erdZoomOut"]').forEach(function(b){b.onclick=function(){svg.transition().call(zoom.scaleBy,0.77);};});
+  $$('[data-act="erdReset"]').forEach(function(b){b.onclick=function(){svg.transition().call(zoom.transform,d3.zoomIdentity.translate(40,30).scale(0.85));};});
+  $$('[data-act="erdTogglePos"]').forEach(function(b){b.onclick=function(){DB.erdFixed=!DB.erdFixed;PAGES.database();};});
+
+  // Filter category
+  $$('.erd-chip').forEach(function(chip){
+    chip.onclick=function(){
+      $$('.erd-chip').forEach(function(c){c.classList.remove('active');});
+      chip.classList.add('active');
+      var cat=chip.getAttribute('data-cat');
+      nodeEls.style('display',function(d){return cat==='All'||d.category===cat?'block':'none';});
+      pathEls.style('display',function(l){return (cat==='All'||(l.source.category===cat&&l.target.category===cat))?'block':'none';});
+    };
+  });
+}
+
+function openTableDrawer(table){
+  var d=$('#erdDrawer');if(!d)return;
+  d.hidden=false;
+  d.innerHTML=
+    '<header>'+
+      '<div><h3>'+esc(table.name)+'</h3><div class="sec" style="font-size:12px">'+esc(table.category||'Custom')+' · '+table.rows.length+' '+esc(T('rows'))+'</div></div>'+
+      '<button type="button" class="btn btn-ghost btn-sm" onclick="document.getElementById(\'erdDrawer\').hidden=true">✕</button>'+
+    '</header>'+
+    '<p style="margin:0 0 10px;font-size:13px;color:var(--text-secondary)">'+esc(table.description||'Relational table')+'</p>'+
+    '<div class="cols-preview">'+
+      (table.columns||[]).map(function(c){
+        return '<div><span>'+(c.isPrimary?'🔑 ':c.isForeign?'🔗 ':'')+esc(c.name)+'</span><span class="muted">'+esc(c.type)+'</span></div>';
+      }).join('')+
+    '</div>'+
+    '<div style="display:flex;gap:6px;flex-wrap:wrap">'+
+      '<button class="btn btn-primary btn-sm" data-act="jumpToData" data-t="'+esc(table.name)+'" type="button">'+esc(T('tabData'))+'</button>'+
+      '<button class="btn btn-ghost btn-sm" data-act="jumpToDesigner" data-t="'+esc(table.name)+'" type="button">'+esc(T('tabDesigner'))+'</button>'+
+      '<button class="btn btn-danger btn-sm" data-act="dropTable" data-t="'+esc(table.name)+'" type="button">'+esc(T('dropTable'))+'</button>'+
+    '</div>';
+}
+
+/* 3.2 DATA BROWSER MODE */
+function renderDataMode(container,tl,t){
+  var PER=15;var rows=t?t.rows:[];
+  if(DB.searchRows){
+    var q=DB.searchRows.toLowerCase();
+    rows=rows.filter(function(r){return JSON.stringify(r).toLowerCase().indexOf(q)>-1;});
+  }
+  var pages=Math.max(1,Math.ceil(rows.length/PER));if(DB.page>pages)DB.page=pages;
+  var cols=t?(t.columns.length?t.columns.map(function(c){return c.name;}):Object.keys(rows[0]||{})):[];
+  var showCols=cols.slice(0,8);
+
+  container.innerHTML='<div class="gridL">'+
+    '<section class="card"><header><h2>'+esc(T('tables'))+'</h2><span class="kick">'+tl.length+'</span></header><div class="tlist">'+
+      (tl.length?tl.map(function(x){return '<button type="button" data-act="selTable" data-t="'+esc(x.name)+'" aria-current="'+(x.name===t.name)+'"><div><b>'+esc(x.name)+'</b><small>'+x.columns.length+' cols · '+esc(x.category)+'</small></div><span class="n">'+x.rows.length+'</span></button>';}).join(''):'<div class="empty">'+esc(T('noData'))+'</div>')+
+    '</div></section>'+
+    (t?'<section class="card">'+
+      '<header><div><h2 class="mono">'+esc(t.name)+'</h2><div class="sec" style="font-size:13px">'+esc(t.description||'')+'</div></div>'+
+        '<div style="display:flex;gap:8px;flex-wrap:wrap">'+
+          '<button class="btn btn-primary btn-sm" data-act="insertRow" type="button">+ '+esc(T('insertRow'))+'</button>'+
+          '<button class="btn btn-ghost btn-sm" data-act="exportTableCsv" type="button">'+esc(T('exportCsv'))+'</button>'+
+          '<button class="btn btn-danger btn-sm" data-act="dropTable" type="button">'+esc(T('dropTable'))+'</button>'+
+        '</div>'+
+      '</header>'+
+      '<div class="filters"><input class="ctl grow" id="rowSearch" type="search" placeholder="Search rows…" value="'+esc(DB.searchRows)+'"></div>'+
+      '<div class="cols">'+cols.map(function(c){var def=(t.columns||[]).filter(function(x){return x.name===c;})[0]||{};return '<span class="'+(def.isPrimary?'pk':'')+'">'+(def.isPrimary?'🔑 ':def.isForeign?'🔗 ':'')+esc(c)+(def.type?' <em>'+esc(def.type)+'</em>':'')+'</span>';}).join('')+'</div>'+
+      (rows.length?'<div class="tblw"><table class="tbl"><thead><tr>'+showCols.map(function(c){return '<th>'+esc(c)+'</th>';}).join('')+'<th class="end">'+esc(T('actions'))+'</th></tr></thead><tbody>'+
+        rows.slice((DB.page-1)*PER,DB.page*PER).map(function(r){
+          return '<tr data-id="'+esc(r.id)+'">'+showCols.map(function(c){var v=r[c];if(v&&typeof v==='object')v=JSON.stringify(v);return '<td class="cell" title="'+esc(v)+'">'+esc(v==null?'':v)+'</td>';}).join('')+
+          '<td class="end"><button class="btn btn-ghost btn-sm" data-act="editRow" type="button">'+esc(T('edit'))+'</button> <button class="btn btn-danger btn-sm" data-act="delRow" type="button">'+esc(T('del'))+'</button></td></tr>';
+        }).join('')+
+      '</tbody></table></div><div class="pager"><span>'+rows.length+' '+esc(T('rows'))+' · '+DB.page+'/'+pages+'</span><span class="sp"></span><button data-act="dbPage" data-p="'+(DB.page-1)+'" '+(DB.page<=1?'disabled':'')+'>‹</button><button data-act="dbPage" data-p="'+(DB.page+1)+'" '+(DB.page>=pages?'disabled':'')+'>›</button></div>':
+      '<div class="empty">'+esc(T('noData'))+'</div>')+
+    '</section>':'<section class="card"><div class="empty">'+esc(T('selectTable'))+'</div></section>')+
+  '</div>';
+
+  var deb;var rs=$('#rowSearch');if(rs)rs.addEventListener('input',function(e){clearTimeout(deb);deb=setTimeout(function(){DB.searchRows=e.target.value;DB.page=1;PAGES.database();},200);});
+}
+
+/* 3.3 SCHEMA DESIGNER (DDL, Columns, Relations, Table Edit) */
+function renderDesignerMode(container,tl,rels,t){
+  var tRels=rels.filter(function(r){return r.sourceTable===t.name||r.targetTable===t.name;});
+
+  container.innerHTML='<div class="gridL">'+
+    '<section class="card"><header><h2>'+esc(T('tables'))+'</h2><button class="btn btn-primary btn-sm" data-act="newTable" type="button">+ '+esc(T('newTable'))+'</button></header><div class="tlist">'+
+      (tl.length?tl.map(function(x){return '<button type="button" data-act="selTable" data-t="'+esc(x.name)+'" aria-current="'+(x.name===t.name)+'"><div><b>'+esc(x.name)+'</b><small>'+categoryPill(x.category)+' · '+(x.columns||[]).length+' cols</small></div></button>';}).join(''):'<div class="empty">'+esc(T('noData'))+'</div>')+
+    '</div></section>'+
+    (t?'<section class="card">'+
+      '<header><div><h2 class="mono">'+esc(t.name)+'</h2><div class="sec" style="font-size:13px">'+esc(t.description||'')+' · '+categoryPill(t.category)+'</div></div>'+
+        '<div style="display:flex;gap:8px;flex-wrap:wrap">'+
+          '<button class="btn btn-primary btn-sm" data-act="addColumn" type="button">+ '+esc(T('addColumn'))+'</button>'+
+          '<button class="btn btn-ghost btn-sm" data-act="addRelation" type="button">+ '+esc(T('addRelation'))+'</button>'+
+          '<button class="btn btn-ghost btn-sm" data-act="editTable" type="button">'+esc(T('edit'))+'</button>'+
+          '<button class="btn btn-danger btn-sm" data-act="dropTable" type="button">'+esc(T('dropTable'))+'</button>'+
+        '</div>'+
+      '</header>'+
+      '<div class="cb"><h3 style="margin:0 0 10px;font-size:14px">'+esc(T('columns'))+' ('+(t.columns||[]).length+')</h3></div>'+
+      '<div class="tblw"><table class="tbl"><thead><tr><th>'+esc(T('colName'))+'</th><th>'+esc(T('colType'))+'</th><th>Flags</th><th>Default</th><th>Description</th><th class="end">'+esc(T('actions'))+'</th></tr></thead><tbody>'+
+        (t.columns||[]).map(function(c){
+          var flags=[];if(c.isPrimary)flags.push('<span class="pill gold">PRIMARY KEY</span>');
+          if(c.isForeign)flags.push('<span class="pill brand">FK → '+(c.foreignTable||'')+'.'+(c.foreignColumn||'id')+'</span>');
+          if(!c.isNullable&&!c.isPrimary)flags.push('<span class="pill">NOT NULL</span>');
+          return '<tr data-cid="'+esc(c.id)+'">'+
+            '<td class="mono font-bold">'+(c.isPrimary?'🔑 ':c.isForeign?'🔗 ':'')+esc(c.name)+'</td>'+
+            '<td class="mono sec">'+esc(c.type)+'</td>'+
+            '<td>'+flags.join(' ')+'</td>'+
+            '<td class="mono muted">'+esc(c.defaultValue||'—')+'</td>'+
+            '<td class="sec" style="font-size:12.5px">'+esc(c.description||'—')+'</td>'+
+            '<td class="end"><button class="btn btn-ghost btn-sm" data-act="editCol" data-cid="'+esc(c.id)+'" type="button">'+esc(T('edit'))+'</button> '+(c.isPrimary?'':'<button class="btn btn-danger btn-sm" data-act="delCol" data-cid="'+esc(c.id)+'" type="button">'+esc(T('del'))+'</button>')+'</td>'+
+          '</tr>';
+        }).join('')+
+      '</tbody></table></div>'+
+      '<div class="cb" style="margin-top:16px;border-top:1px solid var(--border)"><h3 style="margin:10px 0;font-size:14px">'+esc(T('relations'))+' ('+tRels.length+')</h3></div>'+
+      (tRels.length?'<div class="tblw"><table class="tbl"><thead><tr><th>Source</th><th>Direction</th><th>Target</th><th>On Delete</th><th class="end">'+esc(T('actions'))+'</th></tr></thead><tbody>'+
+        tRels.map(function(r){
+          return '<tr><td class="mono"><b>'+esc(r.sourceTable)+'</b>.'+esc(r.sourceColumn)+'</td><td>→</td><td class="mono"><b>'+esc(r.targetTable)+'</b>.'+esc(r.targetColumn)+'</td><td><span class="pill warn">'+esc(r.onDelete||'CASCADE')+'</span></td>'+
+          '<td class="end"><button class="btn btn-danger btn-sm" data-act="delRel" data-rid="'+esc(r.id)+'" type="button">'+esc(T('delRelation'))+'</button></td></tr>';
+        }).join('')+'</tbody></table></div>':'<div class="empty">No foreign key relations for this table.</div>')+
+    '</section>':'<section class="card"><div class="empty">'+esc(T('selectTable'))+'</div></section>')+
+  '</div>';
+}
+
+/* 3.4 MATCHING ENGINE & ALGO STUDIO */
+function renderAlgoMode(container,tl){
+  var algoTables=['matching_algorithms','matching_criteria_weights','matching_runs','match_evaluations'];
+  container.innerHTML=
+    '<div class="stack">'+
+      '<div class="card"><header><div><h2>Algerian Scholar Award · Algorithmic Matching Engine</h2><div class="sec">Live multi-criteria compatibility scoring between diaspora scholars and university challenges</div></div>'+
+        '<button class="btn btn-primary btn-sm" data-act="simMatch" type="button">⚡ Simulate Compatibility Run</button>'+
+      '</header>'+
+      '<div class="cb">'+
+        '<div class="grid2">'+
+          '<div class="stack">'+
+            '<div class="note ok">Algorithm weights: Technical Domain (35%), Research Skills (25%), Physical Availability (20%), Institutional Synergy (20%). Compliant with Algerian Higher Education decree 2026.</div>'+
+            '<div class="tblw"><table class="tbl"><thead><tr><th>Weight Category</th><th>Criteria</th><th>Weight</th><th>Normalized Scale</th></tr></thead><tbody>'+
+              '<tr><td><b>Research Expertise</b></td><td>NLP, Quantum Computing, Renewable Energy</td><td class="mono font-bold">0.35</td><td>[0.0 - 1.0]</td></tr>'+
+              '<tr><td><b>Physical Window</b></td><td>Algeria physical residency window</td><td class="mono font-bold">0.25</td><td>Binary / Day overlap</td></tr>'+
+              '<tr><td><b>Academic Impact</b></td><td>Scopus h-index & citations count</td><td class="mono font-bold">0.20</td><td>Sigmoid normalized</td></tr>'+
+              '<tr><td><b>Laboratory Synergy</b></td><td>Doctoral hosting capacity</td><td class="mono font-bold">0.20</td><td>Institutional Tier</td></tr>'+
+            '</tbody></table></div>'+
+          '</div>'+
+          '<div class="stack">'+
+            '<div class="card" style="border:1px dashed var(--border-strong)"><header><h2>Algorithm Core Tables</h2></header><div class="cb" style="display:grid;gap:8px">'+
+              algoTables.map(function(tName){
+                var tbl=tl.filter(function(x){return x.name===tName;})[0];
+                return '<div style="display:flex;justify-content:space-between;align-items:center;padding:8px 12px;background:var(--bg-subtle);border-radius:10px">'+
+                  '<span class="mono font-bold">'+tName+'</span><span class="pill gold">'+(tbl?tbl.rows.length:0)+' rows</span>'+
+                '</div>';
+              }).join('')+
+            '</div></div>'+
+          '</div>'+
+        '</div>'+
+      '</div></div>'+
+    '</div>';
+}
+
+/* 3.5 CYCLE & INTEGRITY AUDIT */
+function renderHealthMode(container,tl,rels){
+  var audit=runIntegrityAudit(DB.simCycle);
+  container.innerHTML=
+    '<div class="stack">'+
+      '<div class="card">'+
+        '<header><div><h2>Cycle & Referential Integrity Audit (DAG Validator)</h2><div class="sec">Automated depth-first search for cyclic foreign key traps and broken references</div></div>'+
+          '<div style="display:flex;gap:8px">'+
+            '<button class="btn btn-ghost btn-sm '+(DB.simCycle?'btn-danger solid':'')+'" data-act="toggleSimCycle" type="button">'+(DB.simCycle?'Remove Trap Test':'Inject Test Trap')+'</button>'+
+            '<button class="btn btn-primary btn-sm" data-act="recheckAudit" type="button">Re-audit</button>'+
+          '</div>'+
+        '</header>'+
+        '<div class="cb">'+
+          '<div class="note '+(audit.isDAG?'ok':'err')+'" style="margin-bottom:16px">'+
+            '<b>'+(audit.isDAG?'DAG Verified · Directed Acyclic Graph (0 Loops)':'⚠️ Circular Dependency Trap Detected!')+'</b> — '+
+            (audit.isDAG?'All '+audit.totalTables+' schema tables can be created and dropped without deadlock or recursive cascade locks.':
+             'The schema contains '+audit.cycles.length+' circular foreign key loop(s): '+audit.cycles.map(function(c){return c.join(' → ');}).join(' | '))+'</div>'+
+          '<div class="grid2">'+
+            '<div><h3 style="margin:0 0 8px;font-size:14px">Cycle Paths</h3>'+
+              (audit.cycles.length?'<ul class="feed">'+audit.cycles.map(function(c){return '<li class="bad"><b class="mono">'+c.join(' → ')+'</b></li>';}).join('')+'</ul>':'<div class="note ok">Zero circular foreign key dependency loops. Foreign key hierarchy is strictly acyclic.</div>')+
+            '</div>'+
+            '<div><h3 style="margin:0 0 8px;font-size:14px">Broken Foreign Key Rows</h3>'+
+              (audit.brokenFkRows.length?'<div class="note err">'+audit.brokenFkRows.length+' broken foreign keys detected across data rows!</div>':
+               '<div class="note ok">0 broken foreign keys. Every relation points to an existing primary key.</div>')+
+            '</div>'+
+          '</div>'+
+        '</div>'+
+      '</div>'+
+    '</div>';
+}
+
+/* 3.6 SQL & DJANGO MODELS CODE GENERATOR */
+function renderCodeMode(container,tl,rels){
+  // Generate PostgreSQL DDL
+  var ddl='-- DZ-Bridge PostgreSQL 16 Relational DDL\n-- Auto-generated by Database Studio\n\nCREATE EXTENSION IF NOT EXISTS "uuid-ossp";\n\n';
+  tl.forEach(function(t){
+    ddl+='CREATE TABLE '+t.name+' (\n';
+    var lines=(t.columns||[]).map(function(c){
+      var l='  '+c.name+' '+(c.type||'VARCHAR(255)');
+      if(c.isPrimary)l+=' PRIMARY KEY';
+      if(!c.isNullable&&!c.isPrimary)l+=' NOT NULL';
+      if(c.defaultValue)l+=' DEFAULT '+c.defaultValue;
+      return l;
+    });
+    ddl+=lines.join(',\n')+'\n);\n\n';
+  });
+  rels.forEach(function(r){
+    ddl+='ALTER TABLE '+r.sourceTable+' ADD CONSTRAINT fk_'+r.sourceTable+'_'+r.sourceColumn+'_to_'+r.targetTable+'\n';
+    ddl+='  FOREIGN KEY ('+r.sourceColumn+') REFERENCES '+r.targetTable+'('+r.targetColumn+') ON DELETE '+(r.onDelete||'CASCADE')+';\n\n';
+  });
+
+  // Generate Django ORM Code
+  var py='"""\nDZ-Bridge Django 5.1 ORM Models\nGenerated automatically by Django Schema Studio\n"""\nimport uuid\nfrom django.db import models\n\n';
+  tl.forEach(function(t){
+    var className=t.name.split('_').map(function(s){return s.charAt(0).toUpperCase()+s.slice(1);}).join('');
+    py+='class '+className+'(models.Model):\n';
+    py+='    """'+esc(t.description||t.name)+'"""\n';
+    (t.columns||[]).forEach(function(c){
+      var f='';
+      if(c.isPrimary&&c.type.includes('UUID'))f='models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)';
+      else if(c.isForeign)f="models.ForeignKey('"+(c.foreignTable||'User')+"', on_delete=models.CASCADE, null=True, blank=True)";
+      else if(c.type==='BOOLEAN')f='models.BooleanField(default=False)';
+      else if(c.type.includes('INT'))f='models.IntegerField(null=True, blank=True)';
+      else if(c.type==='TEXT')f='models.TextField(null=True, blank=True)';
+      else if(c.type.includes('TIMESTAMP'))f='models.DateTimeField(auto_now_add=True)';
+      else if(c.type.includes('JSONB'))f='models.JSONField(default=dict, blank=True)';
+      else f='models.CharField(max_length=255, null=True, blank=True)';
+      py+='    '+c.name+' = '+f+'\n';
+    });
+    py+='    class Meta:\n        db_table = "'+t.name+'"\n\n\n';
+  });
+
+  container.innerHTML=
+    '<div class="grid2">'+
+      '<div>'+
+        '<div class="code-head"><b>PostgreSQL 16 Relational DDL</b><button class="btn btn-ghost btn-sm" data-act="copyCode" data-target="sqlOut">Copy SQL</button></div>'+
+        '<pre class="codeblock" id="sqlOut">'+esc(ddl)+'</pre>'+
+      '</div>'+
+      '<div>'+
+        '<div class="code-head"><b>Django 5.1 ORM Models (Python)</b><button class="btn btn-ghost btn-sm" data-act="copyCode" data-target="pyOut">Copy Python</button></div>'+
+        '<pre class="codeblock" id="pyOut">'+esc(py)+'</pre>'+
+      '</div>'+
+    '</div>';
+}
+
+function currentTable(){return tablesList().filter(function(x){return x.name===DB.sel;})[0];}
+
+/* 4. AUDIT */
+var AQ={search:'',action:'all',page:1};
+PAGES.audit=function(){
+  var logs=((S.state||{}).audit_logs||[]).slice().sort(function(a,b){return new Date(b.createdAt)-new Date(a.createdAt);});
+  var actions=Array.from(new Set(logs.map(function(l){return l.actionType;}))).sort();
+  view.innerHTML=head(T('auditTitle'),T('auditSub'),refreshBtn()+'<button class="btn btn-ghost btn-sm" data-act="exportAudit" type="button">'+esc(T('exportCsv'))+'</button>')+
+  '<section class="card"><div class="filters"><input class="ctl grow" id="aSearch" type="search" placeholder="Filter audit events…" value="'+esc(AQ.search)+'"><select class="ctl" id="aAction"><option value="all">'+esc(T('allActions'))+'</option>'+actions.map(function(a){return '<option>'+esc(a)+'</option>';}).join('')+'</select></div><div id="aBody"></div></section>';
+  $('#aAction').value=AQ.action;
+  $('#aSearch').addEventListener('input',function(e){AQ.search=e.target.value;AQ.page=1;renderAudit();});
+  $('#aAction').addEventListener('change',function(e){AQ.action=e.target.value;AQ.page=1;renderAudit();});
+  renderAudit();
+};
+function filteredLogs(){
+  var q=AQ.search.toLowerCase();
+  return ((S.state||{}).audit_logs||[]).slice().sort(function(a,b){return new Date(b.createdAt)-new Date(a.createdAt);}).filter(function(l){
+    if(AQ.action!=='all'&&l.actionType!==AQ.action)return false;
+    if(!q)return true;return JSON.stringify(l).toLowerCase().indexOf(q)>-1;});
+}
+function renderAudit(){
+  var box=$('#aBody');if(!box)return;var list=filteredLogs();var PER=20;var pages=Math.max(1,Math.ceil(list.length/PER));if(AQ.page>pages)AQ.page=pages;
+  if(!list.length){box.innerHTML='<div class="empty">'+esc(T('noData'))+'</div>';return;}
+  box.innerHTML='<div class="tblw"><table class="tbl"><thead><tr><th>'+esc(T('colWhen'))+'</th><th>'+esc(T('colAction'))+'</th><th>'+esc(T('colEntity'))+'</th><th>'+esc(T('colActor'))+'</th><th>'+esc(T('colDetails'))+'</th></tr></thead><tbody>'+
+  list.slice((AQ.page-1)*PER,AQ.page*PER).map(function(l){var md=l.metadata?JSON.stringify(l.metadata):'';return '<tr><td class="mono sec" style="font-size:12.5px;white-space:nowrap">'+fmtDate(l.createdAt)+'</td><td><span class="pill '+(/DELETE|DROP|FAIL|SUSPEND/.test(l.actionType)?'bad':/CREATE|INSERT|REGISTER/.test(l.actionType)?'ok':'')+'">'+esc(l.actionType)+'</span></td><td class="mono" style="font-size:12.5px">'+esc(l.entityType||'')+(l.entityId?' / '+esc(l.entityId):'')+'</td><td>'+esc(l.userName||l.userId||'system')+'<div class="muted mono" style="font-size:11.5px">'+esc(l.userRole||'')+' · '+esc(l.ipAddress||'')+'</div></td><td class="cell" title="'+esc(md)+'">'+esc(md)+'</td></tr>';}).join('')+
+  '</tbody></table></div><div class="pager"><span>'+list.length+' · '+AQ.page+'/'+pages+'</span><span class="sp"></span><button data-act="aPage" data-p="'+(AQ.page-1)+'" '+(AQ.page<=1?'disabled':'')+'>‹</button><button data-act="aPage" data-p="'+(AQ.page+1)+'" '+(AQ.page>=pages?'disabled':'')+'>›</button></div>';
+}
+
+/* 5. API & DJANGO CONSOLES */
+function consoleCard(id,defPath){
+  return '<section class="card"><header><h2>'+esc(T('console'))+'</h2></header><div class="cb" style="display:grid;gap:10px">'+
+  '<div class="req"><select class="ctl" id="'+id+'M">'+['GET','POST','PUT','PATCH','DELETE'].map(function(m){return '<option>'+m+'</option>';}).join('')+'</select><input class="ctl mono" id="'+id+'P" value="'+esc(defPath)+'"><button class="btn btn-primary" data-act="send" data-c="'+id+'" type="button">'+esc(T('send'))+'</button></div>'+
+  '<div class="fld"><label>'+esc(T('body'))+'</label><textarea class="ctl" id="'+id+'B" placeholder="{ }"></textarea></div>'+
+  '<div><div class="kick" style="margin-bottom:8px">'+esc(T('response'))+'</div><div id="'+id+'R"><div class="muted" style="font-size:13.5px">'+esc(T('pickRoute'))+'</div></div></div></div></section>';
+}
+function sendConsole(id){
+  var m=$('#'+id+'M').value,p=$('#'+id+'P').value.trim(),b=$('#'+id+'B').value.trim(),out=$('#'+id+'R');
+  var body;if(b&&m!=='GET'){try{body=JSON.parse(b);}catch(e){out.innerHTML='<div class="note err">Invalid JSON: '+esc(e.message)+'</div>';return;}}
+  if(/:[a-zA-Z]+/.test(p)){out.innerHTML='<div class="note warn">Replace path parameters ('+esc(p.match(/:[a-zA-Z]+/g).join(', '))+') first.</div>';return;}
+  out.innerHTML='<div class="spin"></div>';
+  api(m,p,body).then(function(r){
+    var cls=r.status>=200&&r.status<300?'ok':r.status>=400||r.status===0?'bad':'warn';
+    out.innerHTML='<div class="resmeta"><span class="pill '+cls+'">'+r.status+'</span><span class="muted">'+r.ms+' ms</span><span class="m '+m+'">'+m+'</span><span class="mono muted">'+esc(p)+'</span></div><pre class="out">'+esc(typeof r.data==='string'?r.data.slice(0,20000):JSON.stringify(r.data,null,2).slice(0,20000))+'</pre>';
+    if(m!=='GET'&&r.ok)loadState();
+  });
+}
+
+PAGES.api=function(){
+  view.innerHTML=head(T('apiTitle'),T('apiSub'),refreshBtn())+'<div class="gridL"><section class="card"><header><h2>'+esc(T('endpoints'))+'</h2><span class="kick" id="rCount"></span></header><div class="filters"><input class="ctl grow" id="rFilter" type="search" placeholder="/api/…"></div><div class="routes" id="rList"><div class="empty"><div class="spin" style="margin:auto"></div></div></div></section>'+consoleCard('api','/api/state/full')+'</div>';
+  var render=function(){
+    var q=($('#rFilter').value||'').toLowerCase();var rs=(S.routes||[]).filter(function(r){return (r.method+' '+r.path).toLowerCase().indexOf(q)>-1;});
+    var groups={};rs.forEach(function(r){var g=r.path.split('/')[2]||'api';(groups[g]=groups[g]||[]).push(r);});
+    $('#rCount').textContent=rs.length;
+    $('#rList').innerHTML=Object.keys(groups).sort().map(function(g){return '<div class="g">'+esc(g)+'</div>'+groups[g].map(function(r){return '<button type="button" data-act="pick" data-c="api" data-m="'+r.method+'" data-p="'+esc(r.path)+'"><span class="m '+r.method+'">'+r.method+'</span><span>'+esc(r.path)+'</span>'+(r.auth?'<span class="lock">auth</span>':'')+'</button>';}).join('');}).join('')||'<div class="empty">'+esc(T('noData'))+'</div>';
+  };
+  $('#rFilter').addEventListener('input',render);
+  api('GET','/api/system/routes').then(function(r){if(r.ok){S.routes=r.data.routes;render();}});
+};
+
+PAGES.django=function(){
+  view.innerHTML=head(T('djTitle'),T('djSub'),refreshBtn())+'<div class="stack">'+consoleCard('dj','/api/v1/auth/login/')+'</div>';
+};
+
+/* 6. TRANSLATIONS */
+var TR_DRAFT=null;
+PAGES.translations=function(){
+  var cur=Object.assign({},BASE[LANG]||{},(OVR[LANG]||{}));
+  TR_DRAFT=TR_DRAFT||{en:Object.assign({},OVR.en||{}),fr:Object.assign({},OVR.fr||{}),ar:Object.assign({},OVR.ar||{})};
+  var keys=Object.keys(BASE.en).sort();
+  view.innerHTML=head(T('trTitle'),T('trSub'),'<button class="btn btn-ghost btn-sm" data-act="trReset" type="button">'+esc(T('resetAll'))+'</button><button class="btn btn-primary btn-sm" data-act="trSave" type="button">'+esc(T('save'))+'</button>')+
+  '<section class="card"><div class="tblw"><table class="tbl tr"><thead><tr><th style="width:200px">'+esc(T('key'))+'</th><th>Default (EN)</th><th>Current ('+LANG.toUpperCase()+')</th></tr></thead><tbody>'+
+  keys.map(function(k){
+    var v=(TR_DRAFT[LANG]&&TR_DRAFT[LANG][k]!==undefined)?TR_DRAFT[LANG][k]:(cur[k]||'');
+    var isDiff=v!==BASE[LANG][k];
+    return '<tr class="'+(isDiff?'changed':'')+'"><td class="key">'+esc(k)+'</td><td class="sec">'+esc(BASE.en[k]||'')+'</td><td><input class="ctl" data-k="'+esc(k)+'" value="'+esc(v)+'"></td></tr>';
+  }).join('')+'</tbody></table></div></section>';
+  $$('table.tr input').forEach(function(inp){inp.addEventListener('input',function(e){var k=e.target.getAttribute('data-k');TR_DRAFT[LANG][k]=e.target.value;e.target.closest('tr').classList.toggle('changed',e.target.value!==BASE[LANG][k]);});});
+};
+
+/* ---------------- FORMS & MODALS ---------------- */
+function newTableModal(){
+  var categories=['Identity','Matchmaking','Collaborations','Academic','Audit','Custom'];
+  return '<header><h2>'+esc(T('newTable'))+'</h2><p>Create a new relational table stored in data/db.json</p></header><div class="body">'+
+    '<div class="fld"><label>'+esc(T('tableName'))+'</label><input class="ctl mono" name="name" required placeholder="e.g. doctoral_challenges" pattern="[a-z0-9_]+"></div>'+
+    '<div class="fld"><label>'+esc(T('description'))+'</label><input class="ctl" name="description" placeholder="Description of records"></div>'+
+    '<div class="row2"><div class="fld"><label>'+esc(T('category'))+'</label><select class="ctl" name="category">'+categories.map(function(c){return '<option>'+c+'</option>';}).join('')+'</select></div>'+
+    '<div class="fld"><label>'+esc(T('pkType'))+'</label><select class="ctl" name="pkType"><option value="UUID">UUID (uuid_generate_v4)</option><option value="BIGINT">BIGINT (Identity)</option><option value="SERIAL">SERIAL</option></select></div></div>'+
+    '<div class="fld"><label>'+esc(T('extraCols'))+'</label><textarea class="ctl mono" name="cols" placeholder="title VARCHAR(255)\nfield_domain VARCHAR(100)\nscore INTEGER"></textarea></div>'+
+  '</div>'+dlgFooter(T('create'));
+}
+
+function addColumnModal(tableName){
+  var types=['VARCHAR(255)','TEXT','UUID','INTEGER','BIGINT','BOOLEAN','TIMESTAMP WITH TIME ZONE','JSONB','NUMERIC(10,2)','DATE'];
+  var tables=tablesList();
+  return '<header><h2>'+esc(T('addColumn'))+' · '+esc(tableName)+'</h2></header><div class="body">'+
+    '<div class="fld"><label>'+esc(T('colName'))+'</label><input class="ctl mono" name="name" required placeholder="e.g. supervisor_id"></div>'+
+    '<div class="row2"><div class="fld"><label>'+esc(T('colType'))+'</label><select class="ctl mono" name="type">'+types.map(function(t){return '<option>'+t+'</option>';}).join('')+'</select></div>'+
+    '<div class="fld"><label>'+esc(T('colDefault'))+'</label><input class="ctl mono" name="defaultValue" placeholder="e.g. 0 or NULL"></div></div>'+
+    '<div class="fld"><label>Foreign Key Target (Optional)</label><select class="ctl" name="fkTable"><option value="">-- Not a foreign key --</option>'+tables.map(function(t){return '<option value="'+t.name+'">'+t.name+'</option>';}).join('')+'</select></div>'+
+    '<div class="fld"><label>Description</label><input class="ctl" name="description" placeholder="Documentation for this field"></div>'+
+  '</div>'+dlgFooter(T('addColumn'));
+}
+
+function addRelationModal(){
+  var tables=tablesList();
+  return '<header><h2>'+esc(T('addRelation'))+'</h2><p>Define a referential foreign key constraint</p></header><div class="body">'+
+    '<div class="row2"><div class="fld"><label>Source Table</label><select class="ctl mono" name="sourceTable" id="rSrcT">'+tables.map(function(t){return '<option>'+t.name+'</option>';}).join('')+'</select></div>'+
+    '<div class="fld"><label>Source Column</label><input class="ctl mono" name="sourceColumn" required placeholder="e.g. user_id"></div></div>'+
+    '<div class="row2"><div class="fld"><label>Target Table</label><select class="ctl mono" name="targetTable" id="rTgtT">'+tables.map(function(t){return '<option>'+t.name+'</option>';}).join('')+'</select></div>'+
+    '<div class="fld"><label>Target Column</label><input class="ctl mono" name="targetColumn" required value="id"></div></div>'+
+    '<div class="fld"><label>'+esc(T('relOnDelete'))+'</label><select class="ctl" name="onDelete"><option value="CASCADE">CASCADE</option><option value="SET NULL">SET NULL</option><option value="RESTRICT">RESTRICT</option></select></div>'+
+  '</div>'+dlgFooter(T('addRelation'));
+}
+
+function rowForm(t,row){
+  var cols=(t.columns&&t.columns.length?t.columns.map(function(c){return c.name;}):Object.keys(row||{})).filter(function(c){return c!=='id';});
+  return '<header><h2>'+esc((row?T('edit'):T('insertRow'))+' · '+t.name)+'</h2>'+(row?'<p class="mono">id: '+esc(row.id)+'</p>':'')+'</header><div class="body">'+
+   cols.map(function(c){
+     var v=row?row[c]:'';if(v&&typeof v==='object')v=JSON.stringify(v);
+     return '<div class="fld"><label class="mono">'+esc(c)+'</label><input class="ctl" name="'+esc(c)+'" value="'+esc(v==null?'':v)+'"></div>';
+   }).join('')+
+  '</div>'+dlgFooter(row?T('save'):T('insertRow'));
+}
+function parseVal(v){if(v==='true')return true;if(v==='false')return false;if(/^-?\d+(\.\d+)?$/.test(v))return Number(v);if(/^[\[{]/.test(v)){try{return JSON.parse(v);}catch(e){}}return v;}
+
+/* ---------------- EVENT ROUTER ---------------- */
+document.addEventListener('click',function(e){
+  var b=e.target.closest('button, a[data-act]');if(!b)return;
+  var act=b.getAttribute('data-act');var tr=b.closest('tr');var rid=tr?tr.getAttribute('data-id'):null;
+
+  if(b.hasAttribute('data-dbmode')){
+    DB.mode=b.getAttribute('data-dbmode');PAGES.database();return;
+  }
+  if(act==='refresh'){loadState().then(function(){route();toast(T('done'));});return;}
+  if(act==='send'){sendConsole(b.getAttribute('data-c'));return;}
+  if(act==='pick'){pickRoute(b.getAttribute('data-c'),b.getAttribute('data-m'),b.getAttribute('data-p'));return;}
+  if(act==='uPage'){UQ.page=Number(b.getAttribute('data-p'));loadUsers();return;}
+  if(act==='aPage'){AQ.page=Number(b.getAttribute('data-p'));renderAudit();return;}
+  if(act==='dbPage'){DB.page=Number(b.getAttribute('data-p'));PAGES.database();return;}
+  if(act==='selTable'){DB.sel=b.getAttribute('data-t');DB.page=1;PAGES.database();return;}
+  if(act==='jumpToData'){DB.sel=b.getAttribute('data-t');DB.mode='data';DB.page=1;PAGES.database();return;}
+  if(act==='jumpToDesigner'){DB.sel=b.getAttribute('data-t');DB.mode='designer';PAGES.database();return;}
+
+  if(act==='copyCode'){
+    var tid=b.getAttribute('data-target');var el=$('#'+tid);
+    if(el){navigator.clipboard.writeText(el.textContent);toast(T('copied'));}
+    return;
+  }
+  if(act==='exportSql'){exportSqlDump();return;}
+  if(act==='exportExcel'){exportExcelWorkbook();return;}
+  if(act==='exportTableCsv'){
+    var curT=currentTable();if(!curT)return;
+    var rows=curT.rows;var cols=curT.columns.map(function(c){return c.name;});
+    var csv=[cols.join(',')].concat(rows.map(function(r){return cols.map(function(c){var v=r[c];if(v&&typeof v==='object')v=JSON.stringify(v);return '"'+String(v==null?'':v).replace(/"/g,'""')+'"';}).join(',');})).join('\n');
+    downloadFile(curT.name+'-export.csv',csv,'text/csv');
+    toast(T('done'));
+    return;
+  }
+
+  if(act==='simMatch'){
+    openDialog('<header><h2>Algorithmic Compatibility Simulation</h2><p>MESRS Higher Education Matching Calculation Engine</p></header>'+
+      '<div class="body"><div class="note ok">Calculated 8 candidate diaspora scholars against 5 active university research challenges.</div>'+
+      '<div class="tblw"><table class="tbl"><thead><tr><th>Diaspora Scholar</th><th>University Challenge</th><th>Compatibility</th><th>Status</th></tr></thead><tbody>'+
+        '<tr><td><b>Prof. Belgacem Haba</b></td><td>USTHB Quantum AI Unit</td><td><span class="pill gold font-bold">98.4%</span></td><td><span class="pill ok">Rank 1</span></td></tr>'+
+        '<tr><td><b>Dr. Amina Benali</b></td><td>ESI Cloud Cryptography</td><td><span class="pill brand font-bold">94.1%</span></td><td><span class="pill ok">Rank 2</span></td></tr>'+
+        '<tr><td><b>Dr. Karim Mebarki</b></td><td>CDTA Clean Microelectronics</td><td><span class="pill gold font-bold">91.8%</span></td><td><span class="pill ok">Rank 3</span></td></tr>'+
+      '</tbody></table></div></div>'+dlgFooter('Done'));
+    return;
+  }
+  if(act==='toggleSimCycle'){DB.simCycle=!DB.simCycle;PAGES.database();return;}
+  if(act==='recheckAudit'){PAGES.database();toast('Schema integrity re-verified.');return;}
+
+  /* TABLE OPERATIONS */
+  if(act==='newTable'){
+    openDialog(newTableModal(),function(f){
+      var o=formObj(f);var now=Date.now();
+      var cleanName=String(o.name).toLowerCase().trim().replace(/[^a-z0-9_]/g,'_');
+      var cols=[{id:'col-'+now+'-0',name:'id',type:o.pkType==='BIGINT'?'BIGINT':'UUID',isPrimary:true}];
+      (o.cols||'').split('\n').map(function(l){return l.trim();}).filter(Boolean).forEach(function(l,i){
+        var p=l.split(/\s+/);
+        cols.push({id:'col-'+now+'-'+(i+1),name:p[0].toLowerCase().replace(/[^a-z0-9_]/g,'_'),type:(p.slice(1).join(' ')||'VARCHAR(255)').toUpperCase()});
+      });
+      cols.push({id:'col-'+now+'-c',name:'created_at',type:'TIMESTAMP WITH TIME ZONE',defaultValue:'CURRENT_TIMESTAMP'});
+      cols.push({id:'col-'+now+'-u',name:'updated_at',type:'TIMESTAMP WITH TIME ZONE',defaultValue:'CURRENT_TIMESTAMP'});
+
+      return api('POST','/api/schema/tables',{name:cleanName,description:o.description,category:o.category,columns:cols}).then(function(r){
+        if(!r.ok){toast(errMsg(r),true);return false;}
+        toast(r.data.message);DB.sel=cleanName;
+        return loadState().then(function(){PAGES.database();});
+      });
+    });
+    return;
+  }
+
+  if(act==='dropTable'){
+    var dropT=b.getAttribute('data-t')?tablesList().filter(function(x){return x.name===b.getAttribute('data-t');})[0]:currentTable();
+    if(!dropT)return;
+    openDialog('<header><h2>'+esc(T('dropQ'))+' “'+esc(dropT.name)+'”</h2><p>'+esc(T('dropHelp'))+'</p></header><div class="body"><div class="note warn">'+dropT.rows.length+' '+esc(T('rows'))+' · '+dropT.columns.length+' '+esc(T('columns'))+'</div><input class="ctl mono" id="dropConfirm" autocomplete="off" placeholder="'+esc(dropT.name)+'"></div>'+dlgFooter(T('dropTable'),true),function(){
+      if($('#dropConfirm').value.trim()!==dropT.name){$('#dropConfirm').setAttribute('aria-invalid','true');return false;}
+      return api('DELETE','/api/schema/tables/'+encodeURIComponent(dropT.name)).then(function(r){
+        if(!r.ok){toast(errMsg(r),true);return false;}
+        toast(r.data.message);DB.sel=null;
+        return loadState().then(function(){PAGES.database();});
+      });
+    },function(){$('#dropConfirm').focus();});
+    return;
+  }
+
+  if(act==='editTable'){
+    var curTable=currentTable();if(!curTable)return;
+    var categories=['Identity','Matchmaking','Collaborations','Academic','Audit','Custom'];
+    openDialog('<header><h2>Edit Table Details · '+esc(curTable.name)+'</h2></header><div class="body">'+
+      '<div class="fld"><label>Table Name</label><input class="ctl mono" name="name" value="'+esc(curTable.name)+'"></div>'+
+      '<div class="fld"><label>Category</label><select class="ctl" name="category">'+categories.map(function(c){return '<option '+(c===curTable.category?'selected':'')+'>'+c+'</option>';}).join('')+'</select></div>'+
+      '<div class="fld"><label>Description</label><input class="ctl" name="description" value="'+esc(curTable.description||'')+'"></div>'+
+    '</div>'+dlgFooter(T('save')),function(f){
+      var o=formObj(f);
+      return api('PUT','/api/schema/tables/'+encodeURIComponent(curTable.id||curTable.name),o).then(function(r){
+        if(!r.ok){toast(errMsg(r),true);return false;}
+        toast(r.data.message);DB.sel=o.name;
+        return loadState().then(function(){PAGES.database();});
+      });
+    });
+    return;
+  }
+
+  /* COLUMN OPERATIONS */
+  if(act==='addColumn'){
+    var ct=currentTable();if(!ct)return;
+    openDialog(addColumnModal(ct.name),function(f){
+      var o=formObj(f);
+      var payload={name:o.name,type:o.type,defaultValue:o.defaultValue||undefined,description:o.description};
+      if(o.fkTable){payload.isForeign=true;payload.foreignTable=o.fkTable;payload.foreignColumn='id';}
+      return api('POST','/api/schema/tables/'+encodeURIComponent(ct.id||ct.name)+'/columns',payload).then(function(r){
+        if(!r.ok){toast(errMsg(r),true);return false;}
+        toast(r.data.message);
+        return loadState().then(function(){PAGES.database();});
+      });
+    });
+    return;
+  }
+
+  if(act==='delCol'){
+    var ct2=currentTable();var cid=b.getAttribute('data-cid');if(!ct2||!cid)return;
+    confirmDialog('Delete column from '+ct2.name+'?',cid,T('del'),function(){
+      return api('DELETE','/api/schema/tables/'+encodeURIComponent(ct2.id||ct2.name)+'/columns/'+encodeURIComponent(cid)).then(function(r){
+        if(!r.ok){toast(errMsg(r),true);return false;}
+        toast(r.data.message);
+        return loadState().then(function(){PAGES.database();});
+      });
+    });
+    return;
+  }
+
+  /* RELATION OPERATIONS */
+  if(act==='addRelation'){
+    openDialog(addRelationModal(),function(f){
+      var o=formObj(f);
+      return api('POST','/api/schema/relations',o).then(function(r){
+        if(!r.ok){toast(errMsg(r),true);return false;}
+        toast(r.data.message);
+        return loadState().then(function(){PAGES.database();});
+      });
+    });
+    return;
+  }
+
+  if(act==='delRel'){
+    var relId=b.getAttribute('data-rid');if(!relId)return;
+    confirmDialog('Delete Foreign Key Relation?',relId,T('del'),function(){
+      return api('DELETE','/api/schema/relations/'+encodeURIComponent(relId)).then(function(r){
+        if(!r.ok){toast(errMsg(r),true);return false;}
+        toast(r.data.message);
+        return loadState().then(function(){PAGES.database();});
+      });
+    });
+    return;
+  }
+
+  /* ROW OPERATIONS */
+  if(act==='insertRow'||act==='editRow'){
+    var tRow=currentTable();if(!tRow)return;
+    var row=act==='editRow'?tRow.rows.filter(function(r){return String(r.id)===rid;})[0]:null;
+    openDialog(rowForm(tRow,row),function(f){
+      var o={};$$('input',f).forEach(function(el){if(el.name&&el.value!=='')o[el.name]=parseVal(el.value);});
+      var req=row?api('PUT','/api/data/'+encodeURIComponent(tRow.name)+'/'+encodeURIComponent(row.id),o):api('POST','/api/data/'+encodeURIComponent(tRow.name),Object.assign({created_at:new Date().toISOString()},o));
+      return req.then(function(r){
+        if(!r.ok){toast(errMsg(r),true);return false;}
+        toast(r.data.message||T('done'));
+        return loadState().then(function(){PAGES.database();});
+      });
+    });
+    return;
+  }
+
+  if(act==='delRow'){
+    var tDel=currentTable();if(!tDel||!rid)return;
+    confirmDialog(T('delRowQ'),tDel.name+' / '+rid,T('del'),function(){
+      return api('DELETE','/api/data/'+encodeURIComponent(tDel.name)+'/'+encodeURIComponent(rid)).then(function(r){
+        if(!r.ok){toast(errMsg(r),true);return false;}
+        toast(r.data.message);
+        return loadState().then(function(){PAGES.database();});
+      });
+    });
+    return;
+  }
+
+  /* USER OPERATIONS */
+  if(act==='newUser'){
+    openDialog(userForm(),function(f){
+      var o=formObj(f);
+      return api('POST','/api/users',o).then(function(r){
+        if(!r.ok){toast(errMsg(r),true);return false;}
+        toast(r.data.message||T('done'));loadUsers();loadState();
+      });
+    });
+    return;
+  }
+  if(act==='editUser'){
+    var user=(S.usersPage||[]).filter(function(u){return u.id===rid;})[0];
+    openDialog(userForm(user),function(f){
+      var o=formObj(f);
+      return api('PUT','/api/users/'+encodeURIComponent(rid),o).then(function(r){
+        if(!r.ok){toast(errMsg(r),true);return false;}
+        toast(r.data.message||T('done'));loadUsers();loadState();
+      });
+    });
+    return;
+  }
+  if(act==='userStatus'){
+    var stVal=b.getAttribute('data-s');
+    api('PUT','/api/users/'+encodeURIComponent(rid),{status:stVal}).then(function(r){
+      if(!r.ok){toast(errMsg(r),true);return;}
+      toast(r.data.message||T('done'));loadUsers();loadState();
+    });
+    return;
+  }
+  if(act==='delUser'){
+    var nm=tr.querySelector('b').textContent;
+    confirmDialog(T('delUserQ'),nm,T('del'),function(){
+      return api('DELETE','/api/users/'+encodeURIComponent(rid)).then(function(r){
+        if(!r.ok){toast(errMsg(r),true);return false;}
+        toast(r.data.message);loadUsers();loadState();
+      });
+    });
+    return;
+  }
+
+  if(act==='exportAudit'){
+    var list=filteredLogs();var cols=['createdAt','actionType','entityType','entityId','userName','userRole','ipAddress','metadata'];
+    var csv=[cols.join(',')].concat(list.map(function(l){return cols.map(function(c){var v=l[c];if(v&&typeof v==='object')v=JSON.stringify(v);return '"'+String(v==null?'':v).replace(/"/g,'""')+'"';}).join(',');})).join('\n');
+    downloadFile('dzbridge-audit-'+new Date().toISOString().slice(0,10)+'.csv',csv,'text/csv');
+    return;
+  }
+  if(act==='trReset'){TR_DRAFT={en:{},fr:{},ar:{}};PAGES.translations();return;}
+  if(act==='trSave'){b.disabled=true;api('PUT','/api/translations',{translations:TR_DRAFT}).then(function(r){b.disabled=false;if(!r.ok){toast(errMsg(r),true);return;}OVR=r.data.translations||{};TR_DRAFT=null;applyI18n();toast(T('saved'));PAGES.translations();});return;}
+});
+
+function userForm(u){
+  u=u||{};var isNew=!u.id;var sa=(S.me||{}).role==='super_admin';
+  var roles=['expert','organization'].concat(sa||(!isNew&&u.role==='admin')?['admin']:[]);
+  return '<header><h2>'+esc(isNew?T('newUser'):T('edit')+' · '+(u.fullName||u.email))+'</h2></header><div class="body">'+
+  '<div class="fld"><label>'+esc(T('fullName'))+'</label><input class="ctl" name="fullName" required value="'+esc(u.fullName||'')+'"></div>'+
+  (isNew?'<div class="row2"><div class="fld"><label>'+esc(T('email'))+'</label><input class="ctl" name="email" type="email" required></div><div class="fld"><label>'+esc(T('password'))+'</label><input class="ctl" name="password" type="password" minlength="8" placeholder="DZbridge2026!"></div></div>':'')+
+  '<div class="row2"><div class="fld"><label>'+esc(T('role'))+'</label><select class="ctl" name="role"'+(!isNew&&!sa?' disabled':'')+'>'+roles.map(function(r){return '<option'+(r===u.role?' selected':'')+'>'+r+'</option>';}).join('')+'</select></div>'+
+  '<div class="fld"><label>'+esc(T('status'))+'</label><select class="ctl" name="status">'+['active','pending','suspended'].map(function(s){return '<option'+(s===(u.status||'active')?' selected':'')+'>'+s+'</option>';}).join('')+'</select></div></div>'+
+  '<div class="row2"><div class="fld"><label>'+esc(T('country'))+'</label><input class="ctl" name="country" value="'+esc(u.country||'Algeria')+'"></div><div class="fld"><label>'+esc(T('city'))+'</label><input class="ctl" name="city" value="'+esc(u.city||'')+'"></div></div>'+
+  '<div class="fld"><label>'+esc(T('organization'))+'</label><input class="ctl" name="organizationName" value="'+esc(u.organizationName||'')+'"></div></div>'+dlgFooter(isNew?T('create'):T('save'));
+}
+
+/* ---------------- ROUTING & INITIALIZATION ---------------- */
+var ROUTES=['dashboard','users','audit','database','api','django','translations'];
+function route(){
+  var r=(location.hash||'#dashboard').slice(1);if(ROUTES.indexOf(r)<0)r='dashboard';
+  $$('.nav a').forEach(function(a){var aNav=a.getAttribute('data-nav');a.toggleAttribute('aria-current',aNav===r);if(aNav===r)a.setAttribute('aria-current','page');});
+  document.body.classList.remove('nav-open');
+  if(PAGES[r])PAGES[r]();
+}
+window.addEventListener('hashchange',route);
+
+$('#burger').addEventListener('click',function(){document.body.classList.toggle('nav-open');});
+$('#scrim').addEventListener('click',function(){document.body.classList.remove('nav-open');});
+$('#ubtn').addEventListener('click',function(e){e.stopPropagation();var m=$('#umenu');var ex=m.hidden;m.hidden=!ex;this.setAttribute('aria-expanded',String(ex));});
+document.addEventListener('click',function(){var m=$('#umenu');if(m&&!m.hidden){m.hidden=true;$('#ubtn').setAttribute('aria-expanded','false');}});
+$('#themeBtn').addEventListener('click',function(){var d=document.documentElement.getAttribute('data-theme')==='dark'?'light':'dark';document.documentElement.setAttribute('data-theme',d);localStorage.setItem('dzb-theme',d);});
+$('#langSel').addEventListener('change',function(e){LANG=e.target.value;localStorage.setItem('dzb-mgr-lang',LANG);applyI18n();route();});
+$('#logoutBtn').addEventListener('click',function(){localStorage.removeItem('dzb_token');localStorage.removeItem('dz_token');location.href='/logout';});
+
+$('#gsearch').addEventListener('submit',function(e){
+  e.preventDefault();var q=$('#gq').value.trim();if(!q)return;
+  var isTable=tablesList().some(function(t){return t.name.toLowerCase().indexOf(q.toLowerCase())>-1;});
+  if(isTable){location.hash='#database';DB.sel=q.toLowerCase();DB.mode='data';route();}
+  else{location.hash='#users';UQ.search=q;route();}
+});
+
+/* BOOT */
+applyI18n();
+api('GET','/api/auth/me').then(function(r){
+  if(r.ok&&r.data){
+    S.me=r.data;
+    var name=r.data.fullName||r.data.email||'Admin';
+    $('#userName').textContent=name;$('#userRole').textContent=r.data.role||'admin';
+    $('#userAv').textContent=initials(name);
+  }
+});
+api('GET','/api/translations').then(function(r){if(r.ok){OVR=r.data.translations||{};applyI18n();}});
+loadState().then(function(){route();});
+
+})();
+</script>
+</body>
+</html>

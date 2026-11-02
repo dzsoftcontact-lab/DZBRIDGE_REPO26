@@ -1,0 +1,1110 @@
+
+DZ-Bridge Detailed Functional Specs 
+October 12,2026
+General Requirements
+DZ-Bridge is a web-based matchmaking platform to connect Algerian experts (local and diaspora) with Algerian organizations for knowledge and technology transfer collaborations.
+The DZ Bridge platform core features include:
+Trilingual: Arabic, English and French (Automatic translation maybe considered)
+Responsive UI: web and mobile friendly
+Highly available (cloud infrastructure)
+Highly secure especially for confidential information (Experts and Organisations)
+Easy to maintain and upgrade
+This document is a draft functional specification with UI/UX mockups and workflow descriptions for a DZ-Bridge MVP (Minimum Viable Product).
+Core Modules
+AUTHENTICATION & USER MANAGEMENT
+User Roles
+Expert
+Individual offering expertise
+May reside in Algeria or abroad
+Can declare availability and accept collaborations
+Organization
+Universities, companies, institutions, associations
+Submit collaboration projects and engage experts
+Admin
+Platform operator
+Oversees users, analytics, moderation, and system performance
+User Stories
+As an expert, I want to create an account so I can offer my expertise.
+As an organization, I want to register so I can submit collaboration projects.
+As a user, I want secure login/logout functionality. 
+As an admin, I want to track profile completion and monitor project outcomes.
+As a system, I want to log interactions for analytics.
+User Workflows
+Workflow 1: Expert Registration and Availability
+[Sign-Up] → [Create Profile] → [Upload CV] → [Enter Preferences] → [Post Availability] → [Receive Match Alerts] Sign-Up → Upload CV → AI-Assisted Profile Generation (or Admin Created Profile) → Review/Edit Profile → Verify Profile → Enter Preferences → Post Availability → Receive Match Alerts
+Workflow 2: Organization Submits a Project
+[Sign-Up] → [Create Org Profile] → [Submit Project] → [Receive Matched Experts] → [Invite Expert] → [Event Setup]
+Workflow 3: Match Confirmation and Collaboration
+[Match Detected] → [Expert Reviews Offer] → [Confirms Interest] → [Organization Notified] → [Direct Contact and Planning]  Match Detected → User Reviews Match → Express Interest / Accept → Contact Request → Select Available Contact Time → Consent / Acceptance → Private Communication
+Functional Requirements
+Email/password registration
+Email verification
+Password reset
+Role-based access (Expert / Organization / Admin)
+Profile completion tracking
+Screens
+The platform’s Home Screen offers two main login/signup sections: 
+
+
+Sign-Up Screen
+Fields: Name, Email, Password, Role selection
+CTA: “Create Account”
+Login Screen
+Email + Password
+“Forgot Password”
+EXPERT PORTAL
+User Stories
+As an expert, I want to create a detailed profile.
+As an expert, I want to upload my CV and supporting documents.
+As an expert, I want to declare my availability in Algeria.
+As an expert, I want to view and respond to matched projects.
+Functional Requirements
+Profile creation/editing
+Document upload (CV, publications)
+Availability calendar (city, dates, duration)
+Preferences (fees, travel, lodging)
+Match notifications
+Accept / decline opportunities
+Expert Screens
+Sign-Up / Log-In
+Email verification & secure login
+Profile Setup
+Bio, contact info, field(s) of expertise
+Collaboration preferences (in-person/remote, fees, travel/lodging conditions)
+Upload CV, presentations, publications
+Availability Posting
+City + tentative date + duration of Algeria visit
+View Matched Projects
+List of projects that match their expertise
+Accept/reject invitations
+Post-Collaboration Feedback
+Submit private feedback to improve future matches
+Expert Dashboard
+KPIs:
+Matches received
+Collaborations completed
+Average rating
+Sections:
+Upcoming opportunities
+Pending responses
+Expert Profile Page
+Bio
+Expertise fields (multi-select)
+Preferences
+Document upload
+Expert Availability Screen
+City (dropdown)
+Date range
+Duration
+Expert Opportunities List
+| Project | Organization | Location | Date | Status | Action |
+ORGANIZATION PORTAL
+Organization User Stories
+As an organization, I want to create a profile.
+As an organization, I want to submit a project.
+As an organization, I want to view matched experts.
+Organization Functional Requirements
+Organization profile management
+Project submission
+Match viewing
+Expert invitation
+Organization Screens
+Sign-Up / Log-In
+Organization info + admin contact
+Profile Setup
+Type (private or public university, startup, established company, etc.), areas of interest
+Preferences: budget, logistics
+Project Submission
+Collaboration title, description
+Skills required, location, dates, offered conditions
+Expert Matching Dashboard
+View list of matched experts (anonymous) and their brief profiles
+Send invitation for collaboration
+Event Promotion Option
+Request platform to publish an upcoming event
+Organization Dashboard
+KPIs:
+Projects submitted
+Matches found
+Successful collaborations
+Avg time to match
+Organization Project Submission Form
+Fields:
+Title
+Description
+Skills required
+Location
+Start/end dates
+Travel / lodging / fees
+Organization Project List
+| Project | Status | Matches | Time to Match | Outcome |
+MATCHMAKING ENGINE
+Matchmaking User Stories
+As a system, I want to match experts to projects automatically.
+As a user, I want relevant matches based on my profile.
+Matchmaking Functional Requirements
+Matchmaking Engine
+Algorithmic matching based on:
+Expertise vs project skills needed
+Availability overlap
+Preferences compatibility 
+Location relevance
+Ranking of matches
+Suggest best matches to both sides with approval options
+Prioritize experts visiting Algeria
+Approval workflow before sharing contacts
+Use Case: Matching Flow
+Project submitted
+→ System scans expert database
+→ Matches ranked
+→ Experts notified
+→ Expert accepts/declines
+→ Organization receives confirmed matches
+ADMIN MANAGEMENT
+User Stories
+As an admin, I want to manage users and profiles and monitor activity. 
+●As an admin, I want to oversee matchmaking engine and moderate conflicts
+As an admin, promote selected events or collaborations on homepage
+Functional Requirements
+User moderation
+Project oversight
+Flagged issue handling
+Analytics access
+Survey analysis
+PROJECT LIFECYCLE MANAGEMENT
+User Stories
+As a user, I want to track project status.
+As an admin, I want to monitor project outcomes.
+Project Statuses
+Draft
+Submitted
+Matched
+Contact Initiated
+Confirmed
+In Progress
+Completed
+Cancelled
+Unsuccessful
+ACTIVITY LOGGING & AUDIT
+User Stories
+As an admin, I want to track all key system activities.
+As a system, I want to log interactions for analytics.
+Functional Requirements
+Log all major actions:
+Registration
+Profile updates
+Project creation
+Matches
+Accept/decline actions
+Collaboration confirmations
+Store:
+Timestamp
+User ID
+Action type
+Related entity (project, match, etc.)
+Data Entities
+ActivityLog
+ProjectStatusHistory
+MatchEvent
+ANALYTICS & KPI DASHBOARD
+User Stories
+As an admin, I want insights into platform performance.
+As an organization, I want to see my project success rate.
+As an expert, I want to track my engagement.
+Functional Requirements
+Organization Metrics
+Projects submitted
+Success rate
+Time to match
+Avg rating
+Expert Metrics
+Matches received
+Collaborations completed
+Response time
+Avg rating
+Platform Metrics
+Active users
+Match success rate
+Completion rate
+Avg time to match
+Screens - Admin Dashboard
+Charts:
+Submission → Match → Completion funnel
+Monthly trends
+Tables:
+Top organizations
+Top experts
+Alerts:
+Low satisfaction cases
+SURVEYS & FEEDBACK
+User Stories
+As a user, I want to give feedback after collaboration.
+As an admin, I want to improve the system using feedback.
+Functional Requirements
+Survey Triggers
+After project submission
+After match
+After collaboration completion
+Survey Types
+Platform experience
+Collaboration experience
+Rating System
+1–5 scale
+Categories:
+Communication
+Professionalism
+Value
+Comments
+Optional text feedback
+Visibility
+Private (admin + system)
+Not public in MVP
+EVENT PROMOTION (OPTIONAL)
+User Stories
+As an organization, I want to promote an event linked to a collaboration.
+As a user, I want to promote an event linked to a collaboration.
+Functional Requirements
+Submit event request
+Admin approval
+Publish on platform
+Upload materials (PDF, slides)
+KEY USE CASES
+Use Case 1: Expert Joins and Gets Matched
+1. Expert clicks "Register as Expert"
+2. Enters basic info (name, email, password)
+3. Receives verification email
+4. Completes profile:
+Professional details
+Expertise areas (multi-select)
+Collaboration preferences
+Uploads CV and supporting documents
+5. Sets availability calendar for upcoming Algeria visits
+6. Profile becomes active for matching
+7. Receives match notification
+8. Accepts opportunity
+9. Organization notified
+Use Case 2: Organization Submits Project
+1. Org admin Creates profile and logs in
+2. Clicks "Submit New Project"
+3. Completes project form:
+Title and description
+Required skills (tags)
+Timeline (dates, duration)
+Location(s)
+Logistics offered (travel, lodging, fees)
+4. Submits project for matching
+5. System generates matches 
+6. Organization receives expert matches within set deadline (1-2 weeks)
+7. Reviews expert profiles
+8. Initiates contact through platform
+9. Collaboration confirmed
+Use Case 3: Matching Process
+1. System identifies potential matches based on:
+Expertise alignment
+Availability overlap
+Location compatibility
+Preference matching
+2. Notifies expert of potential match
+3. Expert reviews project details
+4. Expert indicates interest level
+5. If interested, connection is made
+6. Parties communicate via secure messaging
+Use Case 4: Post-Collaboration Feedback
+1. After each project (completed/failed), system sends survey to both parties for feedback 
+2. Confidential rating submitted using 1 to 5 stars on various factors
+3. Optional written feedback (comments)
+4. Data stored and used to improve future matching (not publicly displayed)
+5. Analytics updated
+6. Matching algorithm refined
+Use Case 5: Admin Monitoring
+Admin logs in to monitor platform KPIs
+Views dashboard
+Identifies low success rates
+Reviews feedback
+Adjusts matching rules or flags issues
+DATA MODEL (HIGH LEVEL)
+Core entities:
+User (Expert / Organization)
+Profile
+Project
+Match
+Collaboration
+ActivityLog
+Survey
+SurveyResponse
+Rating
+Comment
+MVP PRIORITIES
+Phase 1 (Must Have)
+Phase 2
+Registration & profiles
+Project submission
+Matchmaking
+Dashboards (basic KPIs)
+Activity logging
+Surveys + ratings
+Advanced analytics
+AI-driven matching improvements
+Public reputation system
+Recommendation engine
+
+DESIGN PRINCIPLES
+Simple and intuitive UI
+Mobile-responsive
+Minimal friction onboarding
+Trust-first (privacy + transparency)
+Data-driven continuous improvement
+UI-UX Mockup Descriptions
+Proposed visual mockups for key pages:
+Expert Dashboard
+Organization Dashboard
+Matchmaking View
+Project Submission Form
+Profile Setup (Expert & Org)
+
+Core Functionalities
+1. User Management System
+Dual registration portals (Experts & Organizations)
+Profile creation with different fields for each user type
+Authentication system (email verification, password recovery)
+Role-based access control
+2. Expert Portal Features
+Profile builder with fields for:
+Personal information
+Expertise areas (tech stack dropdowns)
+Collaboration preferences (travel requirements, fees, etc.)
+Document upload (CV, publications, presentations)
+Availability calendar for upcoming Algeria visits
+Project matching dashboard
+Notification system for potential matches
+3. Organization Portal Features
+Organization profile builder:
+Organization type (university, research institute, etc.)
+Areas of interest
+Collaboration preferences
+Project submission form:
+Required skills
+Project timeline
+Logistics offered
+Budget details
+Expert search functionality
+Upcoming expert visits notification
+4. Matching Engine
+Algorithm-based matching (expertise, availability, preferences)
+Manual review option before connection
+Approval workflow (expert confirms interest before org is notified)
+5. Collaboration Tools
+Secure messaging system
+Event coordination tools
+Document sharing
+Post-collaboration feedback system
+UI/UX Mockups (Conceptual)
+1. Landing Page
+![Landing page concept]
+Clean, modern design with Algerian color accents
+Dual CTA buttons: "I'm an Expert" and "We're an Organization"
+Brief platform explanation with infographic
+Testimonials section (future)
+2. Registration Flow
+
+
+3. Expert Dashboard
+![Expert dashboard concept]
+Summary of profile completeness
+Upcoming visits/alerts
+Project matches
+Quick actions (update availability, edit profile)
+Notification center
+4. Organization Dashboard
+![Org dashboard concept]
+Project submission quick access
+Active projects status
+Matched experts
+Upcoming expert visits in their region
+5. Project Matching Interface
+![Matching interface concept]
+Two-panel view with project details on left, expert profiles on right
+Compatibility scoring system
+Filtering options (expertise, dates, location)
+Connection request workflow
+Key Workflows
+Expert Registration & Profile Setup
+1. Expert clicks "Register as Expert"
+2. Enters basic info (name, email, password)
+3. Receives verification email
+4. Completes profile:
+Professional details
+Expertise areas (multi-select)
+Collaboration preferences
+Uploads supporting documents
+5. Sets availability calendar for upcoming Algeria visits
+6. Profile becomes active for matching
+Organization Project Submission
+1. Org admin logs in
+2. Clicks "Submit New Project"
+3. Completes project form:
+Title and description
+Required skills (tags)
+Timeline (dates, duration)
+Location(s)
+Logistics offered (travel, lodging, fees)
+4. Submits for matching
+5. Receives expert matches within 72 hours
+6. Reviews expert profiles
+7. Initiates contact through platform
+Matching Process
+1. System identifies potential matches based on:
+Expertise alignment
+Availability overlap
+Location compatibility
+Preference matching
+2. Notifies expert of potential match
+3. Expert reviews project details
+4. Expert indicates interest level
+5. If interested, connection is made
+6. Parties communicate via secure messaging
+Post-Collaboration Review
+1. After project completion, both parties receive feedback request
+2. Confidential rating system (1-5 stars on various factors)
+3. Optional written feedback
+4. Data used to improve future matching (not publicly displayed)
+Technical Specifications
+Frontend
+Responsive design (mobile-first approach)
+Framework: React.js or Vue.js
+UI Component library: Material UI or similar
+Interactive elements for smooth user experience
+Backend
+API-first architecture
+Framework: Node.js/Express or Django
+Database: PostgreSQL (relational for complex relationships)
+Search: Elasticsearch for expert/project discovery
+Matching algorithm: Python-based recommendation engine
+Security
+Data encryption at rest and in transit
+GDPR-compliant data handling
+Regular security audits
+Role-based access control
+Development Roadmap
+1. Phase 1 (3 months)
+Core user management
+Basic profile systems
+Simple matching logic
+MVP launch for alpha testing
+2. Phase 2 (2 months)
+Enhanced matching algorithm
+Messaging system
+Feedback mechanism
+Beta testing with select users
+3. Phase 3 (ongoing)
+Advanced analytics
+Mobile app development
+Integration capabilities
+Continuous improvement
+Technical Success Factors
+Robust Architecture
+Modular, scalable, fault-tolerant
+Can adapt to growing workloads and new functions
+Integration Capability
+Works well with existing systems (APIs, databases, protocols)
+Minimal disruption to existing workflows
+Accuracy & Reliability
+Low error rates, high consistency
+Handles edge cases and fails gracefully
+Security & Privacy
+Authentication, authorization, data encryption
+Compliance with regulations (e.g., GDPR, HIPAA)
+Maintainability
+Clean code, documentation, logging, monitoring
+Easy to debug and update
+Real-Time Responsiveness
+Timely reaction to inputs/events if required (esp. in manufacturing, logistics, etc.)
+Scalability
+Handles more users, data, or devices without performance degradation
+Adoption & User Success Factors
+Clear Value Proposition
+Saves time, reduces cost, increases quality or compliance
+Demonstrable ROI or improvement metrics
+User-Centered Design
+Intuitive UI/UX
+Requires minimal training
+Trust & Transparency
+Users understand what the system is doing and why
+Offers manual override or audit trail if needed
+Change Management
+Stakeholder involvement early in the process
+Training, support, and a transition plan
+Flexibility & Customization
+Users can tweak workflows to fit their real-world needs
+Doesn’t force a rigid “one size fits all” model
+Strong Support & Documentation
+Fast issue resolution, knowledge base, tutorials
+Community or vendor support
+Pilot-Proven
+Demonstrated success in small-scale trials or early adopters
+Case studies build confidence
+Tracking, Audit and Insights
+The platform shall maintain detailed logs of relevant user interactions, transactions, workflow steps, and project lifecycle events for audit, reporting, and service improvement purposes. The platform shall provide dashboards and analytics for administrators, organizations, and experts, including metrics such as project submissions, successful collaborations, average time to match, completion rates, and user satisfaction. The platform shall also support short surveys, post-collaboration ratings, and confidential feedback to continuously improve matchmaking quality, user experience, and operational performance.
+Activity Logging
+The platform should record major user actions with timestamps and context.
+Examples of events to log:
+account created
+profile completed
+expert uploaded CV or documents
+expert posted availability
+organization created profile
+organization submitted a project
+project updated / cancelled / closed
+project matched with one or more experts
+expert accepted / declined interest
+organization contacted expert
+collaboration confirmed
+event published
+presentation materials uploaded
+survey sent / completed
+rating submitted
+complaint or issue reported
+Each log entry should include:
+event ID
+user ID
+user type: expert / organization / admin
+organization ID or expert ID
+project ID if relevant
+date/time
+action type
+status before / after
+device/browser/IP if needed for security auditing
+optional notes or metadata
+This provides a reliable audit trail and strong reporting capability.
+Transaction and Workflow Metrics
+The system will calculate useful KPIs automatically.
+Organization KPIs
+For each organization:
+number of projects submitted
+number of active projects
+number of matched projects
+number of completed collaborations
+number of cancelled collaborations
+average time from project submission to first match
+average time from project submission to confirmed collaboration
+percentage of successful projects
+number of returning experts
+average rating received from experts
+Expert KPIs
+For each expert:
+number of availability windows posted
+number of matches received
+number of invitations accepted
+number of collaborations completed
+fields/topics most requested
+cities most visited
+average response time
+average rating received from organizations
+number of repeat collaborations with the same organizations
+Platform KPIs
+For the whole DZ-Bridge platform:
+total registered experts
+total registered organizations
+active users by month
+total projects submitted
+projects matched vs unmatched
+average time to match
+collaboration success rate
+project completion rate
+user satisfaction score
+NPS or recommendation score
+survey response rate
+dropout points in the funnel
+Project Success Status
+To report “which projects were successful,” the platform should define project lifecycle states clearly.
+Suggested statuses:
+Draft
+Submitted
+Under Review
+Matched
+Contact Initiated
+Confirmed
+In Progress
+Completed
+Cancelled
+Unsuccessful / No Match
+A project can be marked successful when:
+at least one expert-organization collaboration was confirmed, and
+the collaboration took place, and
+one or both parties submitted a completion confirmation
+We should also create success levels:
+Matched only
+Confirmed
+Executed
+Highly successful based on ratings and feedback
+Surveys and Feedback Module
+This is very important for trust and quality.
+A. Platform Experience Surveys
+Short surveys should be triggered at key moments:
+after registration
+after first project submission
+after first match
+after collaboration completion
+occasionally after 3–6 months of usage
+Example questions for organizations:
+Was it easy to submit a project?
+Did the platform help you find relevant experts?
+How satisfied are you with the match quality?
+How easy was it to communicate and organize the collaboration?
+Would you use DZ-Bridge again?
+What should be improved?
+Example questions for experts:
+Was profile creation easy?
+Were project recommendations relevant?
+Were organizations clear and responsive?
+Were logistics and expectations well communicated?
+Would you participate again?
+What can be improved?
+Use mostly:
+1–5 rating scales
+yes/no
+multiple choice
+one optional comment field
+We should keep each survey short: about 4 to 8 questions.
+B. Post-Collaboration Mutual Ratings
+After a collaboration, both sides should be able to rate each other privately.
+Organizations rate experts on:
+expertise relevance
+professionalism
+communication
+punctuality/reliability
+overall value
+Experts rate organizations on:
+clarity of project scope
+communication
+logistics support
+professionalism
+overall collaboration quality
+Each party can also add:
+short comments
+recommendation for future collaboration
+flags/issues if something went wrong
+C. Internal vs Public Visibility
+Important design choice:
+Most ratings/comments should remain internal at first
+visible to admins and used by the matching engine
+not publicly displayed until trust rules are mature
+This avoids early tension and encourages honest feedback.
+Admin Analytics Dashboard
+The platform should have a dedicated admin dashboard with sections such as:
+Dashboard Widgets
+new experts this period (month, quarter, year)
+new organizations this period (month, quarter, year)
+projects submitted this period (month, quarter, year)
+average time to first match
+match success rate
+completion rate
+average satisfaction by user type
+top expertise categories
+top requested cities
+flagged issues requiring review
+Reports
+projects by organization
+experts by expertise domain
+match conversion funnel
+collaboration outcomes by region
+survey analysis
+low-rated collaborations
+inactive users
+repeat usage and retention
+Filters
+date range
+city/region
+expertise domain
+organization type
+expert location: Algeria / diaspora
+project status
+UI-UX Additions for Support 
+Organization Dashboard
+We should add cards such as:
+Projects Submitted
+Projects Matched
+Successful Collaborations
+Average Time to Match
+Pending Feedback
+The platform should use a simple table:| Project | Date Submitted | Status | Matched Experts | Time to Match | Outcome |
+Expert dashboard
+We should add cards such as:
+Matches Received
+Invitations Accepted
+Collaborations Completed
+Average Rating
+Pending Surveys
+The platform should use a table:| Opportunity | Organization | Status | Date | City | Feedback Pending |
+Admin dashboard
+We should add visual panels:
+funnel from submission to completion
+monthly trends
+satisfaction heatmap
+top issues from comments
+alerts for unresolved complaints
+Recommended Workflow Additions
+Workflow: project analytics
+Organization submits project
+→ project status = Submitted
+→ matching starts
+→ first expert match recorded
+→ time-to-match metric calculated
+→ organization contacts expert
+→ collaboration confirmed
+→ project completed
+→ both parties receive survey + rating request
+→ analytics updated
+Workflow: survey trigger
+Key milestone reached
+→ survey notification sent
+→ user completes short form
+→ answers stored in analytics database
+→ satisfaction score and comments added to reports
+→ low scores trigger admin review if needed
+Data Model Additions
+We will likely need entities/tables such as:
+ActivityLog
+AuditEvent
+ProjectStatusHistory
+MatchEvent
+CollaborationOutcome
+SurveyTemplate
+SurveyResponse
+Rating
+Comment
+IssueFlag
+AnalyticsSnapshot
+This is better than trying to derive everything later from basic user and project tables.
+Privacy and Governance Rules
+Because this involves sensitive feedback and audit data, the platform should define:
+who can see what
+which comments are private
+retention period for logs
+anonymized reporting where appropriate
+consent for surveys
+moderation rules for abusive comments
+right to challenge or respond to a negative review
+This is especially important for DZ-Bridge to build long-term trust.
+Recommendation for MVP vs Later Phases
+MVP Features
+event/activity logging
+project status history
+basic admin reporting
+short post-collaboration surveys
+private ratings
+dashboard metrics for organizations and experts
+Phase 2 Features
+advanced analytics
+match quality scoring
+predictive recommendations
+churn/inactivity detection
+automated alerts for low satisfaction
+benchmarking by sector/region
+TECHNICAL ARCHITECTURE
+High-Level Architecture
+
+Frontend (Web Responsive UI)
+
+
+API Gateway / Backend (Application Layer)
+
+
+Core Services (Modular)
+
+
+Database + Analytics Layer
+
+
+External Services (Email, Storage, Auth)
+
+Frontend Layer
+Technology Options
+React (recommended) or Vue.js
+TailwindCSS or Material UI
+Responsive design (mobile-first)
+Key Features
+Role-based UI (Expert / Organization / Admin)
+Dashboard-driven navigation
+Real-time notifications (optional MVP+)
+Backend Architecture
+Recommended Stack
+Node.js (NestJS or Express) OR Python (Django/FastAPI)
+REST API (GraphQL optional later)
+Modular microservice-ready design
+Core Services
+Service
+Description
+Auth Service
+Registration, login, roles
+Profile Service
+Expert & organization profiles
+Project Service
+Project lifecycle
+Match Service
+Matching logic
+Collaboration Service
+Confirmations, lifecycle
+Analytics Service
+KPIs, metrics
+Survey Service
+Surveys & ratings
+Notification Service
+Emails, alerts
+Audit Service
+Logging & traceability
+11.4 Database Design
+Recommended DB
+PostgreSQL (relational, structured data)
+Optional: ElasticSearch (search optimization later)
+Core Tables
+Users
+id
+role (expert / org / admin)
+email
+password_hash
+status
+Profiles
+user_id
+bio
+expertise (JSON or relational)
+preferences
+Projects
+id
+org_id
+title
+description
+skills_required
+location
+start_date / end_date
+status
+Matches
+id
+project_id
+expert_id
+score
+status (pending, accepted, rejected)
+Collaborations
+id
+project_id
+expert_id
+org_id
+status
+completion_flag
+ActivityLog
+id
+user_id
+action_type
+entity_type
+entity_id
+timestamp
+metadata (JSON)
+Surveys
+id
+type
+trigger_event
+SurveyResponses
+id
+survey_id
+user_id
+responses (JSON)
+rating
+Ratings
+id
+from_user
+to_user
+project_id
+score
+comment
+
+API Design (Sample Endpoints)
+Auth
+POST /auth/register
+POST /auth/login
+Profiles
+GET /profile/me
+PUT /profile/update
+Projects
+POST /projects
+GET /projects
+GET /projects/:id
+Matching
+GET /matches/recommendations
+POST /matches/:id/accept
+POST /matches/:id/reject
+Collaboration
+POST /collaborations/confirm
+POST /collaborations/complete
+Analytics
+GET /analytics/dashboard
+GET /analytics/user/:id
+Surveys
+GET /surveys/active
+POST /surveys/submit
+Security & Compliance
+JWT authentication
+Role-based access control (RBAC)
+Data encryption (HTTPS + DB encryption for sensitive fields)
+Audit logs for all critical actions
+GDPR-style data control (optional but recommended)
+UX FLOWS & CLICKABLE PROTOTYPE 
+This section is designed so a UX designer can directly build a Figma prototype.
+12.1 Global Navigation Structure
+Top Navigation
+Logo (DZ-Bridge)
+Dashboard
+Projects / Opportunities
+Messages (future)
+Profile
+Notifications
+Sidebar (Role-based)
+Expert
+Dashboard
+Opportunities
+Availability
+Profile
+Feedback
+Organization
+Dashboard
+Projects
+Matches
+Events
+Profile
+Admin
+Dashboard
+Users
+Projects
+Analytics
+Feedback
+
+12.2 Key UX Flows
+Flow 1: Expert Onboarding
+Landing Page
+→ Sign Up
+→ Select Role (Expert)
+→ Profile Setup Wizard:
+  Step 1: Personal Info
+  Step 2: Expertise
+  Step 3: Preferences
+  Step 4: Upload CV
+→ Dashboard
+Flow 2: Organization Project Submission
+Dashboard
+→ "Submit Project"
+→ Multi-step Form:
+  Step 1: Basic Info
+  Step 2: Skills Required
+  Step 3: Logistics
+  Step 4: Review & Submit
+→ Confirmation Screen
+→ Matches Generated
+Flow 3: Match Interaction
+Expert Dashboard
+→ View Opportunity
+→ Accept / Decline
+→ If Accepted:
+  → Organization notified
+  → Contact enabled
+Flow 4: Collaboration Completion
+Project marked Completed
+→ Trigger survey
+→ Expert + Org submit feedback
+→ Ratings stored
+→ Dashboard updated
+12.3 Screen-Level UX Requirements
+Dashboard (All Users)
+KPI cards (top)
+Activity feed (recent actions)
+Action shortcuts (buttons)
+Project Submission Screen
+Progressive form (step-by-step)
+Save draft option
+Validation (required fields)
+Tooltips for clarity
+Match View Screen
+Expert cards:
+Name
+Expertise tags
+Match score
+Availability
+CTA: "Invite" / "View Profile"
+Feedback Screen
+Rating sliders (1–5)
+Optional comments
+Very short (≤ 2 min completion)
+UX Design Principles
+Minimal friction onboarding
+Clear CTAs (call-to-action)
+Progressive disclosure (avoid overload)
+Trust signals (verified profiles, structured data)
+Mobile-first responsive layout
+DEVELOPMENT ROADMAP & EFFORT ESTIMATES
+Phase 0: Planning & Design (4–6 weeks)
+Deliverables
+Final functional specs (this document)
+UX mockups (Figma)
+Technical architecture
+Data model
+Team
+Product lead
+UX designer
+Tech architect
+Phase 1: MVP Development (12–16 weeks)
+Scope - Core Features
+Authentication
+Expert & Organization profiles
+Project submission
+Matchmaking engine (basic rules)
+Dashboards (basic KPIs)
+Activity logging
+Surveys & ratings
+Estimated Effort
+Role
+Duration
+Backend Dev
+12–16 weeks
+Frontend Dev
+12–16 weeks
+UX/UI Designer
+6–8 weeks
+QA Tester
+6–8 weeks
+Phase 2: Beta & Optimization (8–10 weeks)
+Enhancements
+Improved matching algorithm
+Advanced analytics dashboards
+Notifications system
+Performance optimization
+UX refinements based on feedback
+Phase 3: Advanced Features (12+ weeks)
+Features
+AI-driven recommendations
+Smart matching scoring
+Reputation system (optional public ratings)
+Messaging/chat system
+Event promotion module
+Mobile app (optional)
+Success Milestones
+MVP launch
+First 100 experts onboarded
+First 50 projects submitted
+First successful collaborations completed
+Feedback loop operational
+Risks & Mitigation
+Risk
+Mitigation
+Low adoption
+Strong onboarding + partnerships
+Poor match quality
+Iterative matching improvements
+Incomplete profiles
+Enforce profile completeness
+Trust issues
+Private feedback + moderation
+Drop-off after signup
+Guided onboarding
+FINAL POSITIONING
+With these additions, DZ-Bridge becomes:
+Not just a matching platform
+But a data-driven collaboration ecosystem
+That continuously learns, improves, and builds trust

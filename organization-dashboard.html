@@ -1,0 +1,979 @@
+<!doctype html>
+<html lang="en" dir="ltr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Organization Dashboard · DZ-Bridge</title>
+<link rel="icon" type="image/png" href="DZ%20Bridge%20Favicon.png">
+<link rel="stylesheet" href="fonts/fonts.css">
+<script>
+(function(){
+  function getCookie(n){var v=document.cookie.match('(^|;) ?'+n+'=([^;]*)(;|$)');return v?decodeURIComponent(v[2]):null;}
+  var token=localStorage.getItem('dzb_token')||localStorage.getItem('dz_token')||getCookie('dzb_token')||getCookie('dz_token');
+  var user=localStorage.getItem('dzb_user')||sessionStorage.getItem('dzb-session')||getCookie('dz_user');
+  if(!token&&!user){
+    var next=encodeURIComponent(window.location.pathname+window.location.search+window.location.hash);
+    window.location.replace('/login.html?redirect='+next);
+  }
+})();
+</script>
+<style>
+:root{
+  --plum-900:#28011F;--plum-800:#3A0233;--plum-700:#4E0D45;--plum-600:#53224C;
+  --lav-100:#F5ECF5;--lav-200:#EEDDEE;--mist-300:#BEC3CA;
+  --gold-700:#9A7424;--gold-500:#C9A24B;--gold-100:#F6EDD8;
+  --n-0:#FFFFFF;--n-50:#FAF8F3;--n-100:#F2EFE9;--n-200:#E6E0D3;--n-400:#9AA39E;--n-600:#5D6B64;--n-900:#13201A;
+  --green-600:#2E7D4F;--green-50:#E7F3EC;--amber-600:#B26B12;--amber-50:#FBF0DC;--red-600:#B42318;--red-50:#FCE9E7;
+  --brand:var(--plum-800);--brand-hover:var(--plum-700);--brand-pressed:var(--plum-900);
+  --bg-page:var(--n-50);--bg-surface:var(--n-0);--bg-subtle:var(--n-100);--bg-inverse:var(--plum-800);
+  --text-primary:var(--n-900);--text-secondary:var(--n-600);--text-muted:var(--n-400);--text-brand:var(--plum-800);
+  --text-on-brand:var(--n-0);--text-accent:var(--gold-700);
+  --border:var(--n-200);--border-strong:var(--n-400);--border-focus:var(--gold-500);
+  --accent-gold:var(--gold-500);--accent-gold-subtle:var(--gold-100);--accent-lavender:var(--lav-200);--accent-lavender-subtle:var(--lav-100);
+  --success:var(--green-600);--success-subtle:var(--green-50);--warning:var(--amber-600);--warning-subtle:var(--amber-50);--error:var(--red-600);--error-subtle:var(--red-50);
+  --sans:"DM Sans","Segoe UI",system-ui,-apple-system,Roboto,"Helvetica Neue",Arial,sans-serif;
+  --serif:"Fraunces","Iowan Old Style","Palatino Linotype",Palatino,Georgia,serif;
+  --mono:"DM Mono",ui-monospace,"SFMono-Regular",Menlo,Consolas,monospace;
+  --arabic:"Cairo","Noto Sans Arabic","Segoe UI","Geeza Pro",Tahoma,sans-serif;
+  --r:18px;
+}
+:root[data-theme="dark"]{
+  color-scheme:dark;
+  --bg-page:#160511;--bg-surface:#21091B;--bg-subtle:#2D1026;--bg-inverse:#0E030B;
+  --text-primary:#F5ECF5;--text-secondary:#BEC3CA;--text-muted:#8C8590;--text-brand:#EEDDEE;--text-accent:#C9A24B;
+  --border:#3A1D33;--border-strong:#6B4A63;
+  --brand:#C9A24B;--brand-hover:#D9B868;--brand-pressed:#9A7424;--text-on-brand:#28011F;
+  --accent-lavender:#3A1D33;--accent-lavender-subtle:#2D1026;--accent-gold-subtle:#33240C;
+  --success:#5CC489;--success-subtle:#12301F;--warning:#F0A848;--warning-subtle:#3B2A10;--error:#F97066;--error-subtle:#3A1214;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;min-height:100vh;background:var(--bg-page);color:var(--text-primary);font:400 15px/22px var(--sans);-webkit-font-smoothing:antialiased}
+:root[lang="ar"] body{font:400 15px/26px var(--arabic)}
+:root[lang="ar"] *{letter-spacing:0!important}
+a{color:inherit;text-decoration:none}
+button,input,select,textarea{font:inherit;color:inherit}
+svg{display:block}
+[hidden]{display:none!important}
+:focus-visible{outline:3px solid color-mix(in srgb,var(--border-focus) 65%,transparent);outline-offset:2px;border-radius:6px}
+
+/* Top Navigation Bar */
+.top{position:sticky;top:0;z-index:40;display:flex;align-items:center;gap:16px;height:64px;padding:0 20px;background:color-mix(in srgb,var(--bg-surface) 92%,transparent);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-bottom:1px solid var(--border)}
+.brand{display:flex;align-items:center;gap:10px;font:600 18px/24px var(--sans);letter-spacing:-.01em;flex:none;width:240px}
+.mark{display:grid;place-items:center;width:32px;height:32px;border-radius:8px;background:var(--plum-800);color:var(--n-0);font:600 15px/15px var(--serif)}
+:root[data-theme="dark"] .mark{background:var(--brand);color:var(--text-on-brand)}
+.burger{display:none;place-items:center;width:40px;height:40px;margin-inline-start:-8px;border:0;border-radius:10px;background:none;cursor:pointer}
+.burger:hover{background:var(--bg-subtle)}
+.gsearch{position:relative;flex:1;max-width:500px;margin:0 auto}
+.gsearch svg{position:absolute;top:50%;inset-inline-start:13px;transform:translateY(-50%);color:var(--text-muted)}
+.gsearch input{width:100%;height:40px;padding:0 14px;padding-inline-start:38px;border:1px solid var(--border);border-radius:12px;background:var(--bg-subtle)}
+.gsearch input:focus{outline:none;border-color:var(--brand);background:var(--bg-surface);box-shadow:0 0 0 3px color-mix(in srgb,var(--border-focus) 35%,transparent)}
+.tacts{display:flex;align-items:center;gap:10px;flex:none}
+.lang{position:relative}
+.lang-btn{display:flex;align-items:center;gap:9px;height:40px;padding:0 10px;border:1px solid transparent;border-radius:999px;background:transparent;cursor:pointer}
+.lang-btn:hover{border-color:var(--border);background:var(--bg-surface)}
+#langCode{font:500 14px/20px var(--sans)}
+.flag{display:block;width:22px;height:15px;flex:none;border-radius:2px;box-shadow:0 0 0 1px rgba(19,32,26,.12)}
+.lang-menu{position:absolute;top:calc(100% + 8px);inset-inline-end:0;min-width:190px;margin:0;padding:8px;list-style:none;background:var(--bg-surface);border:1px solid var(--border);border-radius:14px;box-shadow:0 12px 32px -12px rgba(58,2,51,.18);opacity:0;transform:translateY(-6px);pointer-events:none;transition:opacity .16s,transform .16s;z-index:50}
+.lang.open .lang-menu{opacity:1;transform:none;pointer-events:auto}
+.lang-menu button{display:flex;align-items:center;gap:12px;width:100%;padding:9px 12px;border:0;border-radius:9px;background:transparent;text-align:start;cursor:pointer}
+.lang-menu button:hover,.lang-menu button:focus-visible{background:var(--bg-subtle);outline:none}
+.lang-menu [aria-checked="true"]{background:var(--bg-subtle)}
+.lang-menu .name{flex:1;font:400 16px/24px var(--sans)}
+.lang-menu .name[lang="ar"]{font-family:var(--arabic)}
+.lang-menu .code{font:400 14px/20px var(--sans);color:var(--text-muted)}
+.ibtn{position:relative;display:grid;place-items:center;width:40px;height:40px;border:0;border-radius:999px;background:transparent;cursor:pointer;color:var(--text-primary)}
+.ibtn:hover{background:var(--bg-subtle)}
+.theme-btn .moon{display:none}
+:root[data-theme="dark"] .theme-btn .sun{display:none}
+:root[data-theme="dark"] .theme-btn .moon{display:block}
+.dot{position:absolute;top:8px;inset-inline-end:8px;width:9px;height:9px;border-radius:50%;background:var(--error);border:2px solid var(--bg-surface)}
+.user{position:relative}
+.ubtn{display:flex;align-items:center;gap:10px;padding:4px;padding-inline-end:10px;border:0;border-radius:999px;background:none;text-align:start;cursor:pointer}
+.ubtn:hover{background:var(--bg-subtle)}
+.av{display:grid;place-items:center;flex:none;width:34px;height:34px;border-radius:50%;background:var(--accent-lavender);color:var(--text-brand);font:600 12px/1 var(--mono)}
+.av.sq{border-radius:10px;background:var(--bg-subtle);color:var(--text-secondary)}
+.av.lg{width:46px;height:46px;font-size:14px}
+.ubtn b{display:block;font-weight:600;font-size:14px;line-height:18px;max-width:160px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.ubtn small{display:block;font-size:11.5px;line-height:15px;color:var(--text-secondary)}
+.menu{position:absolute;top:calc(100% + 8px);inset-inline-end:0;min-width:210px;margin:0;padding:6px;list-style:none;background:var(--bg-surface);border:1px solid var(--border);border-radius:14px;box-shadow:0 14px 32px -14px rgba(40,1,31,.3);z-index:50}
+.menu a,.menu button{display:flex;align-items:center;gap:10px;width:100%;padding:9px 12px;border:0;border-radius:9px;background:none;font-size:14px;text-align:start;cursor:pointer}
+.menu a:hover,.menu button:hover{background:var(--bg-subtle)}
+
+/* Shell Layout */
+.shell{display:grid;grid-template-columns:250px minmax(0,1fr);min-height:calc(100vh - 64px)}
+.side{position:sticky;top:64px;display:flex;flex-direction:column;height:calc(100vh - 64px);padding:18px 12px;border-inline-end:1px solid var(--border);background:var(--bg-surface)}
+.nav{display:grid;gap:3px;margin:0;padding:0;list-style:none}
+.nav a{display:flex;align-items:center;gap:12px;height:42px;padding:0 12px;border-radius:11px;font-weight:500;font-size:14.5px;color:var(--text-secondary)}
+.nav a:hover{background:var(--bg-subtle);color:var(--text-primary)}
+.nav a[aria-current="page"]{background:var(--accent-lavender-subtle);color:var(--text-brand);font-weight:600}
+.nav a[aria-current="page"] svg{color:var(--text-brand)}
+.nav .badge{margin-inline-start:auto;min-width:22px;height:20px;padding:0 6px;border-radius:999px;background:var(--bg-subtle);font:600 11.5px/20px var(--sans);text-align:center;color:var(--text-secondary)}
+.nav a[aria-current="page"] .badge,.nav .badge.hot{background:var(--brand);color:var(--text-on-brand)}
+.nav hr{border:0;border-top:1px solid var(--border);margin:8px 0}
+.sfoot{margin-top:auto;padding:12px 10px 4px;font-size:12.5px;color:var(--text-muted)}
+.sfoot a:hover{color:var(--text-secondary);text-decoration:underline}
+
+/* Main View */
+main{padding:24px clamp(16px,3vw,36px) 60px}
+.view{max-width:1200px;margin:0 auto}
+
+/* Header greeting & action button */
+.dash-head{display:flex;align-items:flex-start;justify-content:space-between;gap:16px;margin-bottom:26px;flex-wrap:wrap}
+.dash-head h1{margin:0 0 6px;font:600 clamp(22px,2.4vw,28px)/1.2 var(--sans);letter-spacing:-.015em}
+.dash-head p{margin:0;color:var(--text-secondary);font-size:15px}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;height:44px;padding:0 20px;border-radius:12px;font-weight:600;font-size:14.5px;cursor:pointer;border:0;transition:background .15s,transform .1s,box-shadow .15s}
+.btn:active{transform:scale(.98)}
+.btn-primary{background:var(--brand);color:var(--text-on-brand)}
+.btn-primary:hover{background:var(--brand-hover)}
+.btn-secondary{background:var(--bg-subtle);color:var(--text-primary);border:1px solid var(--border)}
+.btn-secondary:hover{border-color:var(--border-strong)}
+.btn-sm{height:36px;padding:0 14px;font-size:13px;border-radius:10px}
+.btn-ghost{background:transparent;color:var(--text-secondary)}
+.btn-ghost:hover{background:var(--bg-subtle);color:var(--text-primary)}
+
+/* KPI Cards Grid */
+.kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:14px;margin-bottom:28px}
+.kpi{padding:18px 20px;border:1px solid var(--border);border-radius:var(--r);background:var(--bg-surface);box-shadow:0 8px 24px -16px rgba(40,1,31,.08)}
+.kpi .num{font:700 30px/1.1 var(--sans);letter-spacing:-.02em;color:var(--text-primary);margin-bottom:4px}
+.kpi .lbl{font-size:13.5px;font-weight:600;color:var(--text-secondary);margin-bottom:6px}
+.kpi .sub{font-size:12px;color:var(--text-muted);display:flex;align-items:center;gap:5px}
+.kpi .tag{display:inline-block;padding:2px 7px;border-radius:6px;font-size:11px;font-weight:600;background:var(--success-subtle);color:var(--success)}
+
+/* Section Card */
+.card{margin-bottom:26px;border:1px solid var(--border);border-radius:var(--r);background:var(--bg-surface);overflow:hidden;box-shadow:0 8px 24px -16px rgba(40,1,31,.06)}
+.card-head{display:flex;align-items:center;justify-content:space-between;padding:18px 22px;border-bottom:1px solid var(--border)}
+.card-head h2{margin:0;font:600 17px/22px var(--sans)}
+.card-head p{margin:2px 0 0;font-size:13.5px;color:var(--text-secondary)}
+
+/* Table */
+.tbl-wrap{overflow-x:auto}
+table.tbl{width:100%;border-collapse:collapse;text-align:start;font-size:14px}
+table.tbl th{padding:12px 18px;background:var(--bg-subtle);color:var(--text-secondary);font-weight:600;font-size:12.5px;text-transform:uppercase;letter-spacing:.04em;border-bottom:1px solid var(--border)}
+table.tbl td{padding:14px 18px;border-bottom:1px solid var(--border);vertical-align:middle}
+table.tbl tr:last-child td{border-bottom:0}
+table.tbl tr:hover td{background:color-mix(in srgb,var(--bg-subtle) 40%,transparent)}
+
+/* Badges */
+.badge-st{display:inline-flex;align-items:center;gap:6px;padding:4px 10px;border-radius:999px;font-size:12px;font-weight:600;font-family:var(--sans)}
+.badge-st::before{content:"";width:6px;height:6px;border-radius:50%}
+.st-submitted{background:var(--lav-100);color:var(--plum-700)}
+.st-submitted::before{background:var(--plum-600)}
+.st-matched{background:var(--accent-gold-subtle);color:var(--gold-700)}
+.st-matched::before{background:var(--gold-500)}
+.st-contact{background:var(--amber-50);color:var(--amber-600)}
+.st-contact::before{background:var(--amber-600)}
+.st-confirmed{background:var(--green-50);color:var(--green-600)}
+.st-confirmed::before{background:var(--green-600)}
+.st-completed{background:var(--bg-subtle);color:var(--text-muted)}
+.st-completed::before{background:var(--n-400)}
+
+/* Experts Cards Grid */
+.exp-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(330px,1fr));gap:16px;padding:20px}
+.exp-card{border:1px solid var(--border);border-radius:14px;background:var(--bg-page);padding:18px;display:flex;flex-direction:column;gap:14px;transition:border-color .15s,box-shadow .15s}
+.exp-card:hover{border-color:var(--brand);box-shadow:0 8px 24px -12px rgba(40,1,31,.15)}
+.exp-top{display:flex;gap:12px;align-items:center}
+.exp-score{margin-inline-start:auto;text-align:end}
+.exp-score .val{font:700 20px/1 var(--sans);color:var(--success)}
+.exp-score small{display:block;font-size:11px;color:var(--text-muted);text-transform:uppercase}
+.exp-tags{display:flex;flex-wrap:wrap;gap:6px}
+.exp-tags span{padding:3px 8px;border-radius:6px;background:var(--bg-surface);border:1px solid var(--border);font-size:11.5px;color:var(--text-secondary)}
+.exp-details{font-size:13px;line-height:19px;color:var(--text-secondary);display:grid;gap:6px}
+
+/* Two-Panel Matching View */
+.match-view{display:grid;grid-template-columns:320px minmax(0,1fr);gap:20px}
+.match-list{display:grid;gap:10px}
+.match-item{padding:14px;border:1px solid var(--border);border-radius:12px;background:var(--bg-surface);cursor:pointer;transition:border-color .15s}
+.match-item.active,.match-item:hover{border-color:var(--brand);background:var(--accent-lavender-subtle)}
+
+/* Modals */
+.dlg{border:0;border-radius:18px;padding:0;max-width:620px;width:calc(100vw - 32px);background:var(--bg-surface);color:var(--text-primary);box-shadow:0 24px 64px -16px rgba(40,1,31,.45)}
+.dlg::backdrop{background:rgba(22,5,17,.6);backdrop-filter:blur(4px)}
+.dlg-head{display:flex;align-items:center;justify-content:space-between;padding:20px 24px;border-bottom:1px solid var(--border)}
+.dlg-head h2{margin:0;font:600 19px/24px var(--sans)}
+.dlg-body{padding:22px 24px;max-height:75vh;overflow-y:auto}
+.dlg-foot{display:flex;align-items:center;justify-content:flex-end;gap:12px;padding:16px 24px;border-top:1px solid var(--border)}
+.form-group{margin-bottom:18px}
+.form-group label{display:block;margin-bottom:6px;font-weight:600;font-size:13.5px}
+.form-group .hint{font-size:12px;color:var(--text-muted);margin-top:4px}
+.form-ctl{width:100%;height:42px;padding:0 14px;border:1px solid var(--border-strong);border-radius:10px;background:var(--bg-surface);font-size:14px}
+textarea.form-ctl{height:auto;min-height:90px;padding:10px 14px}
+.form-ctl:focus{outline:none;border-color:var(--brand);box-shadow:0 0 0 3px color-mix(in srgb,var(--border-focus) 35%,transparent)}
+.form-row{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
+
+/* Toast */
+.toast{position:fixed;bottom:24px;inset-inline-start:50%;transform:translateX(-50%) translateY(100px);display:flex;align-items:center;gap:10px;padding:12px 20px;border-radius:999px;background:var(--plum-900);color:var(--n-0);font-size:14px;font-weight:500;box-shadow:0 12px 32px rgba(40,1,31,.35);z-index:90;transition:transform .25s ease,opacity .25s ease;opacity:0;pointer-events:none}
+.toast.show{transform:translateX(-50%) translateY(0);opacity:1;pointer-events:auto}
+
+@media(max-width:960px){
+  .shell{grid-template-columns:1fr}
+  .side{display:none}
+  .burger{display:grid}
+}
+@media(max-width:768px){
+  .match-view{grid-template-columns:1fr}
+  .form-row{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+
+<header class="top">
+  <button class="burger" id="burger" type="button" aria-label="Toggle navigation">
+    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+  </button>
+  <a class="brand" href="/" aria-label="DZ-Bridge Portal">
+    <span class="mark">DZ</span>
+    <span>DZ-Bridge · Org</span>
+  </a>
+  <div class="gsearch">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+    <input type="search" id="gq" placeholder="Search projects, diaspora experts, wilayas..." aria-label="Global search">
+  </div>
+  <div class="tacts">
+    <div class="lang" id="lang">
+      <button class="lang-btn" id="langBtn" type="button" aria-haspopup="menu" aria-expanded="false" aria-controls="langMenu">
+        <span id="langFlag"></span><span id="langCode">EN</span>
+      </button>
+      <ul class="lang-menu" id="langMenu" role="menu">
+        <li role="none"><button type="button" role="menuitemradio" data-lang="fr" aria-checked="false"><svg class="flag" viewBox="0 0 30 20"><rect width="10" height="20" fill="#002395"/><rect x="10" width="10" height="20" fill="#fff"/><rect x="20" width="10" height="20" fill="#ED2939"/></svg><span class="name">Français</span><span class="code">FR</span></button></li>
+        <li role="none"><button type="button" role="menuitemradio" data-lang="en" aria-checked="true"><svg class="flag" viewBox="0 0 60 30"><clipPath id="ukc"><path d="M0 0h60v30H0z"/></clipPath><g clip-path="url(#ukc)"><path d="M0 0v30h60V0z" fill="#012169"/><path d="M0 0l60 30m0-30L0 30" stroke="#fff" stroke-width="6"/><path d="M30 0v30M0 15h60" stroke="#fff" stroke-width="10"/><path d="M30 0v30M0 15h60" stroke="#C8102E" stroke-width="6"/></g></svg><span class="name">English</span><span class="code">EN</span></button></li>
+        <li role="none"><button type="button" role="menuitemradio" data-lang="ar" aria-checked="false"><svg class="flag" viewBox="0 0 30 20"><rect width="15" height="20" fill="#006233"/><rect x="15" width="15" height="20" fill="#fff"/><circle cx="15" cy="10" r="5" fill="#D21034"/><circle cx="16.3" cy="10" r="4" fill="#fff"/></svg><span class="name" lang="ar">العربية</span><span class="code">AR</span></button></li>
+      </ul>
+    </div>
+    <button class="ibtn theme-btn" id="themeBtn" type="button" aria-pressed="false" aria-label="Toggle theme">
+      <svg class="sun" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></svg>
+      <svg class="moon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+    </button>
+    <a class="ibtn" href="#messages" id="msgIcon" aria-label="Messages"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg><span class="dot" id="msgDot" hidden></span></a>
+    <div class="user" id="user">
+      <button class="ubtn" id="ubtn" type="button" aria-haspopup="menu" aria-expanded="false">
+        <span class="av" id="orgAv">ESI</span>
+        <span><b id="orgName">ESI Algiers</b><small data-i18n="orgBadge">Organization</small></span>
+      </button>
+      <ul class="menu" id="umenu" role="menu" hidden>
+        <li role="none"><a role="menuitem" href="#profile" data-i18n="orgProfile">Institution Profile</a></li>
+        <li role="none"><a role="menuitem" href="/" data-i18n="portalHome">Public Portal</a></li>
+        <li role="none"><a role="menuitem" href="#" id="logoutLink" data-i18n="logout">Log out</a></li>
+      </ul>
+    </div>
+  </div>
+</header>
+
+<div class="shell">
+  <nav class="side" id="side" aria-label="Organization Navigation">
+    <ul class="nav">
+      <li><a href="#dashboard" data-nav="dashboard" aria-current="page"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="7" height="9" rx="1.5"/><rect x="14" y="3" width="7" height="5" rx="1.5"/><rect x="3" y="15" width="7" height="6" rx="1.5"/><rect x="14" y="11" width="7" height="10" rx="1.5"/></svg><span data-i18n="navDash">Dashboard</span></a></li>
+      <li><a href="#projects" data-nav="projects"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg><span data-i18n="navProjects">Projects</span><span class="badge" id="bProj">3</span></a></li>
+      <li><a href="#experts" data-nav="experts"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg><span data-i18n="navExperts">Matched Scholars</span><span class="badge hot" id="bExp">8</span></a></li>
+      <li><a href="#messages" data-nav="messages"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg><span data-i18n="navMessages">Messages</span></a></li>
+      <li><a href="#feedback" data-nav="feedback"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg><span data-i18n="navFeedback">Evaluations & Ratings</span></a></li>
+      <li><hr></li>
+      <li><a href="#profile" data-nav="profile"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg><span data-i18n="navSettings">Institution Settings</span></a></li>
+    </ul>
+    <div class="sfoot">
+      <a href="#" data-i18n="helpCenter">MESRS Support</a> · <a href="#" data-i18n="privacyPolicy">Sovereign Protocol</a>
+    </div>
+  </nav>
+  
+  <main>
+    <div class="view" id="view">
+      <!-- Dynamic view injected here -->
+    </div>
+  </main>
+</div>
+
+<!-- Modal: Submit Project -->
+<dialog class="dlg" id="dlgSubmitProject">
+  <div class="dlg-head">
+    <h2 data-i18n="submitTitle">Submit Academic / Research Project</h2>
+    <button class="ibtn" type="button" onclick="closeSubmitDlg()" aria-label="Close">✕</button>
+  </div>
+  <form id="projectForm" onsubmit="handleProjectSubmit(event)">
+    <div class="dlg-body">
+      <div class="form-group">
+        <label for="pTitle" data-i18n="lblTitle">Project Title *</label>
+        <input class="form-ctl" type="text" id="pTitle" required placeholder="e.g. Masterclass on Semiconductor Packaging & Microchips" value="Advanced Masterclass on Semiconductor Heterogeneous Integration">
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label for="pDomain" data-i18n="lblDomain">Discipline / Domain *</label>
+          <select class="form-ctl" id="pDomain" required>
+            <option value="Semiconductors & Microelectronics" selected>Semiconductors & Microelectronics</option>
+            <option value="Artificial Intelligence & Data Science">Artificial Intelligence & Data Science</option>
+            <option value="Clean Energy & Green Hydrogen">Clean Energy & Green Hydrogen</option>
+            <option value="Biotechnology & Health Sciences">Biotechnology & Health Sciences</option>
+            <option value="Advanced Materials & Nanotechnology">Advanced Materials & Nanotechnology</option>
+            <option value="Robotics & Cyber-physical Systems">Robotics & Cyber-physical Systems</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="pWilaya" data-i18n="lblWilaya">Host Wilaya / Campus *</label>
+          <select class="form-ctl" id="pWilaya" required>
+            <option value="16 · Alger" selected>16 · Alger (ESI Oued Smar)</option>
+            <option value="31 · Oran">31 · Oran (USTO-MB)</option>
+            <option value="25 · Constantine">25 · Constantine (Mentouri)</option>
+            <option value="07 · Biskra">07 · Biskra (Mohamed Khider)</option>
+            <option value="19 · Sétif">19 · Sétif (Ferhat Abbas)</option>
+            <option value="30 · Ouargla">30 · Ouargla (Kasdi Merbah)</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label for="pStartDate" data-i18n="lblStartDate">Expected Start Date *</label>
+          <input class="form-ctl" type="date" id="pStartDate" required value="2026-11-15">
+        </div>
+        <div class="form-group">
+          <label for="pEndDate" data-i18n="lblEndDate">Expected End Date *</label>
+          <input class="form-ctl" type="date" id="pEndDate" required value="2026-11-22">
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="pFormat" data-i18n="lblFormat">Delivery Format *</label>
+        <select class="form-ctl" id="pFormat">
+          <option value="In-person (On Campus)">In-person (On Campus in Algeria)</option>
+          <option value="Hybrid (Seminar on campus + Remote co-supervision)">Hybrid (Seminar on campus + Remote co-supervision)</option>
+          <option value="Remote Masterclass">Remote Masterclass</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="pDeliverables" data-i18n="lblDeliverables">Key Objectives & Deliverables</label>
+        <textarea class="form-ctl" id="pDeliverables" placeholder="Describe the expected lectures, doctoral co-direction, or curriculum review.">3-day intensive workshop for 45 PhD and engineering students, syllabus curriculum advisory for the new Microelectronics department, and co-direction agreement with Adeia/Silicon Valley.</textarea>
+      </div>
+      <div class="form-group">
+        <label data-i18n="lblLogistics">Institutional Logistics Covered by Host</label>
+        <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-top:6px;font-size:13.5px;">
+          <label style="display:flex;align-items:center;gap:8px;font-weight:400;cursor:pointer"><input type="checkbox" id="lgFlight" checked> Round-trip International Flight</label>
+          <label style="display:flex;align-items:center;gap:8px;font-weight:400;cursor:pointer"><input type="checkbox" id="lgHotel" checked> 4/5-star Hotel Accommodation</label>
+          <label style="display:flex;align-items:center;gap:8px;font-weight:400;cursor:pointer"><input type="checkbox" id="lgTransport" checked> Ground Transport & Logistics</label>
+          <label style="display:flex;align-items:center;gap:8px;font-weight:400;cursor:pointer"><input type="checkbox" id="lgHonorarium" checked> Academic Honorarium (MESRS standard)</label>
+        </div>
+      </div>
+    </div>
+    <div class="dlg-foot">
+      <button class="btn btn-secondary" type="button" onclick="closeSubmitDlg()" data-i18n="btnCancel">Cancel</button>
+      <button class="btn btn-primary" type="submit" data-i18n="btnSubmit">Submit for Diaspora Matching</button>
+    </div>
+  </form>
+</dialog>
+
+<!-- Modal: Contact Expert -->
+<dialog class="dlg" id="dlgContact">
+  <div class="dlg-head">
+    <h2>Initiate Contact with Diaspora Scholar</h2>
+    <button class="ibtn" type="button" onclick="document.getElementById('dlgContact').close()">✕</button>
+  </div>
+  <div class="dlg-body">
+    <p style="margin-top:0;font-size:14px;color:var(--text-secondary);">Send an official invitation and invitation briefing timeslot to <b id="contactExpName">Prof. Belgacem Haba</b>.</p>
+    <div class="form-group">
+      <label>Invitation Note / Message</label>
+      <textarea class="form-ctl" id="contactNote">Greetings Professor. On behalf of ESI Algiers and the MESRS, we are delighted to invite you for an academic masterclass and research mentorship. Please let us know if our November dates align with your Algeria schedule.</textarea>
+    </div>
+    <div class="form-group">
+      <label>Proposed Virtual Briefing Time</label>
+      <input class="form-ctl" type="datetime-local" id="contactTime" value="2026-11-02T15:00">
+    </div>
+  </div>
+  <div class="dlg-foot">
+    <button class="btn btn-secondary" type="button" onclick="document.getElementById('dlgContact').close()">Cancel</button>
+    <button class="btn btn-primary" type="button" onclick="sendContactInvitation()">Send Official Invitation</button>
+  </div>
+</dialog>
+
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script>
+(function(){
+'use strict';
+function $(s,r){return (r||document).querySelector(s);}
+function $$(s,r){return Array.prototype.slice.call((r||document).querySelectorAll(s));}
+function esc(s){return String(s==null?'':s).replace(/[&<>"']/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c];});}
+
+/* ---------- State & Organization Context ---------- */
+var STORE_KEY = 'dzb-org-state-v1';
+var ORG = {
+  id: 'usr-esi-2001',
+  name: "ESI Algiers (École Nationale Supérieure d'Informatique)",
+  short: "ESI Algiers",
+  initials: "ESI",
+  type: "public_university",
+  wilaya: "16",
+  city: "Algiers",
+  rating: "4.9",
+  projectsCount: 3,
+  matchesCount: 8,
+  collabsCount: 2
+};
+
+var PROJECTS = [
+  {
+    code: 'PRJ-ESI-2026-01',
+    title: 'Advanced Masterclass on Semiconductor Heterogeneous Integration',
+    domain: 'Semiconductors & Microelectronics',
+    wilaya: '16 · Alger',
+    dates: '15 Nov – 22 Nov 2026',
+    status: 'matched',
+    matches: 3,
+    topMatch: 'Prof. Belgacem Haba (98%)',
+    deliverables: '3-day doctoral workshop, microelectronics syllabus audit, student mentorship.'
+  },
+  {
+    code: 'PRJ-ESI-2026-02',
+    title: 'National Green Hydrogen Energy Optimization Grid Modelling',
+    domain: 'Clean Energy & Green Hydrogen',
+    wilaya: '16 · Alger',
+    dates: '05 Dec – 12 Dec 2026',
+    status: 'contact_initiated',
+    matches: 2,
+    topMatch: 'Dr. Amina Benali (95%)',
+    deliverables: 'Electrolysis simulation algorithms, keynote lecture for MESRS engineers.'
+  },
+  {
+    code: 'PRJ-ESI-2026-03',
+    title: 'Autonomous Robotics & Edge AI for Agricultural Sahara Monitoring',
+    domain: 'Robotics & Cyber-physical Systems',
+    wilaya: '30 · Ouargla / 16 · Alger',
+    dates: '10 Jan – 18 Jan 2027',
+    status: 'confirmed',
+    matches: 4,
+    topMatch: 'Dr. Karim Mansouri (92%)',
+    deliverables: 'Field deployment of edge AI IoT drone prototypes, research paper outline.'
+  }
+];
+
+var SCHOLARS = [
+  {
+    id: 'usr-haba-1001',
+    name: 'Prof. Belgacem Haba',
+    initials: 'BH',
+    affiliation: 'Adeia / Silicon Valley (500+ US Patents)',
+    specialty: 'Semiconductors & AI Hardware',
+    matchScore: 98,
+    location: 'San Jose, CA · United States',
+    diaspora: true,
+    tags: ['Semiconductors', 'Microchip Packaging', 'Hardware Architecture', 'Deep Learning'],
+    visitWindow: 'November 2026 (Algiers / Biskra)'
+  },
+  {
+    id: 'usr-benali-1002',
+    name: 'Dr. Amina Benali',
+    initials: 'AB',
+    affiliation: 'MIT Energy Initiative / Cambridge',
+    specialty: 'Green Hydrogen & Clean Energy',
+    matchScore: 95,
+    location: 'Cambridge, MA · United States',
+    diaspora: true,
+    tags: ['Green Hydrogen', 'Electrolysis', 'Renewable Grids', 'Electrochemistry'],
+    visitWindow: 'December 2026 (Algiers)'
+  },
+  {
+    id: 'demo@dz-bridge.dz',
+    name: 'Dr. Karim Mansouri',
+    initials: 'KM',
+    affiliation: 'Polytechnique Montréal / AI Robotics Lab',
+    specialty: 'Robotics & Computer Vision',
+    matchScore: 92,
+    location: 'Montreal · Canada',
+    diaspora: true,
+    tags: ['Robotics', 'Computer Vision', 'Edge AI', 'Smart Agriculture'],
+    visitWindow: 'January 2027 (Algiers / Ouargla)'
+  }
+];
+
+/* ---------- Toast Notification ---------- */
+var toastTimer;
+function toast(msg){
+  var t = $('#toast');
+  if(!t) return;
+  t.textContent = msg;
+  t.classList.add('show');
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(function(){ t.classList.remove('show'); }, 3800);
+}
+
+/* ---------- i18n & Localization ---------- */
+var lang = 'en';
+var I18N = {
+  en: {
+    navDash: 'Dashboard', navProjects: 'Projects', navExperts: 'Matched Scholars', navMessages: 'Messages', navFeedback: 'Evaluations & Ratings', navSettings: 'Institution Settings',
+    submitNew: 'Submit New Project', welcomeHead: 'Welcome back, ', welcomeSub: 'You have 3 active projects and 8 candidate diaspora scholars waiting for collaboration review.',
+    kpiProj: 'Projects Submitted', kpiActive: '3 Active · 1 Confirmed',
+    kpiScholars: 'Matched Scholars', kpiAvgCompat: '95% Avg. Compatibility',
+    kpiCollab: 'Confirmed Collaborations', kpiUpcoming: '2 Upcoming Visits',
+    kpiMatchTime: 'Avg. Match Turnaround', kpiSla: '< 48h (SLA Standard)',
+    kpiRating: 'Institution Rating', kpiFromScholars: 'From 6 Visiting Experts',
+    activeProjects: 'Active Academic Projects', viewAll: 'View All', code: 'Project Code', domain: 'Domain & Wilaya', dates: 'Schedule', status: 'Status', matches: 'Matched Experts', action: 'Actions',
+    recommendedScholars: 'High-Compatibility Diaspora Scholars', initiateContact: 'Initiate Contact', viewMatches: 'View Matches', confirmProtocol: 'Confirm Protocol'
+  },
+  fr: {
+    navDash: 'Tableau de bord', navProjects: 'Projets', navExperts: 'Experts Associés', navMessages: 'Messagerie', navFeedback: 'Évaluations', navSettings: 'Paramètres Institution',
+    submitNew: 'Soumettre un Projet', welcomeHead: 'Bienvenue, ', welcomeSub: 'Vous avez 3 projets actifs et 8 correspondances avec des experts de la diaspora algérienne.',
+    kpiProj: 'Projets Soumis', kpiActive: '3 Actifs · 1 Confirmé',
+    kpiScholars: 'Experts Recommandés', kpiAvgCompat: '95% Compatibilité moy.',
+    kpiCollab: 'Collaborations Confirmées', kpiUpcoming: '2 Visites programmées',
+    kpiMatchTime: 'Délai de Correspondance', kpiSla: '< 48h (Conforme SLA)',
+    kpiRating: 'Note Institutionnelle', kpiFromScholars: 'Par 6 chercheurs invités',
+    activeProjects: 'Projets Académiques en Cours', viewAll: 'Voir Tout', code: 'Code Projet', domain: 'Discipline & Wilaya', dates: 'Calendrier', status: 'Statut', matches: 'Experts Appariés', action: 'Actions',
+    recommendedScholars: 'Chercheurs de la Diaspora Recommandés', initiateContact: 'Initier le Contact', viewMatches: 'Voir les Profils', confirmProtocol: 'Confirmer le Protocole'
+  },
+  ar: {
+    navDash: 'لوحة القيادة', navProjects: 'المشاريع', navExperts: 'الخبراء المطابقون', navMessages: 'الرسائل', navFeedback: 'التقييمات', navSettings: 'إعدادات المؤسسة',
+    submitNew: 'تقديم مشروع جديد', welcomeHead: 'مرحبًا بك، ', welcomeSub: 'لديك 3 مشاريع نشطة و 8 مطابقات مع علماء وخبراء الكفاءات الوطنية بالخارج.',
+    kpiProj: 'المشاريع المقدمة', kpiActive: '3 نشطة · 1 مؤكدة',
+    kpiScholars: 'الخبراء المطابقون', kpiAvgCompat: '95% نسبة التوافق',
+    kpiCollab: 'التعاونات المؤكدة', kpiUpcoming: 'زيارتان مرتقبتان',
+    kpiMatchTime: 'متوسط وقت المطابقة', kpiSla: 'أقل من 48 ساعة',
+    kpiRating: 'تقييم المؤسسة', kpiFromScholars: 'من 6 خبراء زائرين',
+    activeProjects: 'المشاريع الأكاديمية والبحثية الجارية', viewAll: 'عرض الكل', code: 'رمز المشروع', domain: 'المجال والولاية', dates: 'التاريخ', status: 'الحالة', matches: 'الخبراء المقترحون', action: 'الإجراءات',
+    recommendedScholars: 'علماء الجالية الجزائرية الأعلى توافقًا', initiateContact: 'بدء التواصل', viewMatches: 'عرض المطابقات', confirmProtocol: 'تأكيد البروتوكول'
+  }
+};
+
+function T(k){ return (I18N[lang] && I18N[lang][k]) || I18N.en[k] || k; }
+
+function applyLang(l){
+  if(!I18N[l]) l = 'en';
+  lang = l;
+  document.documentElement.lang = l;
+  document.documentElement.dir = (l === 'ar') ? 'rtl' : 'ltr';
+  $('#langCode').textContent = l.toUpperCase();
+  $$('[data-i18n]').forEach(function(el){
+    var key = el.getAttribute('data-i18n');
+    el.textContent = T(key);
+  });
+  renderCurrentView();
+  try{ localStorage.setItem('dzb-lang', l); }catch(e){}
+}
+
+/* ---------- Views Rendering ---------- */
+var currentNav = 'dashboard';
+
+function renderCurrentView(){
+  var v = $('#view');
+  if(!v) return;
+  if(currentNav === 'dashboard') renderDashboardView(v);
+  else if(currentNav === 'projects') renderProjectsView(v);
+  else if(currentNav === 'experts') renderExpertsView(v);
+  else if(currentNav === 'messages') renderMessagesView(v);
+  else if(currentNav === 'feedback') renderFeedbackView(v);
+  else renderDashboardView(v);
+}
+
+function getStatusBadge(st){
+  if(st === 'submitted') return '<span class="badge-st st-submitted">Submitted</span>';
+  if(st === 'matched') return '<span class="badge-st st-matched">Matched</span>';
+  if(st === 'contact_initiated') return '<span class="badge-st st-contact">Contact Initiated</span>';
+  if(st === 'confirmed') return '<span class="badge-st st-confirmed">Confirmed</span>';
+  return '<span class="badge-st st-completed">Completed</span>';
+}
+
+function renderDashboardView(v){
+  v.innerHTML = 
+    '<div class="dash-head">' +
+      '<div>' +
+        '<h1>' + esc(T('welcomeHead')) + esc(ORG.short) + '</h1>' +
+        '<p>' + esc(T('welcomeSub')) + '</p>' +
+      '</div>' +
+      '<button class="btn btn-primary" onclick="openSubmitDlg()">' +
+        '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>' +
+        '<span>' + esc(T('submitNew')) + '</span>' +
+      '</button>' +
+    '</div>' +
+
+    '<div class="kpis">' +
+      '<div class="kpi"><div class="num">' + PROJECTS.length + '</div><div class="lbl">' + esc(T('kpiProj')) + '</div><div class="sub"><span class="tag">' + esc(T('kpiActive')) + '</span></div></div>' +
+      '<div class="kpi"><div class="num">' + SCHOLARS.length + '</div><div class="lbl">' + esc(T('kpiScholars')) + '</div><div class="sub"><span class="tag">' + esc(T('kpiAvgCompat')) + '</span></div></div>' +
+      '<div class="kpi"><div class="num">2</div><div class="lbl">' + esc(T('kpiCollab')) + '</div><div class="sub">' + esc(T('kpiUpcoming')) + '</div></div>' +
+      '<div class="kpi"><div class="num">48h</div><div class="lbl">' + esc(T('kpiMatchTime')) + '</div><div class="sub">' + esc(T('kpiSla')) + '</div></div>' +
+      '<div class="kpi"><div class="num">4.9 ★</div><div class="lbl">' + esc(T('kpiRating')) + '</div><div class="sub">' + esc(T('kpiFromScholars')) + '</div></div>' +
+    '</div>' +
+
+    '<div class="card">' +
+      '<div class="card-head">' +
+        '<div><h2>' + esc(T('activeProjects')) + '</h2><p>Track project progress from submission to institutional protocol signature.</p></div>' +
+        '<button class="btn btn-ghost btn-sm" onclick="navigateTo(\'projects\')">' + esc(T('viewAll')) + ' →</button>' +
+      '</div>' +
+      '<div class="tbl-wrap">' +
+        '<table class="tbl">' +
+          '<thead>' +
+            '<tr>' +
+              '<th>' + esc(T('code')) + '</th>' +
+              '<th>' + esc(T('domain')) + '</th>' +
+              '<th>' + esc(T('dates')) + '</th>' +
+              '<th>' + esc(T('status')) + '</th>' +
+              '<th>' + esc(T('matches')) + '</th>' +
+              '<th>' + esc(T('action')) + '</th>' +
+            '</tr>' +
+          '</thead>' +
+          '<tbody>' +
+            PROJECTS.map(function(p){
+              return '<tr>' +
+                '<td><b>' + esc(p.code) + '</b><br><small style="color:var(--text-secondary);">' + esc(p.title) + '</small></td>' +
+                '<td><b>' + esc(p.domain) + '</b><br><span style="color:var(--text-muted);font-size:12px;">' + esc(p.wilaya) + '</span></td>' +
+                '<td><span style="font-family:var(--mono);font-size:12.5px;">' + esc(p.dates) + '</span></td>' +
+                '<td>' + getStatusBadge(p.status) + '</td>' +
+                '<td><span style="font-weight:600;color:var(--success);">' + p.matches + ' Matched</span><br><small style="color:var(--text-muted);">' + esc(p.topMatch) + '</small></td>' +
+                '<td><button class="btn btn-secondary btn-sm" onclick="openContactModal(\'' + esc(p.topMatch) + '\')">' + esc(T('initiateContact')) + '</button></td>' +
+              '</tr>';
+            }).join('') +
+          '</tbody>' +
+        '</table>' +
+      '</div>' +
+    '</div>' +
+
+    '<div class="card">' +
+      '<div class="card-head">' +
+        '<div><h2>' + esc(T('recommendedScholars')) + '</h2><p>Algerian diaspora scholars with verified research credentials matching your institutional priorities.</p></div>' +
+        '<button class="btn btn-ghost btn-sm" onclick="navigateTo(\'experts\')">Browse All Scholars →</button>' +
+      '</div>' +
+      '<div class="exp-grid">' +
+        SCHOLARS.map(function(s){
+          return '<div class="exp-card">' +
+            '<div class="exp-top">' +
+              '<span class="av lg" style="background:var(--plum-800);color:#fff;font-weight:700;">' + s.initials + '</span>' +
+              '<div><b>' + esc(s.name) + '</b><small style="display:block;color:var(--text-secondary);">' + esc(s.affiliation) + '</small></div>' +
+              '<div class="exp-score"><span class="val">' + s.matchScore + '%</span><small>Match</small></div>' +
+            '</div>' +
+            '<div class="exp-details">' +
+              '<div>📍 ' + esc(s.location) + '</div>' +
+              '<div>📅 Available: <b>' + esc(s.visitWindow) + '</b></div>' +
+            '</div>' +
+            '<div class="exp-tags">' +
+              s.tags.map(function(t){ return '<span>' + esc(t) + '</span>'; }).join('') +
+            '</div>' +
+            '<div style="display:flex;gap:8px;margin-top:auto;">' +
+              '<button class="btn btn-primary btn-sm" style="flex:1;" onclick="openContactModal(\'' + esc(s.name) + '\')">' + esc(T('initiateContact')) + '</button>' +
+              '<button class="btn btn-secondary btn-sm" onclick="viewScholarProfile(\'' + esc(s.id) + '\')">Profile</button>' +
+            '</div>' +
+          '</div>';
+        }).join('') +
+      '</div>' +
+    '</div>';
+}
+
+function renderProjectsView(v){
+  v.innerHTML = 
+    '<div class="dash-head">' +
+      '<div>' +
+        '<h1>Institution Projects & Missions</h1>' +
+        'p>Manage all submitted collaboration projects and view matches.</p>' +
+      '</div>' +
+      '<button class="btn btn-primary" onclick="openSubmitDlg()">' +
+        '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>' +
+        '<span>Submit New Project</span>' +
+      '</button>' +
+    '</div>' +
+    '<div class="card">' +
+      '<div class="tbl-wrap">' +
+        '<table class="tbl">' +
+          '<thead><tr><th>Code & Title</th><th>Domain</th><th>Dates</th><th>Status</th><th>Matched Scholars</th><th>Deliverables</th><th>Action</th></tr></thead>' +
+          '<tbody>' +
+            PROJECTS.map(function(p){
+              return '<tr>' +
+                '<td><b>' + esc(p.code) + '</b><br><span style="font-size:13px;color:var(--text-secondary);">' + esc(p.title) + '</span></td>' +
+                '<td>' + esc(p.domain) + '</td>' +
+                '<td><span style="font-family:var(--mono);font-size:12px;">' + esc(p.dates) + '</span></td>' +
+                '<td>' + getStatusBadge(p.status) + '</td>' +
+                '<td><span style="font-weight:600;color:var(--success);">' + p.matches + ' Experts</span></td>' +
+                '<td><small style="max-width:240px;display:block;color:var(--text-secondary);">' + esc(p.deliverables) + '</small></td>' +
+                '<td><button class="btn btn-secondary btn-sm" onclick="navigateTo(\'experts\')">Matches</button></td>' +
+              '</tr>';
+            }).join('') +
+          '</tbody>' +
+        '</table>' +
+      '</div>' +
+    '</div>';
+}
+
+function renderExpertsView(v){
+  v.innerHTML = 
+    '<div class="dash-head">' +
+      '<div>' +
+        '<h1>Matched Diaspora Scholars Directory</h1>' +
+        '<p>Detailed compatibility scoring matching academic specialization, schedule overlap, and host wilaya.</p>' +
+      '</div>' +
+    '</div>' +
+    '<div class="match-view">' +
+      '<div class="card" style="padding:16px;">' +
+        '<h3 style="margin-top:0;font-size:15px;">Target Projects</h3>' +
+        '<div class="match-list">' +
+          PROJECTS.map(function(p, i){
+            return '<div class="match-item ' + (i===0?'active':'') + '" onclick="selectProjectMatch(' + i + ', this)">' +
+              '<b>' + esc(p.code) + '</b>' +
+              '<div style="font-size:12.5px;color:var(--text-secondary);margin-top:4px;">' + esc(p.title) + '</div>' +
+              '<div style="font-size:11.5px;color:var(--text-muted);margin-top:4px;">' + p.matches + ' candidate matches</div>' +
+            '</div>';
+          }).join('') +
+        '</div>' +
+      '</div>' +
+      '<div>' +
+        '<div class="exp-grid" style="padding:0;">' +
+          SCHOLARS.map(function(s){
+            return '<div class="exp-card">' +
+              '<div class="exp-top">' +
+                '<span class="av lg" style="background:var(--plum-800);color:#fff;font-weight:700;">' + s.initials + '</span>' +
+                '<div><b>' + esc(s.name) + '</b><small style="display:block;color:var(--text-secondary);">' + esc(s.affiliation) + '</small></div>' +
+                '<div class="exp-score"><span class="val">' + s.matchScore + '%</span><small>Score</small></div>' +
+              '</div>' +
+              '<div class="exp-details">' +
+                '<div>📍 <b>Location:</b> ' + esc(s.location) + '</div>' +
+                '<div>📅 <b>Availability Window:</b> ' + esc(s.visitWindow) + '</div>' +
+                '<div>🎓 <b>Field:</b> ' + esc(s.specialty) + '</div>' +
+              '</div>' +
+              '<div class="exp-tags">' +
+                s.tags.map(function(t){ return '<span>' + esc(t) + '</span>'; }).join('') +
+              '</div>' +
+              '<div style="display:flex;gap:8px;margin-top:auto;">' +
+                '<button class="btn btn-primary btn-sm" style="flex:1;" onclick="openContactModal(\'' + esc(s.name) + '\')">Send Official Invitation</button>' +
+              '</div>' +
+            '</div>';
+          }).join('') +
+        '</div>' +
+      '</div>' +
+    '</div>';
+}
+
+function renderMessagesView(v){
+  v.innerHTML = 
+    '<div class="card" style="padding:40px;text-align:center;">' +
+      '<svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" style="margin:0 auto 16px;color:var(--brand);"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>' +
+      '<h2 style="margin:0 0 8px;">Direct Diaspora Scholar Communications</h2>' +
+      '<p style="max-width:540px;margin:0 auto 20px;color:var(--text-secondary);">Secure encrypted institutional channels between Algerian university administrations and verified diaspora professors.</p>' +
+      '<button class="btn btn-primary" onclick="openContactModal(\'Prof. Belgacem Haba\')">Initiate New Conversation</button>' +
+    '</div>';
+}
+
+function renderFeedbackView(v){
+  v.innerHTML = 
+    '<div class="card" style="padding:32px;">' +
+      '<h2 style="margin-top:0;">Post-Collaboration Evaluation & Institutional Feedback</h2>' +
+      '<p style="color:var(--text-secondary);">In accordance with the DZ-Bridge Sovereign Protocol, organizations submit confidential ratings after project completion to enhance future scholar recommendations.</p>' +
+      '<table class="tbl" style="margin-top:20px;">' +
+        '<thead><tr><th>Visiting Scholar</th><th>Completed Mission</th><th>Academic Quality</th><th>Student Feedback</th><th>Status</th></tr></thead>' +
+        '<tbody>' +
+          '<tr>' +
+            '<td><b>Prof. Belgacem Haba</b><br><small>Adeia / Silicon Valley</small></td>' +
+            '<td>Semiconductor Packaging & AI Masterclass</td>' +
+            '<td>5.0 / 5 ★★★★★</td>' +
+            '<td>4.9 / 5 (98 attendees)</td>' +
+            '<td><span class="badge-st st-confirmed">Completed</span></td>' +
+          '</tr>' +
+          '<tr>' +
+            '<td><b>Dr. Amina Benali</b><br><small>MIT Energy Initiative</small></td>' +
+            '<td>Green Hydrogen Grid Modeling</td>' +
+            '<td>4.8 / 5 ★★★★★</td>' +
+            '<td>4.9 / 5 (65 attendees)</td>' +
+            '<td><span class="badge-st st-confirmed">Completed</span></td>' +
+          '</tr>' +
+        '</tbody>' +
+      '</table>' +
+    '</div>';
+}
+
+/* ---------- Navigation & Hash Routing ---------- */
+function navigateTo(navId){
+  currentNav = navId;
+  $$('.nav a').forEach(function(a){
+    var isTarget = a.getAttribute('data-nav') === navId;
+    if(isTarget) a.setAttribute('aria-current', 'page');
+    else a.removeAttribute('aria-current');
+  });
+  window.location.hash = '#' + navId;
+  renderCurrentView();
+}
+
+window.addEventListener('hashchange', function(){
+  var hash = window.location.hash.replace('#', '') || 'dashboard';
+  currentNav = hash;
+  $$('.nav a').forEach(function(a){
+    var isTarget = a.getAttribute('data-nav') === hash;
+    if(isTarget) a.setAttribute('aria-current', 'page');
+    else a.removeAttribute('aria-current');
+  });
+  renderCurrentView();
+});
+
+$$('.nav a').forEach(function(a){
+  a.addEventListener('click', function(e){
+    var nav = this.getAttribute('data-nav');
+    if(nav){
+      e.preventDefault();
+      navigateTo(nav);
+    }
+  });
+});
+
+/* ---------- Modal Handling ---------- */
+window.openSubmitDlg = function(){
+  var dlg = $('#dlgSubmitProject');
+  if(dlg) dlg.showModal();
+};
+
+window.closeSubmitDlg = function(){
+  var dlg = $('#dlgSubmitProject');
+  if(dlg) dlg.close();
+};
+
+window.handleProjectSubmit = function(e){
+  e.preventDefault();
+  var title = $('#pTitle').value.trim();
+  var domain = $('#pDomain').value;
+  var wilaya = $('#pWilaya').value;
+  var start = $('#pStartDate').value;
+  var end = $('#pEndDate').value;
+  var format = $('#pFormat').value;
+  var deliverables = $('#pDeliverables').value;
+
+  var newProj = {
+    code: 'PRJ-ESI-' + (new Date().getFullYear()) + '-0' + (PROJECTS.length + 1),
+    title: title,
+    domain: domain,
+    wilaya: wilaya,
+    dates: start + ' to ' + end,
+    status: 'submitted',
+    matches: 2,
+    topMatch: 'Prof. Belgacem Haba (96%)',
+    deliverables: deliverables
+  };
+
+  PROJECTS.unshift(newProj);
+  closeSubmitDlg();
+  toast('Project successfully registered! Algorithmic matching initiated with Algerian diaspora scholars.');
+  renderCurrentView();
+
+  // Async push to backend if available
+  var token = localStorage.getItem('dzb_token') || localStorage.getItem('dz_token');
+  fetch('/api/projects', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + token },
+    body: JSON.stringify(newProj)
+  }).catch(function(){});
+};
+
+window.openContactModal = function(scholarName){
+  var dlg = $('#dlgContact');
+  var nameEl = $('#contactExpName');
+  if(nameEl) nameEl.textContent = scholarName || 'Diaspora Scholar';
+  if(dlg) dlg.showModal();
+};
+
+window.sendContactInvitation = function(){
+  var dlg = $('#dlgContact');
+  if(dlg) dlg.close();
+  toast('Official invitation dispatched! The scholar will receive notification and briefing calendar invite.');
+};
+
+window.viewScholarProfile = function(scholarId){
+  toast('Loading scholar dossier and academic credentials...');
+};
+
+window.selectProjectMatch = function(idx, el){
+  $$('.match-item').forEach(function(m){ m.classList.remove('active'); });
+  if(el) el.classList.add('active');
+  toast('Showing matched diaspora researchers for ' + PROJECTS[idx].code);
+};
+
+/* ---------- Language Menu & Theme Toggle ---------- */
+var langWrap = $('#lang'), langBtn = $('#langBtn');
+langBtn.addEventListener('click', function(e){
+  e.stopPropagation();
+  langWrap.classList.toggle('open');
+});
+document.addEventListener('click', function(e){
+  if(!langWrap.contains(e.target)) langWrap.classList.remove('open');
+});
+$$('#langMenu button').forEach(function(b){
+  b.addEventListener('click', function(){
+    applyLang(this.getAttribute('data-lang'));
+    langWrap.classList.remove('open');
+  });
+});
+
+var themeBtn = $('#themeBtn');
+themeBtn.addEventListener('click', function(){
+  var cur = document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'light';
+  var next = cur === 'dark' ? 'light' : 'dark';
+  document.documentElement.setAttribute('data-theme', next);
+  try{ localStorage.setItem('dzb-theme', next); }catch(e){}
+});
+
+/* ---------- User Menu & Logout ---------- */
+var ubtn = $('#ubtn'), umenu = $('#umenu');
+ubtn.addEventListener('click', function(e){
+  e.stopPropagation();
+  umenu.hidden = !umenu.hidden;
+});
+document.addEventListener('click', function(e){
+  if(!$('#user').contains(e.target)) umenu.hidden = true;
+});
+
+var logoutLink = $('#logoutLink');
+if(logoutLink){
+  logoutLink.addEventListener('click', function(e){
+    e.preventDefault();
+    try{
+      localStorage.removeItem('dzb_token');
+      localStorage.removeItem('dz_token');
+      localStorage.removeItem('dzb_user');
+      sessionStorage.clear();
+      document.cookie = "dz_token=; path=/; max-age=0;";
+      document.cookie = "dzb_token=; path=/; max-age=0;";
+      document.cookie = "dz_user=; path=/; max-age=0;";
+    }catch(err){}
+    window.location.replace('/login.html');
+  });
+}
+
+/* ---------- Boot & Dynamic Auth Sync ---------- */
+var curTh = null;
+try{ curTh = localStorage.getItem('dzb-theme'); }catch(e){}
+document.documentElement.setAttribute('data-theme', curTh || (window.matchMedia && matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'));
+
+var curL = null;
+try{ curL = localStorage.getItem('dzb-lang'); }catch(e){}
+applyLang(curL || 'en');
+
+// Sync current logged-in organization profile
+function syncOrgProfile(){
+  var rawUser = localStorage.getItem('dzb_user') || sessionStorage.getItem('dzb-session');
+  var u = null;
+  try{ if(rawUser) u = JSON.parse(rawUser); }catch(e){}
+
+  function applyOrg(user){
+    if(!user) return;
+    if(user.organizationName || user.fullName){
+      ORG.name = user.organizationName || user.fullName;
+      ORG.short = user.organizationName || user.fullName;
+      var pts = ORG.short.split(' ');
+      ORG.initials = pts.map(function(p){ return p[0]||''; }).join('').slice(0, 3).toUpperCase() || 'ORG';
+    }
+    if(user.city) ORG.city = user.city;
+    $('#orgName').textContent = ORG.short;
+    $('#orgAv').textContent = ORG.initials;
+    renderCurrentView();
+  }
+
+  if(u) applyOrg(u);
+
+  var token = localStorage.getItem('dzb_token') || localStorage.getItem('dz_token');
+  if(token){
+    fetch('/api/profile/me', {
+      headers: { 'Authorization': 'Bearer ' + token }
+    }).then(function(res){
+      if(res.ok) return res.json();
+      return null;
+    }).then(function(resData){
+      if(resData && resData.user) applyOrg(resData.user);
+    }).catch(function(){});
+  }
+}
+
+syncOrgProfile();
+
+var initHash = window.location.hash.replace('#', '') || 'dashboard';
+navigateTo(initHash);
+})();
+</script>
+</body>
+</html>

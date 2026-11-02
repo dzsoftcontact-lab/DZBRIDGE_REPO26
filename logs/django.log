@@ -1,0 +1,1825 @@
+Watching for file changes with StatReloader
+Exception in thread django-main-thread:
+Traceback (most recent call last):
+  File "/home/pc-2026-1/Desktop/DZbridge/DzBridge_Platform2/django_backend/venv/lib/python3.12/site-packages/django/core/servers/basehttp.py", line 48, in get_internal_wsgi_application
+    return import_string(app_path)
+           ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/pc-2026-1/Desktop/DZbridge/DzBridge_Platform2/django_backend/venv/lib/python3.12/site-packages/django/utils/module_loading.py", line 30, in import_string
+    return cached_import(module_path, class_name)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/pc-2026-1/Desktop/DZbridge/DzBridge_Platform2/django_backend/venv/lib/python3.12/site-packages/django/utils/module_loading.py", line 15, in cached_import
+    module = import_module(module_path)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/importlib/__init__.py", line 90, in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<frozen importlib._bootstrap>", line 1387, in _gcd_import
+  File "<frozen importlib._bootstrap>", line 1360, in _find_and_load
+  File "<frozen importlib._bootstrap>", line 1324, in _find_and_load_unlocked
+ModuleNotFoundError: No module named 'core.wsgi'
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/usr/lib/python3.12/threading.py", line 1073, in _bootstrap_inner
+    self.run()
+  File "/usr/lib/python3.12/threading.py", line 1010, in run
+    self._target(*self._args, **self._kwargs)
+  File "/home/pc-2026-1/Desktop/DZbridge/DzBridge_Platform2/django_backend/venv/lib/python3.12/site-packages/django/utils/autoreload.py", line 64, in wrapper
+    fn(*args, **kwargs)
+  File "/home/pc-2026-1/Desktop/DZbridge/DzBridge_Platform2/django_backend/venv/lib/python3.12/site-packages/django/core/management/commands/runserver.py", line 143, in inner_run
+    handler = self.get_handler(*args, **options)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/pc-2026-1/Desktop/DZbridge/DzBridge_Platform2/django_backend/venv/lib/python3.12/site-packages/django/contrib/staticfiles/management/commands/runserver.py", line 31, in get_handler
+    handler = super().get_handler(*args, **options)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/pc-2026-1/Desktop/DZbridge/DzBridge_Platform2/django_backend/venv/lib/python3.12/site-packages/django/core/management/commands/runserver.py", line 79, in get_handler
+    return get_internal_wsgi_application()
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/pc-2026-1/Desktop/DZbridge/DzBridge_Platform2/django_backend/venv/lib/python3.12/site-packages/django/core/servers/basehttp.py", line 50, in get_internal_wsgi_application
+    raise ImproperlyConfigured(
+django.core.exceptions.ImproperlyConfigured: WSGI application 'core.wsgi.application' could not be loaded; Error importing module.
+Watching for file changes with StatReloader
+[20/Oct/2026 17:43:10] "GET /login.html HTTP/1.1" 200 56548
+[20/Oct/2026 17:43:11] "GET /login.html HTTP/1.1" 200 56548
+[20/Oct/2026 17:43:12] "GET /login.html HTTP/1.1" 200 56548
+[20/Oct/2026 17:43:17] "GET / HTTP/1.1" 200 229299
+[20/Oct/2026 17:43:44] "GET /health/ HTTP/1.1" 200 158
+[20/Oct/2026 17:43:57] "POST /api/auth/login HTTP/1.1" 200 954
+[20/Oct/2026 17:44:05] "GET / HTTP/1.1" 200 229299
+[20/Oct/2026 17:44:06] "GET / HTTP/1.1" 200 229299
+[20/Oct/2026 17:45:20] code 400, message Bad request version ('localhost\x00\x17\x00\x00ÿ\x01\x00\x01\x00\x00')
+[20/Oct/2026 17:45:20] You're accessing the development server over HTTPS, but it only supports HTTP.
+[20/Oct/2026 17:45:20] code 400, message Bad request version ('localhost\x00\x17\x00\x00ÿ\x01\x00\x01\x00\x00')
+[20/Oct/2026 17:45:20] You're accessing the development server over HTTPS, but it only supports HTTP.
+[20/Oct/2026 17:45:32] "GET / HTTP/1.1" 200 229299
+[20/Oct/2026 17:45:33] "GET / HTTP/1.1" 200 229299
+Not Found: /images/event-3.png
+Not Found: /images/event-2.png
+Not Found: /images/event-1.png
+[20/Oct/2026 17:45:34] "GET /images/event-1.png HTTP/1.1" 404 6473
+[20/Oct/2026 17:45:34] "GET /images/event-2.png HTTP/1.1" 404 6473
+[20/Oct/2026 17:45:34] "GET /images/event-3.png HTTP/1.1" 404 6473
+[20/Oct/2026 17:50:34] "GET /portal/ HTTP/1.1" 200 36913
+[20/Oct/2026 17:50:39] "GET /portal/?role=expert HTTP/1.1" 200 36913
+[20/Oct/2026 17:51:23] "GET /portal/?role=admin HTTP/1.1" 200 36913
+[20/Oct/2026 17:51:33] "GET /health/ HTTP/1.1" 200 158
+[20/Oct/2026 17:51:57] "GET /portal/?role=admin HTTP/1.1" 200 36913
+[20/Oct/2026 17:52:09] "GET /portal/ HTTP/1.1" 200 36913
+[20/Oct/2026 17:52:25] "GET /api/v1/auth/users/ HTTP/1.1" 200 2292
+[20/Oct/2026 17:52:27] "GET /api/v1/audit/logs/?limit=15 HTTP/1.1" 200 724
+[20/Oct/2026 17:52:30] "GET /portal/ HTTP/1.1" 200 36913
+[20/Oct/2026 17:52:36] "GET /login HTTP/1.1" 200 56563
+[20/Oct/2026 17:52:36] "GET /login HTTP/1.1" 200 56563
+Unauthorized: /api/auth/login
+[20/Oct/2026 17:52:41] "POST /api/auth/login HTTP/1.1" 401 63
+Unauthorized: /api/auth/login
+[20/Oct/2026 17:52:42] "POST /api/auth/login HTTP/1.1" 401 63
+Performing system checks...
+
+System check identified no issues (0 silenced).
+October 20, 2026 - 17:43:09
+Django version 5.1.15, using settings 'core.settings'
+Starting development server at http://0.0.0.0:8000/
+Quit the server with CONTROL-C.
+
+Watching for file changes with StatReloader
+[20/Oct/2026 17:56:04] "GET / HTTP/1.1" 200 229299
+Watching for file changes with StatReloader
+[26/Oct/2026 14:52:49] "GET / HTTP/1.1" 200 229299
+Not Found: /images/event-1.png
+Not Found: /images/event-2.png
+Not Found: /images/event-3.png
+[26/Oct/2026 14:52:53] "GET /images/event-2.png HTTP/1.1" 404 6473
+[26/Oct/2026 14:52:53] "GET /images/event-3.png HTTP/1.1" 404 6473
+[26/Oct/2026 14:52:53] "GET /images/event-1.png HTTP/1.1" 404 6473
+Watching for file changes with StatReloader
+[26/Oct/2026 15:20:37] "GET /health/ HTTP/1.1" 200 158
+Watching for file changes with StatReloader
+[26/Oct/2026 15:20:49] "GET /health/ HTTP/1.1" 200 158
+Watching for file changes with StatReloader
+[26/Oct/2026 15:21:49] "GET /health/ HTTP/1.1" 200 158
+[26/Oct/2026 15:22:44] "GET /health/ HTTP/1.1" 200 158
+[26/Oct/2026 15:22:50] "GET /health/ HTTP/1.1" 200 158
+[26/Oct/2026 15:22:50] "GET /api/docs/ HTTP/1.1" 200 4688
+/home/pc-2026-1/Desktop/DZbridge/DzBridge_Platform2/django_backend/core/settings.py changed, reloading.
+Performing system checks...
+
+System check identified no issues (0 silenced).
+October 26, 2026 - 15:20:58
+Django version 5.1.15, using settings 'core.settings'
+Starting development server at http://0.0.0.0:8000/
+Quit the server with CONTROL-C.
+
+Watching for file changes with StatReloader
+[26/Oct/2026 15:24:30] "GET /static/fonts/fonts.css HTTP/1.1" 200 33688
+[26/Oct/2026 15:24:44] "GET /health/ HTTP/1.1" 200 158
+Performing system checks...
+
+System check identified no issues (0 silenced).
+October 26, 2026 - 15:24:14
+Django version 5.1.15, using settings 'core.settings'
+Starting development server at http://0.0.0.0:8000/
+Quit the server with CONTROL-C.
+
+Watching for file changes with StatReloader
+[26/Oct/2026 15:26:53] "GET / HTTP/1.1" 200 15960
+[26/Oct/2026 15:26:53] "GET /static/fonts/fonts.css HTTP/1.1" 200 33688
+[26/Oct/2026 15:26:53] "GET /static/fonts/font_jk_006_LDIoaomQNQcsA88c7O9yZ4KMCoOg4Ko20yw.woff2 HTTP/1.1" 200 27348
+[26/Oct/2026 15:26:53] "GET /static/fonts/font_jk_008_tDbv2o-flEEny0FZhsfKu5WU4zr3E_BX0PnT8RD8yKwBNntkaToggR7BYRbKPxDcwg.woff2 HTTP/1.1" 200 31432
+Not Found: /favicon.ico
+[26/Oct/2026 15:26:53] "GET /favicon.ico HTTP/1.1" 404 4170
+[26/Oct/2026 15:26:55] "GET / HTTP/1.1" 200 15960
+[26/Oct/2026 15:26:55] "GET /static/fonts/fonts.css HTTP/1.1" 200 33688
+Not Found: /favicon.ico
+[26/Oct/2026 15:26:55] "GET /favicon.ico HTTP/1.1" 404 4170
+[26/Oct/2026 15:26:55] "GET /static/fonts/font_jk_006_LDIoaomQNQcsA88c7O9yZ4KMCoOg4Ko20yw.woff2 HTTP/1.1" 200 27348
+[26/Oct/2026 15:26:55] "GET /static/fonts/font_jk_008_tDbv2o-flEEny0FZhsfKu5WU4zr3E_BX0PnT8RD8yKwBNntkaToggR7BYRbKPxDcwg.woff2 HTTP/1.1" 200 31432
+[26/Oct/2026 15:26:55] "GET /static/fonts/font_jk_006_LDIoaomQNQcsA88c7O9yZ4KMCoOg4Ko20yw.woff2 HTTP/1.1" 200 27348
+[26/Oct/2026 15:26:55] "GET /static/fonts/font_jk_008_tDbv2o-flEEny0FZhsfKu5WU4zr3E_BX0PnT8RD8yKwBNntkaToggR7BYRbKPxDcwg.woff2 HTTP/1.1" 200 31432
+[26/Oct/2026 15:26:55] "GET /static/fonts/font_jk_006_LDIoaomQNQcsA88c7O9yZ4KMCoOg4Ko20yw.woff2 HTTP/1.1" 200 27348
+[26/Oct/2026 15:26:55] "GET / HTTP/1.1" 200 15960
+[26/Oct/2026 15:26:55] "GET /static/fonts/fonts.css HTTP/1.1" 200 33688
+Not Found: /favicon.ico
+[26/Oct/2026 15:26:55] "GET /favicon.ico HTTP/1.1" 404 4170
+[26/Oct/2026 15:26:55] "GET /static/fonts/font_jk_008_tDbv2o-flEEny0FZhsfKu5WU4zr3E_BX0PnT8RD8yKwBNntkaToggR7BYRbKPxDcwg.woff2 HTTP/1.1" 200 31432
+[26/Oct/2026 15:26:55] "GET /static/fonts/font_jk_006_LDIoaomQNQcsA88c7O9yZ4KMCoOg4Ko20yw.woff2 HTTP/1.1" 200 27348
+[26/Oct/2026 15:26:55] "GET /static/fonts/font_jk_006_LDIoaomQNQcsA88c7O9yZ4KMCoOg4Ko20yw.woff2 HTTP/1.1" 200 27348
+[26/Oct/2026 15:26:55] "GET /static/fonts/font_jk_008_tDbv2o-flEEny0FZhsfKu5WU4zr3E_BX0PnT8RD8yKwBNntkaToggR7BYRbKPxDcwg.woff2 HTTP/1.1" 200 31432
+[26/Oct/2026 15:26:56] "GET /static/fonts/font_jk_006_LDIoaomQNQcsA88c7O9yZ4KMCoOg4Ko20yw.woff2 HTTP/1.1" 200 27348
+[26/Oct/2026 15:26:56] "GET / HTTP/1.1" 200 15960
+[26/Oct/2026 15:26:56] "GET /static/fonts/fonts.css HTTP/1.1" 200 33688
+Not Found: /favicon.ico
+[26/Oct/2026 15:26:56] "GET /favicon.ico HTTP/1.1" 404 4170
+[26/Oct/2026 15:26:56] "GET /static/fonts/font_jk_008_tDbv2o-flEEny0FZhsfKu5WU4zr3E_BX0PnT8RD8yKwBNntkaToggR7BYRbKPxDcwg.woff2 HTTP/1.1" 200 31432
+[26/Oct/2026 15:26:56] "GET /static/fonts/font_jk_006_LDIoaomQNQcsA88c7O9yZ4KMCoOg4Ko20yw.woff2 HTTP/1.1" 200 27348
+[26/Oct/2026 15:26:56] "GET /static/fonts/font_jk_006_LDIoaomQNQcsA88c7O9yZ4KMCoOg4Ko20yw.woff2 HTTP/1.1" 200 27348
+[26/Oct/2026 15:26:56] "GET /static/fonts/font_jk_006_LDIoaomQNQcsA88c7O9yZ4KMCoOg4Ko20yw.woff2 HTTP/1.1" 200 27348
+[26/Oct/2026 15:26:56] "GET /static/fonts/font_jk_008_tDbv2o-flEEny0FZhsfKu5WU4zr3E_BX0PnT8RD8yKwBNntkaToggR7BYRbKPxDcwg.woff2 HTTP/1.1" 200 31432
+[26/Oct/2026 15:26:56] "GET / HTTP/1.1" 200 15960
+[26/Oct/2026 15:26:56] "GET /static/fonts/fonts.css HTTP/1.1" 200 33688
+Not Found: /favicon.ico
+[26/Oct/2026 15:26:56] "GET /favicon.ico HTTP/1.1" 404 4170
+[26/Oct/2026 15:26:56] "GET /static/fonts/font_jk_008_tDbv2o-flEEny0FZhsfKu5WU4zr3E_BX0PnT8RD8yKwBNntkaToggR7BYRbKPxDcwg.woff2 HTTP/1.1" 200 31432
+[26/Oct/2026 15:26:56] "GET /static/fonts/font_jk_006_LDIoaomQNQcsA88c7O9yZ4KMCoOg4Ko20yw.woff2 HTTP/1.1" 200 27348
+[26/Oct/2026 15:26:56] "GET /static/fonts/font_jk_006_LDIoaomQNQcsA88c7O9yZ4KMCoOg4Ko20yw.woff2 HTTP/1.1" 200 27348
+[26/Oct/2026 15:26:56] "GET /static/fonts/font_jk_008_tDbv2o-flEEny0FZhsfKu5WU4zr3E_BX0PnT8RD8yKwBNntkaToggR7BYRbKPxDcwg.woff2 HTTP/1.1" 200 31432
+[26/Oct/2026 15:26:56] "GET /static/fonts/font_jk_006_LDIoaomQNQcsA88c7O9yZ4KMCoOg4Ko20yw.woff2 HTTP/1.1" 200 27348
+[26/Oct/2026 15:27:00] "GET /health/ HTTP/1.1" 200 158
+[26/Oct/2026 15:27:47] "GET / HTTP/1.1" 200 15960
+[26/Oct/2026 15:27:47] "GET /static/fonts/fonts.css HTTP/1.1" 200 33688
+Not Found: /favicon.ico
+[26/Oct/2026 15:27:47] "GET /favicon.ico HTTP/1.1" 404 4170
+[26/Oct/2026 15:27:47] "GET /static/fonts/font_jk_006_LDIoaomQNQcsA88c7O9yZ4KMCoOg4Ko20yw.woff2 HTTP/1.1" 200 27348
+[26/Oct/2026 15:27:47] "GET /static/fonts/font_jk_008_tDbv2o-flEEny0FZhsfKu5WU4zr3E_BX0PnT8RD8yKwBNntkaToggR7BYRbKPxDcwg.woff2 HTTP/1.1" 200 31432
+[26/Oct/2026 15:27:47] "GET /static/fonts/font_jk_008_tDbv2o-flEEny0FZhsfKu5WU4zr3E_BX0PnT8RD8yKwBNntkaToggR7BYRbKPxDcwg.woff2 HTTP/1.1" 200 31432
+[26/Oct/2026 15:27:47] "GET /static/fonts/font_jk_006_LDIoaomQNQcsA88c7O9yZ4KMCoOg4Ko20yw.woff2 HTTP/1.1" 200 27348
+[26/Oct/2026 15:27:47] "GET /static/fonts/font_jk_006_LDIoaomQNQcsA88c7O9yZ4KMCoOg4Ko20yw.woff2 HTTP/1.1" 200 27348
+[26/Oct/2026 15:27:47] "GET / HTTP/1.1" 200 15960
+[26/Oct/2026 15:27:47] "GET /static/fonts/fonts.css HTTP/1.1" 200 33688
+Not Found: /favicon.ico
+[26/Oct/2026 15:27:47] "GET /favicon.ico HTTP/1.1" 404 4170
+[26/Oct/2026 15:27:47] "GET /static/fonts/font_jk_006_LDIoaomQNQcsA88c7O9yZ4KMCoOg4Ko20yw.woff2 HTTP/1.1" 200 27348
+[26/Oct/2026 15:27:47] "GET /static/fonts/font_jk_008_tDbv2o-flEEny0FZhsfKu5WU4zr3E_BX0PnT8RD8yKwBNntkaToggR7BYRbKPxDcwg.woff2 HTTP/1.1" 200 31432
+[26/Oct/2026 15:27:47] "GET /static/fonts/font_jk_006_LDIoaomQNQcsA88c7O9yZ4KMCoOg4Ko20yw.woff2 HTTP/1.1" 200 27348
+[26/Oct/2026 15:27:47] "GET /static/fonts/font_jk_006_LDIoaomQNQcsA88c7O9yZ4KMCoOg4Ko20yw.woff2 HTTP/1.1" 200 27348
+[26/Oct/2026 15:27:47] "GET /static/fonts/font_jk_008_tDbv2o-flEEny0FZhsfKu5WU4zr3E_BX0PnT8RD8yKwBNntkaToggR7BYRbKPxDcwg.woff2 HTTP/1.1" 200 31432
+[26/Oct/2026 15:27:55] "GET /admin/ HTTP/1.1" 302 0
+[26/Oct/2026 15:27:55] "GET /admin/login/?next=/admin/ HTTP/1.1" 200 4160
+[26/Oct/2026 15:27:55] "GET /static/admin/css/base.css HTTP/1.1" 200 22092
+[26/Oct/2026 15:27:55] "GET /static/admin/css/nav_sidebar.css HTTP/1.1" 200 2810
+[26/Oct/2026 15:27:55] "GET /static/admin/css/dark_mode.css HTTP/1.1" 200 2804
+[26/Oct/2026 15:27:55] "GET /static/admin/css/login.css HTTP/1.1" 200 951
+[26/Oct/2026 15:27:55] "GET /static/admin/css/responsive.css HTTP/1.1" 200 17972
+[26/Oct/2026 15:27:55] "GET /static/admin/js/theme.js HTTP/1.1" 200 1653
+[26/Oct/2026 15:27:55] "GET /static/admin/js/nav_sidebar.js HTTP/1.1" 200 3063
+Not Found: /favicon.ico
+[26/Oct/2026 15:27:55] "GET /favicon.ico HTTP/1.1" 404 4170
+[26/Oct/2026 15:27:57] "GET /api/docs/ HTTP/1.1" 200 4688
+/home/pc-2026-1/Desktop/DZbridge/DzBridge_Platform2/django_backend/apps/matches/views.py: Error [RecommendationListView]: exception raised while getting serializer. Hint: Is get_serializer_class() returning None or is get_queryset() not working without a request? Ignoring the view for now. (Exception: 'RecommendationListView' should either include a `serializer_class` attribute, or override the `get_serializer_class()` method.)
+/home/pc-2026-1/Desktop/DZbridge/DzBridge_Platform2/django_backend/apps/profiles/views.py: Warning [ExpertAvailabilityListCreateView]: Failed to obtain model through view's queryset due to raised exception. Prevent this either by setting "queryset = Model.objects.none()" on the view, checking for "getattr(self, "swagger_fake_view", False)" in get_queryset() or by simply using @extend_schema. (Exception: 'AnonymousUser' object has no attribute 'role')
+Warning: enum naming encountered a non-optimally resolvable collision for fields named "status". The same name has been used for multiple choice sets in multiple components. The collision was resolved with "Status1fbEnum". add an entry to ENUM_NAME_OVERRIDES to fix the naming.
+[26/Oct/2026 15:27:58] "GET /api/schema/ HTTP/1.1" 200 134946
+[26/Oct/2026 15:28:15] "GET / HTTP/1.1" 200 15960
+[26/Oct/2026 15:28:15] "GET /static/fonts/fonts.css HTTP/1.1" 200 33688
+[26/Oct/2026 15:28:15] "GET /static/fonts/font_jk_008_tDbv2o-flEEny0FZhsfKu5WU4zr3E_BX0PnT8RD8yKwBNntkaToggR7BYRbKPxDcwg.woff2 HTTP/1.1" 200 31432
+[26/Oct/2026 15:28:15] "GET /static/fonts/font_jk_006_LDIoaomQNQcsA88c7O9yZ4KMCoOg4Ko20yw.woff2 HTTP/1.1" 200 27348
+Unauthorized: /api/v1/projects/
+[26/Oct/2026 15:30:01] "GET /api/v1/projects/ HTTP/1.1" 401 172
+Unauthorized: /api/v1/projects/
+[26/Oct/2026 15:30:03] "POST /api/v1/projects/ HTTP/1.1" 401 172
+Watching for file changes with StatReloader
+[26/Oct/2026 15:40:17] "GET /health/ HTTP/1.1" 200 158
+[26/Oct/2026 15:40:25] "GET /health/ HTTP/1.1" 200 158
+[26/Oct/2026 15:40:32] "GET / HTTP/1.1" 200 15960
+[26/Oct/2026 15:40:32] "GET /static/fonts/fonts.css HTTP/1.1" 200 33688
+Not Found: /favicon.ico
+[26/Oct/2026 15:40:32] "GET /favicon.ico HTTP/1.1" 404 4170
+[26/Oct/2026 15:40:32] "GET /static/fonts/font_jk_006_LDIoaomQNQcsA88c7O9yZ4KMCoOg4Ko20yw.woff2 HTTP/1.1" 200 27348
+[26/Oct/2026 15:40:32] "GET /static/fonts/font_jk_008_tDbv2o-flEEny0FZhsfKu5WU4zr3E_BX0PnT8RD8yKwBNntkaToggR7BYRbKPxDcwg.woff2 HTTP/1.1" 200 31432
+[26/Oct/2026 15:40:32] "GET /static/fonts/font_jk_006_LDIoaomQNQcsA88c7O9yZ4KMCoOg4Ko20yw.woff2 HTTP/1.1" 200 27348
+[26/Oct/2026 15:40:32] "GET /static/fonts/font_jk_008_tDbv2o-flEEny0FZhsfKu5WU4zr3E_BX0PnT8RD8yKwBNntkaToggR7BYRbKPxDcwg.woff2 HTTP/1.1" 200 31432
+[26/Oct/2026 15:40:32] "GET /static/fonts/font_jk_006_LDIoaomQNQcsA88c7O9yZ4KMCoOg4Ko20yw.woff2 HTTP/1.1" 200 27348
+[26/Oct/2026 15:40:33] "GET / HTTP/1.1" 200 15960
+[26/Oct/2026 15:40:33] "GET /static/fonts/fonts.css HTTP/1.1" 200 33688
+[26/Oct/2026 15:40:33] "GET /static/fonts/font_jk_006_LDIoaomQNQcsA88c7O9yZ4KMCoOg4Ko20yw.woff2 HTTP/1.1" 200 27348
+[26/Oct/2026 15:40:33] "GET /static/fonts/font_jk_008_tDbv2o-flEEny0FZhsfKu5WU4zr3E_BX0PnT8RD8yKwBNntkaToggR7BYRbKPxDcwg.woff2 HTTP/1.1" 200 31432
+[26/Oct/2026 15:40:33] "GET /static/fonts/font_jk_006_LDIoaomQNQcsA88c7O9yZ4KMCoOg4Ko20yw.woff2 HTTP/1.1" 200 27348
+[26/Oct/2026 15:40:33] "GET /static/fonts/font_jk_006_LDIoaomQNQcsA88c7O9yZ4KMCoOg4Ko20yw.woff2 HTTP/1.1" 200 27348
+[26/Oct/2026 15:40:33] "GET /static/fonts/font_jk_008_tDbv2o-flEEny0FZhsfKu5WU4zr3E_BX0PnT8RD8yKwBNntkaToggR7BYRbKPxDcwg.woff2 HTTP/1.1" 200 31432
+Not Found: /favicon.ico
+[26/Oct/2026 15:40:33] "GET /favicon.ico HTTP/1.1" 404 4170
+[26/Oct/2026 15:40:33] "GET / HTTP/1.1" 200 15960
+[26/Oct/2026 15:40:33] "GET /static/fonts/fonts.css HTTP/1.1" 200 33688
+[26/Oct/2026 15:40:33] "GET /static/fonts/font_jk_006_LDIoaomQNQcsA88c7O9yZ4KMCoOg4Ko20yw.woff2 HTTP/1.1" 200 27348
+[26/Oct/2026 15:40:33] "GET /static/fonts/font_jk_008_tDbv2o-flEEny0FZhsfKu5WU4zr3E_BX0PnT8RD8yKwBNntkaToggR7BYRbKPxDcwg.woff2 HTTP/1.1" 200 31432
+[26/Oct/2026 15:40:33] "GET /static/fonts/font_jk_006_LDIoaomQNQcsA88c7O9yZ4KMCoOg4Ko20yw.woff2 HTTP/1.1" 200 27348
+[26/Oct/2026 15:40:33] "GET /static/fonts/font_jk_006_LDIoaomQNQcsA88c7O9yZ4KMCoOg4Ko20yw.woff2 HTTP/1.1" 200 27348
+[26/Oct/2026 15:40:33] "GET /static/fonts/font_jk_008_tDbv2o-flEEny0FZhsfKu5WU4zr3E_BX0PnT8RD8yKwBNntkaToggR7BYRbKPxDcwg.woff2 HTTP/1.1" 200 31432
+Not Found: /favicon.ico
+[26/Oct/2026 15:40:33] "GET /favicon.ico HTTP/1.1" 404 4170
+[26/Oct/2026 15:40:33] "GET / HTTP/1.1" 200 15960
+[26/Oct/2026 15:40:33] "GET /static/fonts/fonts.css HTTP/1.1" 200 33688
+Not Found: /favicon.ico
+[26/Oct/2026 15:40:33] "GET /favicon.ico HTTP/1.1" 404 4170
+[26/Oct/2026 15:40:33] "GET /static/fonts/font_jk_006_LDIoaomQNQcsA88c7O9yZ4KMCoOg4Ko20yw.woff2 HTTP/1.1" 200 27348
+[26/Oct/2026 15:40:33] "GET /static/fonts/font_jk_008_tDbv2o-flEEny0FZhsfKu5WU4zr3E_BX0PnT8RD8yKwBNntkaToggR7BYRbKPxDcwg.woff2 HTTP/1.1" 200 31432
+[26/Oct/2026 15:40:33] "GET /static/fonts/font_jk_006_LDIoaomQNQcsA88c7O9yZ4KMCoOg4Ko20yw.woff2 HTTP/1.1" 200 27348
+[26/Oct/2026 15:40:33] "GET /static/fonts/font_jk_008_tDbv2o-flEEny0FZhsfKu5WU4zr3E_BX0PnT8RD8yKwBNntkaToggR7BYRbKPxDcwg.woff2 HTTP/1.1" 200 31432
+[26/Oct/2026 15:40:33] "GET /static/fonts/font_jk_006_LDIoaomQNQcsA88c7O9yZ4KMCoOg4Ko20yw.woff2 HTTP/1.1" 200 27348
+[26/Oct/2026 15:40:33] "GET / HTTP/1.1" 200 15960
+[26/Oct/2026 15:40:33] "GET /static/fonts/fonts.css HTTP/1.1" 200 33688
+Not Found: /favicon.ico
+[26/Oct/2026 15:40:33] "GET /favicon.ico HTTP/1.1" 404 4170
+[26/Oct/2026 15:40:33] "GET /static/fonts/font_jk_006_LDIoaomQNQcsA88c7O9yZ4KMCoOg4Ko20yw.woff2 HTTP/1.1" 200 27348
+[26/Oct/2026 15:40:33] "GET /static/fonts/font_jk_008_tDbv2o-flEEny0FZhsfKu5WU4zr3E_BX0PnT8RD8yKwBNntkaToggR7BYRbKPxDcwg.woff2 HTTP/1.1" 200 31432
+[26/Oct/2026 15:40:33] "GET /static/fonts/font_jk_006_LDIoaomQNQcsA88c7O9yZ4KMCoOg4Ko20yw.woff2 HTTP/1.1" 200 27348
+[26/Oct/2026 15:40:33] "GET /static/fonts/font_jk_006_LDIoaomQNQcsA88c7O9yZ4KMCoOg4Ko20yw.woff2 HTTP/1.1" 200 27348
+[26/Oct/2026 15:40:33] "GET /static/fonts/font_jk_008_tDbv2o-flEEny0FZhsfKu5WU4zr3E_BX0PnT8RD8yKwBNntkaToggR7BYRbKPxDcwg.woff2 HTTP/1.1" 200 31432
+[26/Oct/2026 15:40:34] "GET / HTTP/1.1" 200 15960
+[26/Oct/2026 15:40:34] "GET /static/fonts/fonts.css HTTP/1.1" 200 33688
+Not Found: /favicon.ico
+[26/Oct/2026 15:40:34] "GET /favicon.ico HTTP/1.1" 404 4170
+[26/Oct/2026 15:40:34] "GET /static/fonts/font_jk_008_tDbv2o-flEEny0FZhsfKu5WU4zr3E_BX0PnT8RD8yKwBNntkaToggR7BYRbKPxDcwg.woff2 HTTP/1.1" 200 31432
+[26/Oct/2026 15:40:34] "GET /static/fonts/font_jk_006_LDIoaomQNQcsA88c7O9yZ4KMCoOg4Ko20yw.woff2 HTTP/1.1" 200 27348
+[26/Oct/2026 15:40:34] "GET /static/fonts/font_jk_006_LDIoaomQNQcsA88c7O9yZ4KMCoOg4Ko20yw.woff2 HTTP/1.1" 200 27348
+[26/Oct/2026 15:40:34] "GET /static/fonts/font_jk_008_tDbv2o-flEEny0FZhsfKu5WU4zr3E_BX0PnT8RD8yKwBNntkaToggR7BYRbKPxDcwg.woff2 HTTP/1.1" 200 31432
+[26/Oct/2026 15:40:34] "GET /static/fonts/font_jk_006_LDIoaomQNQcsA88c7O9yZ4KMCoOg4Ko20yw.woff2 HTTP/1.1" 200 27348
+[26/Oct/2026 15:40:34] "GET / HTTP/1.1" 200 15960
+[26/Oct/2026 15:40:34] "GET /static/fonts/fonts.css HTTP/1.1" 200 33688
+Not Found: /favicon.ico
+[26/Oct/2026 15:40:34] "GET /favicon.ico HTTP/1.1" 404 4170
+[26/Oct/2026 15:40:34] "GET /static/fonts/font_jk_006_LDIoaomQNQcsA88c7O9yZ4KMCoOg4Ko20yw.woff2 HTTP/1.1" 200 27348
+[26/Oct/2026 15:40:34] "GET /static/fonts/font_jk_008_tDbv2o-flEEny0FZhsfKu5WU4zr3E_BX0PnT8RD8yKwBNntkaToggR7BYRbKPxDcwg.woff2 HTTP/1.1" 200 31432
+[26/Oct/2026 15:40:34] "GET /static/fonts/font_jk_008_tDbv2o-flEEny0FZhsfKu5WU4zr3E_BX0PnT8RD8yKwBNntkaToggR7BYRbKPxDcwg.woff2 HTTP/1.1" 200 31432
+[26/Oct/2026 15:40:34] "GET /static/fonts/font_jk_006_LDIoaomQNQcsA88c7O9yZ4KMCoOg4Ko20yw.woff2 HTTP/1.1" 200 27348
+[26/Oct/2026 15:40:34] "GET /static/fonts/font_jk_006_LDIoaomQNQcsA88c7O9yZ4KMCoOg4Ko20yw.woff2 HTTP/1.1" 200 27348
+[26/Oct/2026 15:40:34] "GET / HTTP/1.1" 200 15960
+[26/Oct/2026 15:40:34] "GET /static/fonts/fonts.css HTTP/1.1" 200 33688
+[26/Oct/2026 15:40:34] "GET /static/fonts/font_jk_006_LDIoaomQNQcsA88c7O9yZ4KMCoOg4Ko20yw.woff2 HTTP/1.1" 200 27348
+[26/Oct/2026 15:40:34] "GET /static/fonts/font_jk_008_tDbv2o-flEEny0FZhsfKu5WU4zr3E_BX0PnT8RD8yKwBNntkaToggR7BYRbKPxDcwg.woff2 HTTP/1.1" 200 31432
+[26/Oct/2026 15:40:34] "GET /static/fonts/font_jk_006_LDIoaomQNQcsA88c7O9yZ4KMCoOg4Ko20yw.woff2 HTTP/1.1" 200 27348
+[26/Oct/2026 15:40:34] "GET /static/fonts/font_jk_008_tDbv2o-flEEny0FZhsfKu5WU4zr3E_BX0PnT8RD8yKwBNntkaToggR7BYRbKPxDcwg.woff2 HTTP/1.1" 200 31432
+[26/Oct/2026 15:40:34] "GET /static/fonts/font_jk_006_LDIoaomQNQcsA88c7O9yZ4KMCoOg4Ko20yw.woff2 HTTP/1.1" 200 27348
+Not Found: /favicon.ico
+[26/Oct/2026 15:40:34] "GET /favicon.ico HTTP/1.1" 404 4170
+[26/Oct/2026 15:40:34] "GET / HTTP/1.1" 200 15960
+[26/Oct/2026 15:40:34] "GET /static/fonts/fonts.css HTTP/1.1" 200 33688
+Not Found: /favicon.ico
+[26/Oct/2026 15:40:34] "GET /favicon.ico HTTP/1.1" 404 4170
+[26/Oct/2026 15:40:34] "GET /static/fonts/font_jk_008_tDbv2o-flEEny0FZhsfKu5WU4zr3E_BX0PnT8RD8yKwBNntkaToggR7BYRbKPxDcwg.woff2 HTTP/1.1" 200 31432
+[26/Oct/2026 15:40:34] "GET /static/fonts/font_jk_006_LDIoaomQNQcsA88c7O9yZ4KMCoOg4Ko20yw.woff2 HTTP/1.1" 200 27348
+[26/Oct/2026 15:40:34] "GET /static/fonts/font_jk_006_LDIoaomQNQcsA88c7O9yZ4KMCoOg4Ko20yw.woff2 HTTP/1.1" 200 27348
+[26/Oct/2026 15:40:35] "GET /static/fonts/font_jk_006_LDIoaomQNQcsA88c7O9yZ4KMCoOg4Ko20yw.woff2 HTTP/1.1" 200 27348
+[26/Oct/2026 15:40:35] "GET /static/fonts/font_jk_008_tDbv2o-flEEny0FZhsfKu5WU4zr3E_BX0PnT8RD8yKwBNntkaToggR7BYRbKPxDcwg.woff2 HTTP/1.1" 200 31432
+Watching for file changes with StatReloader
+[26/Oct/2026 15:41:05] "GET / HTTP/1.1" 200 15960
+[26/Oct/2026 15:41:05] "GET /static/fonts/fonts.css HTTP/1.1" 200 33688
+Not Found: /favicon.ico
+[26/Oct/2026 15:41:05] "GET /favicon.ico HTTP/1.1" 404 4170
+[26/Oct/2026 15:41:05] "GET /static/fonts/font_jk_008_tDbv2o-flEEny0FZhsfKu5WU4zr3E_BX0PnT8RD8yKwBNntkaToggR7BYRbKPxDcwg.woff2 HTTP/1.1" 200 31432
+[26/Oct/2026 15:41:05] "GET /static/fonts/font_jk_006_LDIoaomQNQcsA88c7O9yZ4KMCoOg4Ko20yw.woff2 HTTP/1.1" 200 27348
+[26/Oct/2026 15:41:05] "GET /static/fonts/font_jk_006_LDIoaomQNQcsA88c7O9yZ4KMCoOg4Ko20yw.woff2 HTTP/1.1" 200 27348
+[26/Oct/2026 15:41:05] "GET /static/fonts/font_jk_008_tDbv2o-flEEny0FZhsfKu5WU4zr3E_BX0PnT8RD8yKwBNntkaToggR7BYRbKPxDcwg.woff2 HTTP/1.1" 200 31432
+[26/Oct/2026 15:41:05] "GET /static/fonts/font_jk_006_LDIoaomQNQcsA88c7O9yZ4KMCoOg4Ko20yw.woff2 HTTP/1.1" 200 27348
+[26/Oct/2026 15:41:05] "GET / HTTP/1.1" 200 15960
+[26/Oct/2026 15:41:05] "GET /static/fonts/fonts.css HTTP/1.1" 200 33688
+Not Found: /favicon.ico
+[26/Oct/2026 15:41:06] "GET /static/fonts/font_jk_006_LDIoaomQNQcsA88c7O9yZ4KMCoOg4Ko20yw.woff2 HTTP/1.1" 200 27348
+[26/Oct/2026 15:41:06] "GET /favicon.ico HTTP/1.1" 404 4170
+[26/Oct/2026 15:41:06] "GET /static/fonts/font_jk_006_LDIoaomQNQcsA88c7O9yZ4KMCoOg4Ko20yw.woff2 HTTP/1.1" 200 27348
+[26/Oct/2026 15:41:06] "GET /static/fonts/font_jk_008_tDbv2o-flEEny0FZhsfKu5WU4zr3E_BX0PnT8RD8yKwBNntkaToggR7BYRbKPxDcwg.woff2 HTTP/1.1" 200 31432
+[26/Oct/2026 15:41:06] "GET /static/fonts/font_jk_008_tDbv2o-flEEny0FZhsfKu5WU4zr3E_BX0PnT8RD8yKwBNntkaToggR7BYRbKPxDcwg.woff2 HTTP/1.1" 200 31432
+[26/Oct/2026 15:41:06] "GET /static/fonts/font_jk_006_LDIoaomQNQcsA88c7O9yZ4KMCoOg4Ko20yw.woff2 HTTP/1.1" 200 27348
+[26/Oct/2026 15:41:13] "GET / HTTP/1.1" 200 15960
+[26/Oct/2026 15:44:10] "OPTIONS /api/auth/login HTTP/1.1" 200 0
+Not Found: /api/auth/login
+[26/Oct/2026 15:44:10] "POST /api/auth/login HTTP/1.1" 404 4180
+Not Found: /api/auth/login
+[26/Oct/2026 15:44:17] "POST /api/auth/login HTTP/1.1" 404 4180
+Not Found: /api/auth/login
+[26/Oct/2026 15:44:35] "POST /api/auth/login HTTP/1.1" 404 4180
+Not Found: /api/auth/login
+[26/Oct/2026 15:44:49] "POST /api/auth/login HTTP/1.1" 404 4180
+[26/Oct/2026 15:46:29] "GET / HTTP/1.1" 200 15960
+[26/Oct/2026 15:46:29] "GET /static/fonts/fonts.css HTTP/1.1" 304 0
+[26/Oct/2026 15:46:29] "GET /static/fonts/font_jk_008_tDbv2o-flEEny0FZhsfKu5WU4zr3E_BX0PnT8RD8yKwBNntkaToggR7BYRbKPxDcwg.woff2 HTTP/1.1" 304 0
+[26/Oct/2026 15:46:29] "GET /static/fonts/font_jk_006_LDIoaomQNQcsA88c7O9yZ4KMCoOg4Ko20yw.woff2 HTTP/1.1" 304 0
+Not Found: /favicon.ico
+[26/Oct/2026 15:46:29] "GET /favicon.ico HTTP/1.1" 404 4170
+[26/Oct/2026 15:46:35] "GET /api/docs/ HTTP/1.1" 200 4688
+/home/pc-2026-1/Desktop/DZbridge/DzBridge_Platform2/django_backend/apps/matches/views.py: Error [RecommendationListView]: exception raised while getting serializer. Hint: Is get_serializer_class() returning None or is get_queryset() not working without a request? Ignoring the view for now. (Exception: 'RecommendationListView' should either include a `serializer_class` attribute, or override the `get_serializer_class()` method.)
+/home/pc-2026-1/Desktop/DZbridge/DzBridge_Platform2/django_backend/apps/profiles/views.py: Warning [ExpertAvailabilityListCreateView]: Failed to obtain model through view's queryset due to raised exception. Prevent this either by setting "queryset = Model.objects.none()" on the view, checking for "getattr(self, "swagger_fake_view", False)" in get_queryset() or by simply using @extend_schema. (Exception: 'AnonymousUser' object has no attribute 'role')
+Warning: enum naming encountered a non-optimally resolvable collision for fields named "status". The same name has been used for multiple choice sets in multiple components. The collision was resolved with "Status1fbEnum". add an entry to ENUM_NAME_OVERRIDES to fix the naming.
+[26/Oct/2026 15:46:35] "GET /api/schema/ HTTP/1.1" 200 134946
+Unauthorized: /api/v1/auth/users/3fa85f64-5717-4562-b3fc-2c963f66afa6/
+[26/Oct/2026 15:47:13] "GET /api/v1/auth/users/3fa85f64-5717-4562-b3fc-2c963f66afa6/ HTTP/1.1" 401 58
+Unauthorized: /api/v1/auth/users/3fa85f64-5717-4562-b3fc-2c963f66afa6/
+[26/Oct/2026 15:47:16] "GET /api/v1/auth/users/3fa85f64-5717-4562-b3fc-2c963f66afa6/ HTTP/1.1" 401 58
+[26/Oct/2026 15:47:24] "GET /admin/ HTTP/1.1" 302 0
+[26/Oct/2026 15:47:24] "GET /admin/login/?next=/admin/ HTTP/1.1" 200 4160
+[26/Oct/2026 15:47:28] "GET /api/docs/ HTTP/1.1" 200 4688
+/home/pc-2026-1/Desktop/DZbridge/DzBridge_Platform2/django_backend/apps/matches/views.py: Error [RecommendationListView]: exception raised while getting serializer. Hint: Is get_serializer_class() returning None or is get_queryset() not working without a request? Ignoring the view for now. (Exception: 'RecommendationListView' should either include a `serializer_class` attribute, or override the `get_serializer_class()` method.)
+/home/pc-2026-1/Desktop/DZbridge/DzBridge_Platform2/django_backend/apps/profiles/views.py: Warning [ExpertAvailabilityListCreateView]: Failed to obtain model through view's queryset due to raised exception. Prevent this either by setting "queryset = Model.objects.none()" on the view, checking for "getattr(self, "swagger_fake_view", False)" in get_queryset() or by simply using @extend_schema. (Exception: 'AnonymousUser' object has no attribute 'role')
+Warning: enum naming encountered a non-optimally resolvable collision for fields named "status". The same name has been used for multiple choice sets in multiple components. The collision was resolved with "Status1fbEnum". add an entry to ENUM_NAME_OVERRIDES to fix the naming.
+[26/Oct/2026 15:47:28] "GET /api/schema/ HTTP/1.1" 200 134946
+Unauthorized: /api/v1/auth/users/
+[26/Oct/2026 15:47:35] "POST /api/v1/auth/users/ HTTP/1.1" 401 58
+Unauthorized: /api/v1/auth/me/
+[26/Oct/2026 15:48:03] "GET /api/v1/auth/me/ HTTP/1.1" 401 58
+Unauthorized: /api/v1/auth/me/
+[26/Oct/2026 15:48:05] "GET /api/v1/auth/me/ HTTP/1.1" 401 58
+Not Found: /api/auth/login
+[26/Oct/2026 15:49:53] "POST /api/auth/login HTTP/1.1" 404 4180
+/home/pc-2026-1/Desktop/DZbridge/DzBridge_Platform2/django_backend/apps/users/serializers.py changed, reloading.
+Performing system checks...
+
+System check identified no issues (0 silenced).
+October 26, 2026 - 15:41:01
+Django version 5.1.15, using settings 'core.settings'
+Starting development server at http://0.0.0.0:8000/
+Quit the server with CONTROL-C.
+
+Watching for file changes with StatReloader
+Not Found: /api/auth/login
+[26/Oct/2026 15:53:29] "POST /api/auth/login HTTP/1.1" 404 4180
+/home/pc-2026-1/Desktop/DZbridge/DzBridge_Platform2/django_backend/core/views.py changed, reloading.
+Performing system checks...
+
+System check identified no issues (0 silenced).
+October 26, 2026 - 15:53:11
+Django version 5.1.15, using settings 'core.settings'
+Starting development server at http://0.0.0.0:8000/
+Quit the server with CONTROL-C.
+
+Watching for file changes with StatReloader
+/home/pc-2026-1/Desktop/DZbridge/DzBridge_Platform2/django_backend/core/urls.py changed, reloading.
+Performing system checks...
+
+System check identified no issues (0 silenced).
+October 26, 2026 - 15:54:01
+Django version 5.1.15, using settings 'core.settings'
+Starting development server at http://0.0.0.0:8000/
+Quit the server with CONTROL-C.
+
+Watching for file changes with StatReloader
+[26/Oct/2026 15:55:53] "POST /api/auth/login HTTP/1.1" 200 1310
+[26/Oct/2026 15:55:54] "POST /api/auth/login HTTP/1.1" 200 1331
+[26/Oct/2026 15:55:54] "POST /api/auth/login HTTP/1.1" 200 1331
+[26/Oct/2026 15:55:55] "POST /api/auth/login HTTP/1.1" 200 1388
+[26/Oct/2026 15:55:56] "POST /api/auth/login HTTP/1.1" 200 1315
+[26/Oct/2026 15:55:56] "POST /api/auth/login HTTP/1.1" 200 1246
+[26/Oct/2026 15:55:57] "POST /api/auth/login HTTP/1.1" 200 1235
+[26/Oct/2026 15:56:13] "POST /api/auth/login HTTP/1.1" 200 1310
+[26/Oct/2026 15:56:14] "POST /api/auth/login HTTP/1.1" 200 1310
+/home/pc-2026-1/Desktop/DZbridge/DzBridge_Platform2/django_backend/core/settings.py changed, reloading.
+Performing system checks...
+
+System check identified no issues (0 silenced).
+October 26, 2026 - 15:54:22
+Django version 5.1.15, using settings 'core.settings'
+Starting development server at http://0.0.0.0:8000/
+Quit the server with CONTROL-C.
+
+Watching for file changes with StatReloader
+[26/Oct/2026 15:57:13] "GET / HTTP/1.1" 200 229078
+[26/Oct/2026 15:57:13] "GET /login HTTP/1.1" 200 51269
+[26/Oct/2026 15:57:13] "GET /test-client/ HTTP/1.1" 200 15960
+[26/Oct/2026 15:57:13] "GET /api/docs/ HTTP/1.1" 200 4688
+[26/Oct/2026 16:01:33] "POST /api/auth/login HTTP/1.1" 200 1331
+/home/pc-2026-1/Desktop/DZbridge/DzBridge_Platform2/django_backend/core/urls.py changed, reloading.
+Performing system checks...
+
+System check identified no issues (0 silenced).
+October 26, 2026 - 15:56:47
+Django version 5.1.15, using settings 'core.settings'
+Starting development server at http://0.0.0.0:8000/
+Quit the server with CONTROL-C.
+
+Watching for file changes with StatReloader
+Watching for file changes with StatReloader
+[26/Oct/2026 16:38:34] "GET / HTTP/1.1" 200 232572
+Not Found: /fonts/fonts.css
+[26/Oct/2026 16:38:34] "GET /fonts/fonts.css HTTP/1.1" 404 8048
+[26/Oct/2026 16:38:35] "GET / HTTP/1.1" 200 232572
+Not Found: /fonts/fonts.css
+[26/Oct/2026 16:38:35] "GET /fonts/fonts.css HTTP/1.1" 404 8048
+[26/Oct/2026 16:38:36] "GET / HTTP/1.1" 200 232572
+Not Found: /fonts/fonts.css
+[26/Oct/2026 16:38:36] "GET /fonts/fonts.css HTTP/1.1" 404 8048
+[26/Oct/2026 16:38:36] "GET / HTTP/1.1" 200 232572
+Not Found: /fonts/fonts.css
+[26/Oct/2026 16:38:36] "GET /fonts/fonts.css HTTP/1.1" 404 8048
+[26/Oct/2026 16:38:37] "GET / HTTP/1.1" 200 232572
+Not Found: /fonts/fonts.css
+[26/Oct/2026 16:38:37] "GET /fonts/fonts.css HTTP/1.1" 404 8048
+[26/Oct/2026 16:38:58] "GET / HTTP/1.1" 200 232572
+Not Found: /fonts/fonts.css
+[26/Oct/2026 16:38:58] "GET /fonts/fonts.css HTTP/1.1" 404 8048
+Not Found: /images/event-3.png
+Not Found: /images/event-1.png
+[26/Oct/2026 16:38:58] "GET /images/event-1.png HTTP/1.1" 404 8057
+[26/Oct/2026 16:38:58] "GET /images/event-3.png HTTP/1.1" 404 8057
+Not Found: /images/event-2.png
+[26/Oct/2026 16:38:58] "GET /images/event-2.png HTTP/1.1" 404 8057
+[26/Oct/2026 16:38:59] "GET / HTTP/1.1" 200 232572
+Not Found: /fonts/fonts.css
+[26/Oct/2026 16:38:59] "GET /fonts/fonts.css HTTP/1.1" 404 8048
+Not Found: /images/event-2.png
+Not Found: /images/event-3.png
+Not Found: /images/event-1.png
+[26/Oct/2026 16:38:59] "GET /images/event-3.png HTTP/1.1" 404 8057
+[26/Oct/2026 16:38:59] "GET /images/event-1.png HTTP/1.1" 404 8057
+[26/Oct/2026 16:38:59] "GET /images/event-2.png HTTP/1.1" 404 8057
+[26/Oct/2026 16:38:59] "GET / HTTP/1.1" 200 232572
+Not Found: /fonts/fonts.css
+[26/Oct/2026 16:38:59] "GET /fonts/fonts.css HTTP/1.1" 404 8048
+Not Found: /images/event-3.png
+Not Found: /images/event-2.png
+[26/Oct/2026 16:38:59] "GET /images/event-3.png HTTP/1.1" 404 8057
+Not Found: /images/event-1.png
+[26/Oct/2026 16:38:59] "GET /images/event-1.png HTTP/1.1" 404 8057
+[26/Oct/2026 16:38:59] "GET /images/event-2.png HTTP/1.1" 404 8057
+[26/Oct/2026 16:38:59] "GET / HTTP/1.1" 200 232572
+Not Found: /fonts/fonts.css
+[26/Oct/2026 16:38:59] "GET /fonts/fonts.css HTTP/1.1" 404 8048
+Not Found: /images/event-2.png
+[26/Oct/2026 16:38:59] "GET /images/event-2.png HTTP/1.1" 404 8057
+Not Found: /images/event-3.png
+[26/Oct/2026 16:38:59] "GET /images/event-3.png HTTP/1.1" 404 8057
+Not Found: /images/event-1.png
+[26/Oct/2026 16:38:59] "GET /images/event-1.png HTTP/1.1" 404 8057
+[26/Oct/2026 16:38:59] "GET / HTTP/1.1" 200 232572
+Not Found: /fonts/fonts.css
+[26/Oct/2026 16:38:59] "GET /fonts/fonts.css HTTP/1.1" 404 8048
+Not Found: /images/event-3.png
+Not Found: /images/event-2.png
+Not Found: /images/event-1.png
+[26/Oct/2026 16:38:59] "GET /images/event-3.png HTTP/1.1" 404 8057
+[26/Oct/2026 16:38:59] "GET /images/event-1.png HTTP/1.1" 404 8057
+[26/Oct/2026 16:38:59] "GET /images/event-2.png HTTP/1.1" 404 8057
+[26/Oct/2026 16:38:59] "GET / HTTP/1.1" 200 232572
+Not Found: /fonts/fonts.css
+[26/Oct/2026 16:38:59] "GET /fonts/fonts.css HTTP/1.1" 404 8048
+Not Found: /images/event-1.png
+Not Found: /images/event-3.png
+[26/Oct/2026 16:39:00] "GET /images/event-3.png HTTP/1.1" 404 8057
+Not Found: /images/event-2.png
+[26/Oct/2026 16:39:00] "GET /images/event-2.png HTTP/1.1" 404 8057
+[26/Oct/2026 16:39:00] "GET /images/event-1.png HTTP/1.1" 404 8057
+[26/Oct/2026 16:39:00] "GET / HTTP/1.1" 200 232572
+Not Found: /fonts/fonts.css
+[26/Oct/2026 16:39:00] "GET /fonts/fonts.css HTTP/1.1" 404 8048
+Not Found: /images/event-2.png
+Not Found: /images/event-3.png
+[26/Oct/2026 16:39:00] "GET /images/event-3.png HTTP/1.1" 404 8057
+Not Found: /images/event-1.png
+[26/Oct/2026 16:39:00] "GET /images/event-2.png HTTP/1.1" 404 8057
+[26/Oct/2026 16:39:00] "GET /images/event-1.png HTTP/1.1" 404 8057
+[26/Oct/2026 16:39:00] "GET / HTTP/1.1" 200 232572
+Not Found: /fonts/fonts.css
+[26/Oct/2026 16:39:00] "GET /fonts/fonts.css HTTP/1.1" 404 8048
+Not Found: /images/event-3.png
+[26/Oct/2026 16:39:00] "GET /images/event-3.png HTTP/1.1" 404 8057
+Not Found: /images/event-1.png
+[26/Oct/2026 16:39:00] "GET /images/event-1.png HTTP/1.1" 404 8057
+Not Found: /images/event-2.png
+[26/Oct/2026 16:39:00] "GET /images/event-2.png HTTP/1.1" 404 8057
+[26/Oct/2026 16:39:02] "GET /signup.html?role=expert HTTP/1.1" 200 46537
+Not Found: /fonts/fonts.css
+[26/Oct/2026 16:39:02] "GET /fonts/fonts.css HTTP/1.1" 404 8048
+Not Found: /DZ Bridge Favicon.png
+[26/Oct/2026 16:39:02] "GET /DZ%20Bridge%20Favicon.png HTTP/1.1" 404 8070
+[26/Oct/2026 16:39:05] "GET /signup.html?role=organization HTTP/1.1" 200 46537
+Not Found: /fonts/fonts.css
+[26/Oct/2026 16:39:05] "GET /fonts/fonts.css HTTP/1.1" 404 8048
+[26/Oct/2026 16:39:11] "GET /login.html HTTP/1.1" 200 51511
+Not Found: /fonts/fonts.css
+[26/Oct/2026 16:39:11] "GET /fonts/fonts.css HTTP/1.1" 404 8048
+[26/Oct/2026 16:40:25] "POST /api/auth/login HTTP/1.1" 200 1331
+Not Found: /console
+[26/Oct/2026 16:40:25] "GET /console HTTP/1.1" 404 8024
+Not Found: /favicon.ico
+[26/Oct/2026 16:40:25] "GET /favicon.ico HTTP/1.1" 404 8036
+[26/Oct/2026 16:40:39] "GET /login.html HTTP/1.1" 200 51511
+Not Found: /fonts/fonts.css
+[26/Oct/2026 16:40:39] "GET /fonts/fonts.css HTTP/1.1" 404 8048
+[26/Oct/2026 16:40:43] "POST /api/auth/login HTTP/1.1" 200 1310
+Not Found: /console
+[26/Oct/2026 16:40:44] "GET /console HTTP/1.1" 404 8024
+[26/Oct/2026 16:41:00] "GET /login.html HTTP/1.1" 200 51511
+Not Found: /fonts/fonts.css
+[26/Oct/2026 16:41:00] "GET /fonts/fonts.css HTTP/1.1" 404 8048
+Not Found: /DZ Bridge Favicon.png
+[26/Oct/2026 16:41:01] "GET /DZ%20Bridge%20Favicon.png HTTP/1.1" 404 8070
+[26/Oct/2026 16:41:05] "POST /api/auth/login HTTP/1.1" 200 1388
+[26/Oct/2026 16:41:05] "GET /expert-dashboard.html HTTP/1.1" 200 162219
+Not Found: /fonts/fonts.css
+[26/Oct/2026 16:41:05] "GET /fonts/fonts.css HTTP/1.1" 404 8048
+Not Found: /api/profile/me
+[26/Oct/2026 16:41:05] "GET /api/profile/me HTTP/1.1" 404 8045
+Not Found: /api/data/expert_availabilities
+[26/Oct/2026 16:41:39] "POST /api/data/expert_availabilities HTTP/1.1" 404 8094
+[26/Oct/2026 16:41:44] "GET /login.html HTTP/1.1" 200 51511
+Not Found: /fonts/fonts.css
+[26/Oct/2026 16:41:44] "GET /fonts/fonts.css HTTP/1.1" 404 8048
+[26/Oct/2026 16:41:49] "POST /api/auth/login HTTP/1.1" 200 1388
+[26/Oct/2026 16:41:49] "GET /expert-dashboard.html HTTP/1.1" 200 162219
+Not Found: /fonts/fonts.css
+[26/Oct/2026 16:41:49] "GET /fonts/fonts.css HTTP/1.1" 404 8048
+Not Found: /api/profile/me
+[26/Oct/2026 16:41:50] "GET /api/profile/me HTTP/1.1" 404 8045
+[26/Oct/2026 16:42:12] "GET /login.html HTTP/1.1" 200 51511
+Not Found: /fonts/fonts.css
+[26/Oct/2026 16:42:12] "GET /fonts/fonts.css HTTP/1.1" 404 8048
+[26/Oct/2026 16:44:05] "POST /api/auth/login HTTP/1.1" 200 1347
+[26/Oct/2026 16:44:05] "GET /organization-dashboard.html HTTP/1.1" 200 56623
+Not Found: /fonts/fonts.css
+[26/Oct/2026 16:44:05] "GET /fonts/fonts.css HTTP/1.1" 404 8048
+Not Found: /api/profile/me
+[26/Oct/2026 16:44:05] "GET /api/profile/me HTTP/1.1" 404 8045
+[26/Oct/2026 16:44:54] "GET /login.html HTTP/1.1" 200 51511
+Not Found: /fonts/fonts.css
+[26/Oct/2026 16:44:54] "GET /fonts/fonts.css HTTP/1.1" 404 8048
+[26/Oct/2026 16:45:19] "POST /api/auth/login HTTP/1.1" 200 1332
+Not Found: /console
+[26/Oct/2026 16:45:19] "GET /console HTTP/1.1" 404 8024
+Not Found: /favicon.ico
+[26/Oct/2026 16:45:19] "GET /favicon.ico HTTP/1.1" 404 8036
+[26/Oct/2026 16:45:35] "GET /login.html HTTP/1.1" 200 51511
+Not Found: /fonts/fonts.css
+[26/Oct/2026 16:45:35] "GET /fonts/fonts.css HTTP/1.1" 404 8048
+Not Found: /DZ Bridge Favicon.png
+[26/Oct/2026 16:45:35] "GET /DZ%20Bridge%20Favicon.png HTTP/1.1" 404 8070
+[26/Oct/2026 16:45:38] "POST /api/auth/login HTTP/1.1" 200 1246
+Not Found: /console
+[26/Oct/2026 16:45:39] "GET /console HTTP/1.1" 404 8024
+Not Found: /favicon.ico
+[26/Oct/2026 16:45:39] "GET /favicon.ico HTTP/1.1" 404 8036
+Not Found: /fonts/fonts.css
+[26/Oct/2026 16:45:45] "GET /fonts/fonts.css HTTP/1.1" 404 8048
+[26/Oct/2026 16:45:46] "GET / HTTP/1.1" 200 232572
+Not Found: /fonts/fonts.css
+[26/Oct/2026 16:45:46] "GET /fonts/fonts.css HTTP/1.1" 404 8048
+Not Found: /images/event-1.png
+Not Found: /images/event-2.png
+[26/Oct/2026 16:45:46] "GET /images/event-1.png HTTP/1.1" 404 8057
+Not Found: /images/event-3.png
+[26/Oct/2026 16:45:46] "GET /images/event-3.png HTTP/1.1" 404 8057
+[26/Oct/2026 16:45:46] "GET /images/event-2.png HTTP/1.1" 404 8057
+[26/Oct/2026 16:45:52] "GET /organization-dashboard.html HTTP/1.1" 200 56623
+Not Found: /fonts/fonts.css
+[26/Oct/2026 16:45:52] "GET /fonts/fonts.css HTTP/1.1" 404 8048
+Not Found: /api/profile/me
+[26/Oct/2026 16:45:52] "GET /api/profile/me HTTP/1.1" 404 8045
+Not Found: /DZ Bridge Favicon.png
+[26/Oct/2026 16:45:52] "GET /DZ%20Bridge%20Favicon.png HTTP/1.1" 404 8070
+[26/Oct/2026 16:45:53] "GET /organization-dashboard.html HTTP/1.1" 200 56623
+Not Found: /fonts/fonts.css
+[26/Oct/2026 16:45:53] "GET /fonts/fonts.css HTTP/1.1" 404 8048
+Not Found: /api/profile/me
+[26/Oct/2026 16:45:53] "GET /api/profile/me HTTP/1.1" 404 8045
+Not Found: /DZ Bridge Favicon.png
+[26/Oct/2026 16:45:53] "GET /DZ%20Bridge%20Favicon.png HTTP/1.1" 404 8070
+[26/Oct/2026 16:45:54] "GET /organization-dashboard.html HTTP/1.1" 200 56623
+Not Found: /fonts/fonts.css
+[26/Oct/2026 16:45:54] "GET /fonts/fonts.css HTTP/1.1" 404 8048
+Not Found: /api/profile/me
+[26/Oct/2026 16:45:54] "GET /api/profile/me HTTP/1.1" 404 8045
+Not Found: /DZ Bridge Favicon.png
+[26/Oct/2026 16:45:54] "GET /DZ%20Bridge%20Favicon.png HTTP/1.1" 404 8070
+[26/Oct/2026 16:45:54] "GET /organization-dashboard.html HTTP/1.1" 200 56623
+Not Found: /fonts/fonts.css
+[26/Oct/2026 16:45:54] "GET /fonts/fonts.css HTTP/1.1" 404 8048
+Not Found: /api/profile/me
+[26/Oct/2026 16:45:54] "GET /api/profile/me HTTP/1.1" 404 8045
+Not Found: /DZ Bridge Favicon.png
+[26/Oct/2026 16:45:54] "GET /DZ%20Bridge%20Favicon.png HTTP/1.1" 404 8070
+[26/Oct/2026 16:45:55] "GET /organization-dashboard.html HTTP/1.1" 200 56623
+Not Found: /fonts/fonts.css
+[26/Oct/2026 16:45:55] "GET /fonts/fonts.css HTTP/1.1" 404 8048
+Not Found: /api/profile/me
+[26/Oct/2026 16:45:55] "GET /api/profile/me HTTP/1.1" 404 8045
+[26/Oct/2026 16:45:55] "GET /organization-dashboard.html HTTP/1.1" 200 56623
+Not Found: /fonts/fonts.css
+[26/Oct/2026 16:45:55] "GET /fonts/fonts.css HTTP/1.1" 404 8048
+Not Found: /api/profile/me
+[26/Oct/2026 16:45:55] "GET /api/profile/me HTTP/1.1" 404 8045
+[26/Oct/2026 16:45:56] "GET /organization-dashboard.html HTTP/1.1" 200 56623
+Not Found: /fonts/fonts.css
+[26/Oct/2026 16:45:56] "GET /fonts/fonts.css HTTP/1.1" 404 8048
+Not Found: /api/profile/me
+[26/Oct/2026 16:45:56] "GET /api/profile/me HTTP/1.1" 404 8045
+Unauthorized: /api/v1/projects/
+[26/Oct/2026 16:53:16] "GET /api/v1/projects/ HTTP/1.1" 401 58
+[26/Oct/2026 16:53:22] "POST /api/v1/auth/login/ HTTP/1.1" 200 1310
+[26/Oct/2026 16:53:22] "GET /api/v1/projects/ HTTP/1.1" 200 701
+Unauthorized: /api/v1/projects/
+[26/Oct/2026 16:57:20] "GET /api/v1/projects/ HTTP/1.1" 401 58
+[26/Oct/2026 16:57:27] "POST /api/v1/auth/login/ HTTP/1.1" 200 1310
+[26/Oct/2026 16:57:27] "GET /api/v1/projects/ HTTP/1.1" 200 701
+[26/Oct/2026 16:58:02] "HEAD /health/ HTTP/1.1" 200 0
+Watching for file changes with StatReloader
+[26/Oct/2026 17:15:21] "GET / HTTP/1.1" 200 232572
+Not Found: /fonts/fonts.css
+[26/Oct/2026 17:15:22] "GET /fonts/fonts.css HTTP/1.1" 404 8048
+[26/Oct/2026 17:15:23] "GET / HTTP/1.1" 200 232572
+Not Found: /fonts/fonts.css
+[26/Oct/2026 17:15:23] "GET /fonts/fonts.css HTTP/1.1" 404 8048
+[26/Oct/2026 17:15:23] "GET / HTTP/1.1" 200 232572
+Not Found: /fonts/fonts.css
+[26/Oct/2026 17:15:23] "GET /fonts/fonts.css HTTP/1.1" 404 8048
+[26/Oct/2026 17:15:24] "GET /login.html HTTP/1.1" 200 51511
+Not Found: /fonts/fonts.css
+[26/Oct/2026 17:15:24] "GET /fonts/fonts.css HTTP/1.1" 404 8048
+Not Found: /DZ Bridge Favicon.png
+[26/Oct/2026 17:15:24] "GET /DZ%20Bridge%20Favicon.png HTTP/1.1" 404 8070
+[26/Oct/2026 17:15:33] "POST /api/auth/login HTTP/1.1" 200 1310
+Not Found: /manager
+[26/Oct/2026 17:15:34] "GET /manager HTTP/1.1" 404 8024
+/home/pc-2026-1/Desktop/DZbridge/DzBridge_Platform2/django_backend/core/urls.py changed, reloading.
+Performing system checks...
+
+System check identified no issues (0 silenced).
+October 26, 2026 - 17:15:02
+Django version 5.1.15, using settings 'core.settings'
+Starting development server at http://0.0.0.0:8000/
+Quit the server with CONTROL-C.
+
+Watching for file changes with StatReloader
+[26/Oct/2026 17:17:31] "HEAD /manager HTTP/1.1" 302 0
+[26/Oct/2026 17:17:31] "HEAD /console HTTP/1.1" 302 0
+[26/Oct/2026 17:17:31] "HEAD /dashboard HTTP/1.1" 302 0
+Watching for file changes with StatReloader
+[26/Oct/2026 17:19:30] "GET /manager HTTP/1.1" 302 0
+Not Found: /api/v1/prices/current/
+[26/Oct/2026 17:19:56] "GET /api/v1/prices/current/ HTTP/1.1" 404 8598
+Not Found: /api/v1/prices/current/
+[26/Oct/2026 17:19:57] "GET /api/v1/prices/current/ HTTP/1.1" 404 8598
+Not Found: /api/v1/prices/history/
+[26/Oct/2026 17:19:57] "GET /api/v1/prices/history/ HTTP/1.1" 404 8598
+Not Found: /api/v1/listings/
+[26/Oct/2026 17:19:57] "GET /api/v1/listings/ HTTP/1.1" 404 8580
+Not Found: /api/v1/prices/current/
+[26/Oct/2026 17:19:57] "GET /api/v1/prices/current/ HTTP/1.1" 404 8598
+Not Found: /api/v1/prices/current/
+Not Found: /api/v1/prices/history/
+[26/Oct/2026 17:19:57] "GET /api/v1/prices/current/ HTTP/1.1" 404 8598
+Not Found: /api/v1/prices/current/
+[26/Oct/2026 17:19:57] "GET /api/v1/prices/history/ HTTP/1.1" 404 8598
+[26/Oct/2026 17:19:57] "GET /api/v1/prices/current/ HTTP/1.1" 404 8598
+Not Found: /api/v1/listings/
+[26/Oct/2026 17:19:57] "GET /api/v1/listings/ HTTP/1.1" 404 8580
+Not Found: /api/v1/prices/current/
+[26/Oct/2026 17:19:57] "GET /api/v1/prices/current/ HTTP/1.1" 404 8598
+[26/Oct/2026 17:20:17] "OPTIONS /api/auth/login HTTP/1.1" 200 0
+[26/Oct/2026 17:20:17] "POST /api/auth/login HTTP/1.1" 200 1331
+Not Found: /api/v1/prices/current/
+[26/Oct/2026 17:20:18] "GET /api/v1/prices/current/ HTTP/1.1" 404 8598
+Not Found: /api/v1/prices/current/
+[26/Oct/2026 17:20:18] "GET /api/v1/prices/current/ HTTP/1.1" 404 8598
+Not Found: /api/v1/prices/history/
+Not Found: /api/v1/listings/
+[26/Oct/2026 17:20:18] "GET /api/v1/listings/ HTTP/1.1" 404 8580
+[26/Oct/2026 17:20:18] "GET /api/v1/prices/history/ HTTP/1.1" 404 8598
+Not Found: /api/v1/prices/current/
+Not Found: /api/v1/prices/history/
+Not Found: /api/v1/prices/current/
+[26/Oct/2026 17:20:18] "GET /api/v1/prices/current/ HTTP/1.1" 404 8598
+Not Found: /api/v1/prices/current/
+Not Found: /api/v1/listings/
+[26/Oct/2026 17:20:18] "GET /api/v1/prices/current/ HTTP/1.1" 404 8598
+[26/Oct/2026 17:20:18] "GET /api/v1/prices/history/ HTTP/1.1" 404 8598
+[26/Oct/2026 17:20:18] "GET /api/v1/prices/current/ HTTP/1.1" 404 8598
+[26/Oct/2026 17:20:18] "GET /api/v1/listings/ HTTP/1.1" 404 8580
+Not Found: /api/v1/prices/current/
+[26/Oct/2026 17:20:18] "GET /api/v1/prices/current/ HTTP/1.1" 404 8598
+[26/Oct/2026 17:21:15] "GET /login.html HTTP/1.1" 200 51606
+Not Found: /fonts/fonts.css
+[26/Oct/2026 17:21:15] "GET /fonts/fonts.css HTTP/1.1" 404 8577
+[26/Oct/2026 17:21:16] "GET /login.html HTTP/1.1" 200 51606
+Not Found: /fonts/fonts.css
+[26/Oct/2026 17:21:16] "GET /fonts/fonts.css HTTP/1.1" 404 8577
+Not Found: /DZ Bridge Favicon.png
+[26/Oct/2026 17:21:16] "GET /DZ%20Bridge%20Favicon.png HTTP/1.1" 404 8599
+[26/Oct/2026 17:21:17] "GET /login.html HTTP/1.1" 200 51606
+Not Found: /fonts/fonts.css
+[26/Oct/2026 17:21:17] "GET /fonts/fonts.css HTTP/1.1" 404 8577
+Not Found: /DZ Bridge Favicon.png
+[26/Oct/2026 17:21:18] "GET /DZ%20Bridge%20Favicon.png HTTP/1.1" 404 8599
+[26/Oct/2026 17:21:18] "GET /login.html HTTP/1.1" 200 51606
+Not Found: /fonts/fonts.css
+[26/Oct/2026 17:21:18] "GET /fonts/fonts.css HTTP/1.1" 404 8577
+Not Found: /DZ Bridge Favicon.png
+[26/Oct/2026 17:21:18] "GET /DZ%20Bridge%20Favicon.png HTTP/1.1" 404 8599
+[26/Oct/2026 17:21:22] "POST /api/auth/login HTTP/1.1" 200 1388
+[26/Oct/2026 17:21:23] "GET /expert-dashboard.html HTTP/1.1" 200 162219
+Not Found: /fonts/fonts.css
+[26/Oct/2026 17:21:23] "GET /fonts/fonts.css HTTP/1.1" 404 8577
+Not Found: /api/profile/me
+[26/Oct/2026 17:21:23] "GET /api/profile/me HTTP/1.1" 404 8574
+[26/Oct/2026 17:21:26] "GET /landing_page.html HTTP/1.1" 302 0
+[26/Oct/2026 17:21:26] "GET / HTTP/1.1" 200 232857
+Not Found: /fonts/fonts.css
+[26/Oct/2026 17:21:26] "GET /fonts/fonts.css HTTP/1.1" 404 8577
+Not Found: /images/event-3.png
+Not Found: /images/event-2.png
+[26/Oct/2026 17:21:26] "GET /images/event-3.png HTTP/1.1" 404 8586
+Not Found: /images/event-1.png
+[26/Oct/2026 17:21:26] "GET /images/event-1.png HTTP/1.1" 404 8586
+[26/Oct/2026 17:21:26] "GET /images/event-2.png HTTP/1.1" 404 8586
+[26/Oct/2026 17:21:28] "GET / HTTP/1.1" 200 232857
+Not Found: /fonts/fonts.css
+[26/Oct/2026 17:21:28] "GET /fonts/fonts.css HTTP/1.1" 404 8577
+Not Found: /images/event-3.png
+Not Found: /images/event-2.png
+[26/Oct/2026 17:21:28] "GET /images/event-3.png HTTP/1.1" 404 8586
+Not Found: /images/event-1.png
+[26/Oct/2026 17:21:28] "GET /images/event-2.png HTTP/1.1" 404 8586
+[26/Oct/2026 17:21:28] "GET /images/event-1.png HTTP/1.1" 404 8586
+[26/Oct/2026 17:21:28] "GET / HTTP/1.1" 200 232857
+Not Found: /fonts/fonts.css
+[26/Oct/2026 17:21:28] "GET /fonts/fonts.css HTTP/1.1" 404 8577
+Not Found: /images/event-3.png
+Not Found: /images/event-1.png
+[26/Oct/2026 17:21:28] "GET /images/event-1.png HTTP/1.1" 404 8586
+Not Found: /images/event-2.png
+[26/Oct/2026 17:21:28] "GET /images/event-3.png HTTP/1.1" 404 8586
+[26/Oct/2026 17:21:28] "GET /images/event-2.png HTTP/1.1" 404 8586
+[26/Oct/2026 17:21:29] "GET / HTTP/1.1" 200 232857
+Not Found: /fonts/fonts.css
+[26/Oct/2026 17:21:29] "GET /fonts/fonts.css HTTP/1.1" 404 8577
+Not Found: /images/event-2.png
+Not Found: /images/event-1.png
+[26/Oct/2026 17:21:29] "GET /images/event-1.png HTTP/1.1" 404 8586
+Not Found: /images/event-3.png
+[26/Oct/2026 17:21:29] "GET /images/event-2.png HTTP/1.1" 404 8586
+[26/Oct/2026 17:21:29] "GET /images/event-3.png HTTP/1.1" 404 8586
+[26/Oct/2026 17:21:29] "GET / HTTP/1.1" 200 232857
+Not Found: /fonts/fonts.css
+[26/Oct/2026 17:21:29] "GET /fonts/fonts.css HTTP/1.1" 404 8577
+Not Found: /images/event-2.png
+Not Found: /images/event-1.png
+[26/Oct/2026 17:21:29] "GET /images/event-1.png HTTP/1.1" 404 8586
+Not Found: /images/event-3.png
+[26/Oct/2026 17:21:29] "GET /images/event-2.png HTTP/1.1" 404 8586
+[26/Oct/2026 17:21:29] "GET /images/event-3.png HTTP/1.1" 404 8586
+[26/Oct/2026 17:21:31] "GET /signup.html?role=expert HTTP/1.1" 200 46537
+Not Found: /fonts/fonts.css
+[26/Oct/2026 17:21:31] "GET /fonts/fonts.css HTTP/1.1" 404 8577
+Not Found: /DZ Bridge Favicon.png
+[26/Oct/2026 17:21:31] "GET /DZ%20Bridge%20Favicon.png HTTP/1.1" 404 8599
+[26/Oct/2026 17:21:35] "GET /signup.html?role=expert HTTP/1.1" 200 46537
+Not Found: /fonts/fonts.css
+[26/Oct/2026 17:21:35] "GET /fonts/fonts.css HTTP/1.1" 404 8577
+[26/Oct/2026 17:21:42] "GET /landing_page.html HTTP/1.1" 302 0
+[26/Oct/2026 17:21:42] "GET / HTTP/1.1" 200 232857
+Not Found: /fonts/fonts.css
+[26/Oct/2026 17:21:42] "GET /fonts/fonts.css HTTP/1.1" 404 8577
+Not Found: /images/event-1.png
+Not Found: /images/event-3.png
+Not Found: /images/event-2.png
+[26/Oct/2026 17:21:42] "GET /images/event-1.png HTTP/1.1" 404 8586
+[26/Oct/2026 17:21:42] "GET /images/event-3.png HTTP/1.1" 404 8586
+[26/Oct/2026 17:21:42] "GET /images/event-2.png HTTP/1.1" 404 8586
+[26/Oct/2026 17:21:43] "GET /login.html HTTP/1.1" 200 51606
+Not Found: /fonts/fonts.css
+[26/Oct/2026 17:21:43] "GET /fonts/fonts.css HTTP/1.1" 404 8577
+[26/Oct/2026 17:21:47] "POST /api/auth/login HTTP/1.1" 200 1388
+[26/Oct/2026 17:21:47] "GET /expert-dashboard.html HTTP/1.1" 200 162219
+Not Found: /fonts/fonts.css
+[26/Oct/2026 17:21:47] "GET /fonts/fonts.css HTTP/1.1" 404 8577
+Not Found: /api/profile/me
+[26/Oct/2026 17:21:47] "GET /api/profile/me HTTP/1.1" 404 8574
+[26/Oct/2026 17:21:50] "GET /landing_page.html HTTP/1.1" 302 0
+[26/Oct/2026 17:21:50] "GET / HTTP/1.1" 200 232857
+Not Found: /fonts/fonts.css
+[26/Oct/2026 17:21:50] "GET /fonts/fonts.css HTTP/1.1" 404 8577
+Not Found: /images/event-3.png
+Not Found: /images/event-2.png
+[26/Oct/2026 17:21:51] "GET /images/event-2.png HTTP/1.1" 404 8586
+Not Found: /images/event-1.png
+[26/Oct/2026 17:21:51] "GET /images/event-3.png HTTP/1.1" 404 8586
+[26/Oct/2026 17:21:51] "GET /images/event-1.png HTTP/1.1" 404 8586
+[26/Oct/2026 17:21:52] "GET / HTTP/1.1" 200 232857
+Not Found: /fonts/fonts.css
+[26/Oct/2026 17:21:52] "GET /fonts/fonts.css HTTP/1.1" 404 8577
+Not Found: /images/event-2.png
+Not Found: /images/event-3.png
+Not Found: /images/event-1.png
+[26/Oct/2026 17:21:52] "GET /images/event-1.png HTTP/1.1" 404 8586
+[26/Oct/2026 17:21:52] "GET /images/event-2.png HTTP/1.1" 404 8586
+[26/Oct/2026 17:21:52] "GET /images/event-3.png HTTP/1.1" 404 8586
+[26/Oct/2026 17:21:52] "GET / HTTP/1.1" 200 232857
+Not Found: /fonts/fonts.css
+[26/Oct/2026 17:21:52] "GET /fonts/fonts.css HTTP/1.1" 404 8577
+Not Found: /images/event-3.png
+Not Found: /images/event-1.png
+[26/Oct/2026 17:21:52] "GET /images/event-3.png HTTP/1.1" 404 8586
+Not Found: /images/event-2.png
+[26/Oct/2026 17:21:52] "GET /images/event-2.png HTTP/1.1" 404 8586
+[26/Oct/2026 17:21:52] "GET /images/event-1.png HTTP/1.1" 404 8586
+[26/Oct/2026 17:22:55] "HEAD / HTTP/1.1" 200 0
+[26/Oct/2026 17:24:40] "POST /api/auth/login/ HTTP/1.1" 200 1310
+Not Found: /DZ Bridge Favicon.png
+[26/Oct/2026 17:26:12] "GET /DZ%20Bridge%20Favicon.png HTTP/1.1" 404 8599
+/home/pc-2026-1/Desktop/DZbridge/DzBridge_Platform2/django_backend/core/urls.py changed, reloading.
+Performing system checks...
+
+System check identified no issues (0 silenced).
+October 26, 2026 - 17:19:15
+Django version 5.1.15, using settings 'core.settings'
+Starting development server at http://0.0.0.0:8000/
+Quit the server with CONTROL-C.
+
+Watching for file changes with StatReloader
+[26/Oct/2026 17:35:48] "POST /api/auth/login/ HTTP/1.1" 200 1310
+[26/Oct/2026 17:35:54] "HEAD /manager?token=test_tok&role=admin HTTP/1.1" 302 0
+[26/Oct/2026 17:36:39] "HEAD /health/ HTTP/1.1" 200 0
+Watching for file changes with StatReloader
+[26/Oct/2026 17:39:03] "GET /expert-dashboard.html HTTP/1.1" 200 162219
+Not Found: /fonts/fonts.css
+[26/Oct/2026 17:39:03] "GET /fonts/fonts.css HTTP/1.1" 404 9504
+Not Found: /api/profile/me
+[26/Oct/2026 17:39:03] "GET /api/profile/me HTTP/1.1" 404 9501
+Not Found: /DZ Bridge Favicon.png
+[26/Oct/2026 17:39:03] "GET /DZ%20Bridge%20Favicon.png HTTP/1.1" 404 9526
+[26/Oct/2026 17:39:03] "GET /expert-dashboard.html HTTP/1.1" 200 162219
+Not Found: /fonts/fonts.css
+[26/Oct/2026 17:39:03] "GET /fonts/fonts.css HTTP/1.1" 404 9504
+Not Found: /api/profile/me
+[26/Oct/2026 17:39:03] "GET /api/profile/me HTTP/1.1" 404 9501
+Not Found: /DZ Bridge Favicon.png
+[26/Oct/2026 17:39:03] "GET /DZ%20Bridge%20Favicon.png HTTP/1.1" 404 9526
+[26/Oct/2026 17:39:04] "GET /expert-dashboard.html HTTP/1.1" 200 162219
+Not Found: /fonts/fonts.css
+[26/Oct/2026 17:39:04] "GET /fonts/fonts.css HTTP/1.1" 404 9504
+Not Found: /api/profile/me
+[26/Oct/2026 17:39:04] "GET /api/profile/me HTTP/1.1" 404 9501
+Not Found: /DZ Bridge Favicon.png
+[26/Oct/2026 17:39:04] "GET /DZ%20Bridge%20Favicon.png HTTP/1.1" 404 9526
+[26/Oct/2026 17:39:06] "GET /expert-dashboard.html HTTP/1.1" 200 162219
+Not Found: /fonts/fonts.css
+[26/Oct/2026 17:39:06] "GET /fonts/fonts.css HTTP/1.1" 404 9504
+Not Found: /api/profile/me
+[26/Oct/2026 17:39:06] "GET /api/profile/me HTTP/1.1" 404 9501
+Not Found: /DZ Bridge Favicon.png
+[26/Oct/2026 17:39:06] "GET /DZ%20Bridge%20Favicon.png HTTP/1.1" 404 9526
+[26/Oct/2026 17:39:06] "GET /expert-dashboard.html HTTP/1.1" 200 162219
+Not Found: /fonts/fonts.css
+[26/Oct/2026 17:39:06] "GET /fonts/fonts.css HTTP/1.1" 404 9504
+Not Found: /api/profile/me
+[26/Oct/2026 17:39:06] "GET /api/profile/me HTTP/1.1" 404 9501
+Not Found: /DZ Bridge Favicon.png
+[26/Oct/2026 17:39:06] "GET /DZ%20Bridge%20Favicon.png HTTP/1.1" 404 9526
+[26/Oct/2026 17:39:06] "GET /expert-dashboard.html HTTP/1.1" 200 162219
+Not Found: /fonts/fonts.css
+[26/Oct/2026 17:39:06] "GET /fonts/fonts.css HTTP/1.1" 404 9504
+Not Found: /api/profile/me
+[26/Oct/2026 17:39:06] "GET /api/profile/me HTTP/1.1" 404 9501
+Not Found: /DZ Bridge Favicon.png
+[26/Oct/2026 17:39:06] "GET /DZ%20Bridge%20Favicon.png HTTP/1.1" 404 9526
+[26/Oct/2026 17:39:07] "GET /expert-dashboard.html HTTP/1.1" 200 162219
+Not Found: /fonts/fonts.css
+[26/Oct/2026 17:39:07] "GET /fonts/fonts.css HTTP/1.1" 404 9504
+Not Found: /api/profile/me
+[26/Oct/2026 17:39:07] "GET /api/profile/me HTTP/1.1" 404 9501
+Not Found: /DZ Bridge Favicon.png
+[26/Oct/2026 17:39:07] "GET /DZ%20Bridge%20Favicon.png HTTP/1.1" 404 9526
+[26/Oct/2026 17:39:07] "GET /expert-dashboard.html HTTP/1.1" 200 162219
+Not Found: /fonts/fonts.css
+[26/Oct/2026 17:39:07] "GET /fonts/fonts.css HTTP/1.1" 404 9504
+Not Found: /api/profile/me
+[26/Oct/2026 17:39:07] "GET /api/profile/me HTTP/1.1" 404 9501
+Not Found: /DZ Bridge Favicon.png
+[26/Oct/2026 17:39:07] "GET /DZ%20Bridge%20Favicon.png HTTP/1.1" 404 9526
+[26/Oct/2026 17:39:10] "POST /api/auth/login/ HTTP/1.1" 200 1310
+[26/Oct/2026 17:39:16] "GET / HTTP/1.1" 200 232787
+Not Found: /fonts/fonts.css
+[26/Oct/2026 17:39:16] "GET /fonts/fonts.css HTTP/1.1" 404 9504
+[26/Oct/2026 17:39:16] "GET / HTTP/1.1" 200 232787
+Not Found: /fonts/fonts.css
+[26/Oct/2026 17:39:16] "GET /fonts/fonts.css HTTP/1.1" 404 9504
+[26/Oct/2026 17:39:17] "GET / HTTP/1.1" 200 232787
+Not Found: /fonts/fonts.css
+[26/Oct/2026 17:39:17] "GET /fonts/fonts.css HTTP/1.1" 404 9504
+[26/Oct/2026 17:39:17] "GET / HTTP/1.1" 200 232787
+Not Found: /fonts/fonts.css
+[26/Oct/2026 17:39:17] "GET /fonts/fonts.css HTTP/1.1" 404 9504
+[26/Oct/2026 17:39:17] "GET / HTTP/1.1" 200 232787
+Not Found: /fonts/fonts.css
+[26/Oct/2026 17:39:17] "GET /fonts/fonts.css HTTP/1.1" 404 9504
+[26/Oct/2026 17:39:18] "GET /login.html HTTP/1.1" 200 51940
+Not Found: /fonts/fonts.css
+[26/Oct/2026 17:39:18] "GET /fonts/fonts.css HTTP/1.1" 404 9504
+[26/Oct/2026 17:39:19] "HEAD /health/ HTTP/1.1" 200 0
+[26/Oct/2026 17:39:26] "POST /api/auth/login/ HTTP/1.1" 200 1310
+[26/Oct/2026 17:39:38] "POST /api/auth/login HTTP/1.1" 200 1388
+[26/Oct/2026 17:39:38] "GET /expert-dashboard.html HTTP/1.1" 200 162219
+Not Found: /fonts/fonts.css
+[26/Oct/2026 17:39:39] "GET /fonts/fonts.css HTTP/1.1" 404 9504
+Not Found: /api/profile/me
+[26/Oct/2026 17:39:39] "GET /api/profile/me HTTP/1.1" 404 9501
+[26/Oct/2026 17:39:41] "GET /landing_page.html HTTP/1.1" 302 0
+[26/Oct/2026 17:39:41] "GET / HTTP/1.1" 200 232787
+Not Found: /fonts/fonts.css
+[26/Oct/2026 17:39:41] "GET /fonts/fonts.css HTTP/1.1" 404 9504
+[26/Oct/2026 17:39:43] "GET / HTTP/1.1" 200 232787
+Not Found: /fonts/fonts.css
+[26/Oct/2026 17:39:43] "GET /fonts/fonts.css HTTP/1.1" 404 9504
+Not Found: /images/event-1.png
+Not Found: /images/event-2.png
+[26/Oct/2026 17:39:44] "GET /images/event-1.png HTTP/1.1" 404 9513
+Not Found: /images/event-3.png
+[26/Oct/2026 17:39:44] "GET /images/event-3.png HTTP/1.1" 404 9513
+[26/Oct/2026 17:39:44] "GET /images/event-2.png HTTP/1.1" 404 9513
+[26/Oct/2026 17:39:46] "GET /login.html HTTP/1.1" 200 51940
+Not Found: /fonts/fonts.css
+[26/Oct/2026 17:39:46] "GET /fonts/fonts.css HTTP/1.1" 404 9504
+[26/Oct/2026 17:39:50] "POST /api/auth/login HTTP/1.1" 200 1388
+[26/Oct/2026 17:39:50] "GET /expert-dashboard.html HTTP/1.1" 200 162219
+Not Found: /fonts/fonts.css
+[26/Oct/2026 17:39:50] "GET /fonts/fonts.css HTTP/1.1" 404 9504
+Not Found: /api/profile/me
+[26/Oct/2026 17:39:51] "GET /api/profile/me HTTP/1.1" 404 9501
+[26/Oct/2026 17:39:55] "POST /api/auth/login/ HTTP/1.1" 200 1310
+[26/Oct/2026 17:39:57] "GET /landing_page.html HTTP/1.1" 302 0
+[26/Oct/2026 17:39:57] "GET / HTTP/1.1" 200 232787
+Not Found: /fonts/fonts.css
+[26/Oct/2026 17:39:57] "GET /fonts/fonts.css HTTP/1.1" 404 9504
+[26/Oct/2026 17:39:58] "GET /login.html HTTP/1.1" 200 51940
+Not Found: /fonts/fonts.css
+[26/Oct/2026 17:39:58] "GET /fonts/fonts.css HTTP/1.1" 404 9504
+[26/Oct/2026 17:40:00] "GET /expert-dashboard.html HTTP/1.1" 200 162219
+Not Found: /fonts/fonts.css
+[26/Oct/2026 17:40:00] "GET /fonts/fonts.css HTTP/1.1" 404 9504
+Not Found: /api/profile/me
+[26/Oct/2026 17:40:00] "GET /api/profile/me HTTP/1.1" 404 9501
+[26/Oct/2026 17:40:04] "GET /expert-dashboard.html HTTP/1.1" 200 162219
+Not Found: /fonts/fonts.css
+[26/Oct/2026 17:40:04] "GET /fonts/fonts.css HTTP/1.1" 404 9504
+Not Found: /fonts/fonts.css
+[26/Oct/2026 17:40:05] "GET /fonts/fonts.css HTTP/1.1" 404 9504
+[26/Oct/2026 17:40:05] "GET /login.html?redirect=%2Fexpert-dashboard.html HTTP/1.1" 200 51940
+Not Found: /fonts/fonts.css
+[26/Oct/2026 17:40:05] "GET /fonts/fonts.css HTTP/1.1" 404 9504
+Not Found: /DZ Bridge Favicon.png
+[26/Oct/2026 17:40:05] "GET /DZ%20Bridge%20Favicon.png HTTP/1.1" 404 9526
+[26/Oct/2026 17:40:07] "POST /api/auth/login/ HTTP/1.1" 200 1310
+[26/Oct/2026 17:40:23] "GET /login.html HTTP/1.1" 200 51940
+Not Found: /fonts/fonts.css
+[26/Oct/2026 17:40:23] "GET /fonts/fonts.css HTTP/1.1" 404 9504
+[26/Oct/2026 17:40:34] "POST /api/auth/login HTTP/1.1" 200 1310
+Not Found: /api/v1/prices/current/
+[26/Oct/2026 17:40:35] "GET /api/v1/prices/current/ HTTP/1.1" 404 9525
+Not Found: /api/v1/prices/current/
+[26/Oct/2026 17:40:35] "GET /api/v1/prices/current/ HTTP/1.1" 404 9525
+Not Found: /api/v1/prices/current/
+Not Found: /api/v1/listings/
+[26/Oct/2026 17:40:35] "GET /api/v1/listings/ HTTP/1.1" 404 9507
+Not Found: /api/v1/prices/history/
+[26/Oct/2026 17:40:35] "GET /api/v1/prices/history/ HTTP/1.1" 404 9525
+[26/Oct/2026 17:40:35] "GET /api/v1/prices/current/ HTTP/1.1" 404 9525
+Not Found: /api/v1/prices/current/
+[26/Oct/2026 17:40:35] "GET /api/v1/prices/current/ HTTP/1.1" 404 9525
+Not Found: /api/v1/prices/current/
+[26/Oct/2026 17:40:35] "GET /api/v1/prices/current/ HTTP/1.1" 404 9525
+Not Found: /api/v1/listings/
+[26/Oct/2026 17:40:35] "GET /api/v1/listings/ HTTP/1.1" 404 9507
+Not Found: /api/v1/prices/current/
+[26/Oct/2026 17:40:35] "GET /api/v1/prices/current/ HTTP/1.1" 404 9525
+Not Found: /api/v1/prices/history/
+[26/Oct/2026 17:40:35] "GET /api/v1/prices/history/ HTTP/1.1" 404 9525
+Not Found: /api/v1/prices/current/
+Not Found: /api/v1/prices/current/
+[26/Oct/2026 17:40:46] "GET /api/v1/prices/current/ HTTP/1.1" 404 9525
+[26/Oct/2026 17:40:46] "GET /api/v1/prices/current/ HTTP/1.1" 404 9525
+Not Found: /api/v1/prices/history/
+[26/Oct/2026 17:40:46] "GET /api/v1/prices/history/ HTTP/1.1" 404 9525
+Not Found: /api/v1/listings/
+[26/Oct/2026 17:40:46] "GET /api/v1/listings/ HTTP/1.1" 404 9507
+Not Found: /api/v1/prices/current/
+Not Found: /api/v1/prices/current/
+[26/Oct/2026 17:40:46] "GET /api/v1/prices/current/ HTTP/1.1" 404 9525
+Not Found: /api/v1/listings/
+[26/Oct/2026 17:40:46] "GET /api/v1/prices/current/ HTTP/1.1" 404 9525
+Not Found: /api/v1/prices/history/
+[26/Oct/2026 17:40:46] "GET /api/v1/listings/ HTTP/1.1" 404 9507
+Not Found: /api/v1/prices/current/
+[26/Oct/2026 17:40:46] "GET /api/v1/prices/history/ HTTP/1.1" 404 9525
+[26/Oct/2026 17:40:46] "GET /api/v1/prices/current/ HTTP/1.1" 404 9525
+Not Found: /api/v1/prices/current/
+[26/Oct/2026 17:40:46] "GET /api/v1/prices/current/ HTTP/1.1" 404 9525
+[26/Oct/2026 17:40:48] "POST /api/auth/login/ HTTP/1.1" 200 1310
+Not Found: /api/v1/prices/current/
+[26/Oct/2026 17:40:49] "GET /api/v1/prices/current/ HTTP/1.1" 404 9525
+Not Found: /api/v1/prices/current/
+[26/Oct/2026 17:40:49] "GET /api/v1/prices/current/ HTTP/1.1" 404 9525
+Not Found: /api/v1/prices/history/
+Not Found: /api/v1/prices/current/
+[26/Oct/2026 17:40:49] "GET /api/v1/prices/history/ HTTP/1.1" 404 9525
+Not Found: /api/v1/prices/current/
+[26/Oct/2026 17:40:49] "GET /api/v1/prices/current/ HTTP/1.1" 404 9525
+Not Found: /api/v1/listings/
+[26/Oct/2026 17:40:49] "GET /api/v1/listings/ HTTP/1.1" 404 9507
+Not Found: /api/v1/listings/
+[26/Oct/2026 17:40:49] "GET /api/v1/prices/current/ HTTP/1.1" 404 9525
+Not Found: /api/v1/prices/history/
+Not Found: /api/v1/prices/current/
+[26/Oct/2026 17:40:49] "GET /api/v1/prices/current/ HTTP/1.1" 404 9525
+[26/Oct/2026 17:40:49] "GET /api/v1/listings/ HTTP/1.1" 404 9507
+[26/Oct/2026 17:40:49] "GET /api/v1/prices/history/ HTTP/1.1" 404 9525
+Not Found: /api/v1/prices/current/
+[26/Oct/2026 17:40:49] "GET /api/v1/prices/current/ HTTP/1.1" 404 9525
+[26/Oct/2026 17:47:36] "GET / HTTP/1.1" 200 237266
+[26/Oct/2026 17:47:36] "GET /login.html HTTP/1.1" 200 56934
+[26/Oct/2026 17:55:01] "GET / HTTP/1.1" 200 237266
+Not Found: /fonts/fonts.css
+[26/Oct/2026 17:55:01] "GET /fonts/fonts.css HTTP/1.1" 404 9504
+[26/Oct/2026 17:55:02] "GET /login.html HTTP/1.1" 200 56934
+Not Found: /fonts/fonts.css
+[26/Oct/2026 17:55:02] "GET /fonts/fonts.css HTTP/1.1" 404 9504
+Not Found: /DZ Bridge Favicon.png
+[26/Oct/2026 17:55:02] "GET /DZ%20Bridge%20Favicon.png HTTP/1.1" 404 9526
+[26/Oct/2026 17:55:09] "GET / HTTP/1.1" 200 237266
+Not Found: /fonts/fonts.css
+[26/Oct/2026 17:55:09] "GET /fonts/fonts.css HTTP/1.1" 404 9504
+Not Found: /fonts/fonts.css
+[26/Oct/2026 17:55:09] "GET /fonts/fonts.css HTTP/1.1" 404 9504
+[26/Oct/2026 17:55:15] "GET /login.html HTTP/1.1" 200 56934
+Not Found: /fonts/fonts.css
+[26/Oct/2026 17:55:15] "GET /fonts/fonts.css HTTP/1.1" 404 9504
+Not Found: /DZ Bridge Favicon.png
+[26/Oct/2026 17:55:15] "GET /DZ%20Bridge%20Favicon.png HTTP/1.1" 404 9526
+[26/Oct/2026 17:55:33] "POST /api/auth/login HTTP/1.1" 200 1388
+[26/Oct/2026 17:55:33] "GET /expert-dashboard.html HTTP/1.1" 200 162219
+Not Found: /fonts/fonts.css
+[26/Oct/2026 17:55:33] "GET /fonts/fonts.css HTTP/1.1" 404 9504
+Not Found: /api/profile/me
+[26/Oct/2026 17:55:33] "GET /api/profile/me HTTP/1.1" 404 9501
+Not Found: /DZ Bridge Favicon.png
+[26/Oct/2026 17:55:33] "GET /DZ%20Bridge%20Favicon.png HTTP/1.1" 404 9526
+[26/Oct/2026 17:56:05] "GET / HTTP/1.1" 200 237266
+Not Found: /fonts/fonts.css
+[26/Oct/2026 17:56:05] "GET /fonts/fonts.css HTTP/1.1" 404 9504
+Not Found: /images/event-2.png
+Not Found: /images/event-1.png
+[26/Oct/2026 17:56:05] "GET /images/event-2.png HTTP/1.1" 404 9513
+[26/Oct/2026 17:56:05] "GET /images/event-1.png HTTP/1.1" 404 9513
+[26/Oct/2026 17:56:07] "GET /login.html HTTP/1.1" 200 56934
+Not Found: /fonts/fonts.css
+[26/Oct/2026 17:56:07] "GET /fonts/fonts.css HTTP/1.1" 404 9504
+Not Found: /DZ Bridge Favicon.png
+[26/Oct/2026 17:56:07] "GET /DZ%20Bridge%20Favicon.png HTTP/1.1" 404 9526
+Unauthorized: /api/auth/login
+[26/Oct/2026 17:56:37] "POST /api/auth/login HTTP/1.1" 401 63
+Unauthorized: /api/auth/login
+[26/Oct/2026 17:56:43] "POST /api/auth/login HTTP/1.1" 401 63
+Unauthorized: /api/auth/login
+[26/Oct/2026 17:56:51] "POST /api/auth/login HTTP/1.1" 401 63
+Unauthorized: /api/auth/login
+[26/Oct/2026 17:57:57] "POST /api/auth/login HTTP/1.1" 401 63
+Unauthorized: /api/auth/login/
+[26/Oct/2026 17:58:31] "POST /api/auth/login/ HTTP/1.1" 401 63
+[26/Oct/2026 17:58:45] "POST /api/auth/login/ HTTP/1.1" 200 1315
+Unauthorized: /api/auth/login
+[26/Oct/2026 17:58:46] "POST /api/auth/login HTTP/1.1" 401 63
+Unauthorized: /api/auth/login
+[26/Oct/2026 18:01:53] "POST /api/auth/login HTTP/1.1" 401 63
+[26/Oct/2026 18:01:56] "GET /landing_page.html HTTP/1.1" 302 0
+[26/Oct/2026 18:01:56] "GET / HTTP/1.1" 200 237266
+Not Found: /fonts/fonts.css
+[26/Oct/2026 18:01:56] "GET /fonts/fonts.css HTTP/1.1" 404 9504
+Not Found: /images/event-1.png
+Not Found: /images/event-2.png
+[26/Oct/2026 18:01:56] "GET /images/event-1.png HTTP/1.1" 404 9513
+[26/Oct/2026 18:01:56] "GET /images/event-2.png HTTP/1.1" 404 9513
+[26/Oct/2026 18:02:13] "GET / HTTP/1.1" 200 237266
+Not Found: /fonts/fonts.css
+[26/Oct/2026 18:02:13] "GET /fonts/fonts.css HTTP/1.1" 404 9504
+Not Found: /images/event-1.png
+Not Found: /images/event-2.png
+[26/Oct/2026 18:02:13] "GET /images/event-1.png HTTP/1.1" 404 9513
+[26/Oct/2026 18:02:13] "GET /images/event-2.png HTTP/1.1" 404 9513
+Not Found: /images/event-3.png
+[26/Oct/2026 18:02:15] "GET /images/event-3.png HTTP/1.1" 404 9513
+[26/Oct/2026 18:02:17] "GET / HTTP/1.1" 200 237266
+Not Found: /fonts/fonts.css
+[26/Oct/2026 18:02:17] "GET /fonts/fonts.css HTTP/1.1" 404 9504
+Not Found: /images/event-2.png
+Not Found: /images/event-1.png
+[26/Oct/2026 18:02:17] "GET /images/event-2.png HTTP/1.1" 404 9513
+[26/Oct/2026 18:02:17] "GET /images/event-1.png HTTP/1.1" 404 9513
+Not Found: /images/event-3.png
+[26/Oct/2026 18:02:17] "GET /images/event-3.png HTTP/1.1" 404 9513
+[26/Oct/2026 18:02:19] "GET /login.html HTTP/1.1" 200 56934
+Not Found: /fonts/fonts.css
+[26/Oct/2026 18:02:19] "GET /fonts/fonts.css HTTP/1.1" 404 9504
+[26/Oct/2026 18:02:33] "POST /api/auth/login/ HTTP/1.1" 200 1395
+[26/Oct/2026 18:02:52] "POST /api/auth/login HTTP/1.1" 200 1395
+[26/Oct/2026 18:02:52] "GET /organization-dashboard.html HTTP/1.1" 200 56623
+Not Found: /fonts/fonts.css
+[26/Oct/2026 18:02:52] "GET /fonts/fonts.css HTTP/1.1" 404 9504
+Not Found: /api/profile/me
+[26/Oct/2026 18:02:52] "GET /api/profile/me HTTP/1.1" 404 9501
+[26/Oct/2026 18:03:03] "GET / HTTP/1.1" 200 237266
+Not Found: /fonts/fonts.css
+[26/Oct/2026 18:03:03] "GET /fonts/fonts.css HTTP/1.1" 404 9504
+Not Found: /images/event-1.png
+[26/Oct/2026 18:03:03] "GET /images/event-1.png HTTP/1.1" 404 9513
+Not Found: /images/event-3.png
+Not Found: /images/event-2.png
+[26/Oct/2026 18:03:03] "GET /images/event-2.png HTTP/1.1" 404 9513
+[26/Oct/2026 18:03:03] "GET /images/event-3.png HTTP/1.1" 404 9513
+[26/Oct/2026 18:03:04] "HEAD /organization-dashboard.html HTTP/1.1" 200 0
+[26/Oct/2026 18:03:04] "GET /login.html HTTP/1.1" 200 56934
+Not Found: /fonts/fonts.css
+[26/Oct/2026 18:03:04] "GET /fonts/fonts.css HTTP/1.1" 404 9504
+[26/Oct/2026 18:03:05] "GET /organization-dashboard.html HTTP/1.1" 200 56623
+Not Found: /fonts/fonts.css
+[26/Oct/2026 18:03:05] "GET /fonts/fonts.css HTTP/1.1" 404 9504
+Not Found: /api/profile/me
+[26/Oct/2026 18:03:05] "GET /api/profile/me HTTP/1.1" 404 9501
+[26/Oct/2026 18:03:14] "POST /api/auth/login/ HTTP/1.1" 200 1315
+[26/Oct/2026 18:05:13] "GET /landing_page.html HTTP/1.1" 302 0
+[26/Oct/2026 18:05:13] "GET / HTTP/1.1" 200 237266
+Not Found: /fonts/fonts.css
+[26/Oct/2026 18:05:13] "GET /fonts/fonts.css HTTP/1.1" 404 9504
+Not Found: /images/event-1.png
+[26/Oct/2026 18:05:14] "GET /images/event-1.png HTTP/1.1" 404 9513
+Not Found: /images/event-2.png
+Not Found: /images/event-3.png
+[26/Oct/2026 18:05:14] "GET /images/event-2.png HTTP/1.1" 404 9513
+[26/Oct/2026 18:05:14] "GET /images/event-3.png HTTP/1.1" 404 9513
+[26/Oct/2026 18:05:27] "POST /api/auth/login/ HTTP/1.1" 200 1395
+[26/Oct/2026 18:05:50] "HEAD /organization-dashboard.html HTTP/1.1" 200 0
+[26/Oct/2026 18:06:14] "GET / HTTP/1.1" 200 237266
+Not Found: /fonts/fonts.css
+[26/Oct/2026 18:06:14] "GET /fonts/fonts.css HTTP/1.1" 404 9504
+[26/Oct/2026 18:06:37] "POST /api/auth/login/ HTTP/1.1" 200 1315
+[26/Oct/2026 18:06:41] "POST /api/auth/login/ HTTP/1.1" 200 1315
+[26/Oct/2026 18:06:46] "POST /api/auth/login/ HTTP/1.1" 200 1395
+Not Found: /api/profile/me
+[26/Oct/2026 18:10:16] "HEAD /api/profile/me HTTP/1.1" 404 0
+Not Found: /api/auth/me
+[26/Oct/2026 18:10:21] "HEAD /api/auth/me HTTP/1.1" 404 0
+/home/pc-2026-1/Desktop/DZbridge/DzBridge_Platform2/django_backend/apps/users/serializers.py changed, reloading.
+Performing system checks...
+
+System check identified no issues (0 silenced).
+October 26, 2026 - 17:38:59
+Django version 5.1.15, using settings 'core.settings'
+Starting development server at http://0.0.0.0:8000/
+Quit the server with CONTROL-C.
+
+Watching for file changes with StatReloader
+/home/pc-2026-1/Desktop/DZbridge/DzBridge_Platform2/django_backend/apps/users/views.py changed, reloading.
+Performing system checks...
+
+System check identified no issues (0 silenced).
+October 26, 2026 - 18:11:16
+Django version 5.1.15, using settings 'core.settings'
+Starting development server at http://0.0.0.0:8000/
+Quit the server with CONTROL-C.
+
+Watching for file changes with StatReloader
+/home/pc-2026-1/Desktop/DZbridge/DzBridge_Platform2/django_backend/core/urls.py changed, reloading.
+Performing system checks...
+
+System check identified no issues (0 silenced).
+October 26, 2026 - 18:11:29
+Django version 5.1.15, using settings 'core.settings'
+Starting development server at http://0.0.0.0:8000/
+Quit the server with CONTROL-C.
+
+Watching for file changes with StatReloader
+/home/pc-2026-1/Desktop/DZbridge/DzBridge_Platform2/django_backend/core/urls.py changed, reloading.
+Performing system checks...
+
+System check identified no issues (0 silenced).
+October 26, 2026 - 18:11:45
+Django version 5.1.15, using settings 'core.settings'
+Starting development server at http://0.0.0.0:8000/
+Quit the server with CONTROL-C.
+
+Watching for file changes with StatReloader
+[26/Oct/2026 18:12:10] "POST /api/auth/login/ HTTP/1.1" 200 1326
+[26/Oct/2026 18:12:15] "POST /api/auth/login/ HTTP/1.1" 200 1326
+[26/Oct/2026 18:12:15] "GET /api/profile/me HTTP/1.1" 200 844
+Internal Server Error: /api/auth/login/
+Traceback (most recent call last):
+  File "/home/pc-2026-1/Desktop/DZbridge/DzBridge_Platform2/django_backend/venv/lib/python3.12/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/pc-2026-1/Desktop/DZbridge/DzBridge_Platform2/django_backend/venv/lib/python3.12/site-packages/django/core/handlers/base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/pc-2026-1/Desktop/DZbridge/DzBridge_Platform2/django_backend/venv/lib/python3.12/site-packages/django/views/decorators/csrf.py", line 65, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/pc-2026-1/Desktop/DZbridge/DzBridge_Platform2/django_backend/venv/lib/python3.12/site-packages/django/views/generic/base.py", line 105, in view
+    return self.dispatch(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/pc-2026-1/Desktop/DZbridge/DzBridge_Platform2/django_backend/venv/lib/python3.12/site-packages/rest_framework/views.py", line 515, in dispatch
+    response = self.handle_exception(exc)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/pc-2026-1/Desktop/DZbridge/DzBridge_Platform2/django_backend/venv/lib/python3.12/site-packages/rest_framework/views.py", line 475, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "/home/pc-2026-1/Desktop/DZbridge/DzBridge_Platform2/django_backend/venv/lib/python3.12/site-packages/rest_framework/views.py", line 486, in raise_uncaught_exception
+    raise exc
+  File "/home/pc-2026-1/Desktop/DZbridge/DzBridge_Platform2/django_backend/venv/lib/python3.12/site-packages/rest_framework/views.py", line 512, in dispatch
+    response = handler(request, *args, **kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/pc-2026-1/Desktop/DZbridge/DzBridge_Platform2/django_backend/venv/lib/python3.12/site-packages/rest_framework_simplejwt/views.py", line 46, in post
+    serializer.is_valid(raise_exception=True)
+  File "/home/pc-2026-1/Desktop/DZbridge/DzBridge_Platform2/django_backend/venv/lib/python3.12/site-packages/rest_framework/serializers.py", line 225, in is_valid
+    self._validated_data = self.run_validation(self.initial_data)
+                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/pc-2026-1/Desktop/DZbridge/DzBridge_Platform2/django_backend/venv/lib/python3.12/site-packages/rest_framework/serializers.py", line 459, in run_validation
+    value = self.validate(value)
+            ^^^^^^^^^^^^^^^^^^^^
+  File "/home/pc-2026-1/Desktop/DZbridge/DzBridge_Platform2/django_backend/apps/users/serializers.py", line 86, in validate
+    user = User.objects.filter(Q(email__iexact=clean_identifier) | Q(username__iexact=clean_identifier)).first()
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/pc-2026-1/Desktop/DZbridge/DzBridge_Platform2/django_backend/venv/lib/python3.12/site-packages/django/db/models/manager.py", line 87, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/pc-2026-1/Desktop/DZbridge/DzBridge_Platform2/django_backend/venv/lib/python3.12/site-packages/django/db/models/query.py", line 1478, in filter
+    return self._filter_or_exclude(False, args, kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/pc-2026-1/Desktop/DZbridge/DzBridge_Platform2/django_backend/venv/lib/python3.12/site-packages/django/db/models/query.py", line 1496, in _filter_or_exclude
+    clone._filter_or_exclude_inplace(negate, args, kwargs)
+  File "/home/pc-2026-1/Desktop/DZbridge/DzBridge_Platform2/django_backend/venv/lib/python3.12/site-packages/django/db/models/query.py", line 1506, in _filter_or_exclude_inplace
+    self._query.add_q(Q(*args, **kwargs))
+  File "/home/pc-2026-1/Desktop/DZbridge/DzBridge_Platform2/django_backend/venv/lib/python3.12/site-packages/django/db/models/sql/query.py", line 1609, in add_q
+    clause, _ = self._add_q(q_object, self.used_aliases)
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/pc-2026-1/Desktop/DZbridge/DzBridge_Platform2/django_backend/venv/lib/python3.12/site-packages/django/db/models/sql/query.py", line 1641, in _add_q
+    child_clause, needed_inner = self.build_filter(
+                                 ^^^^^^^^^^^^^^^^^^
+  File "/home/pc-2026-1/Desktop/DZbridge/DzBridge_Platform2/django_backend/venv/lib/python3.12/site-packages/django/db/models/sql/query.py", line 1468, in build_filter
+    return self._add_q(
+           ^^^^^^^^^^^^
+  File "/home/pc-2026-1/Desktop/DZbridge/DzBridge_Platform2/django_backend/venv/lib/python3.12/site-packages/django/db/models/sql/query.py", line 1641, in _add_q
+    child_clause, needed_inner = self.build_filter(
+                                 ^^^^^^^^^^^^^^^^^^
+  File "/home/pc-2026-1/Desktop/DZbridge/DzBridge_Platform2/django_backend/venv/lib/python3.12/site-packages/django/db/models/sql/query.py", line 1491, in build_filter
+    lookups, parts, reffed_expression = self.solve_lookup_type(arg, summarize)
+                                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/pc-2026-1/Desktop/DZbridge/DzBridge_Platform2/django_backend/venv/lib/python3.12/site-packages/django/db/models/sql/query.py", line 1303, in solve_lookup_type
+    _, field, _, lookup_parts = self.names_to_path(lookup_splitted, self.get_meta())
+                                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/pc-2026-1/Desktop/DZbridge/DzBridge_Platform2/django_backend/venv/lib/python3.12/site-packages/django/db/models/sql/query.py", line 1769, in names_to_path
+    raise FieldError(
+django.core.exceptions.FieldError: Cannot resolve keyword 'username' into field. Choices are: activitylog, availabilities, created_at, date_joined, email, email_verification_token, email_verified_at, expert_collaborations, first_name, groups, id, is_active, is_staff, is_superuser, last_login, last_name, logentry, matches, org_collaborations, password, profile, projects, projectstatushistory, received_ratings, role, status, submitted_ratings, updated_at, user_permissions
+[26/Oct/2026 18:14:24] "POST /api/auth/login/ HTTP/1.1" 500 178972
+[26/Oct/2026 18:14:24,433] - Broken pipe from ('127.0.0.1', 54370)
+Internal Server Error: /api/auth/login/
+Traceback (most recent call last):
+  File "/home/pc-2026-1/Desktop/DZbridge/DzBridge_Platform2/django_backend/venv/lib/python3.12/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/pc-2026-1/Desktop/DZbridge/DzBridge_Platform2/django_backend/venv/lib/python3.12/site-packages/django/core/handlers/base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/pc-2026-1/Desktop/DZbridge/DzBridge_Platform2/django_backend/venv/lib/python3.12/site-packages/django/views/decorators/csrf.py", line 65, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/pc-2026-1/Desktop/DZbridge/DzBridge_Platform2/django_backend/venv/lib/python3.12/site-packages/django/views/generic/base.py", line 105, in view
+    return self.dispatch(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/pc-2026-1/Desktop/DZbridge/DzBridge_Platform2/django_backend/venv/lib/python3.12/site-packages/rest_framework/views.py", line 515, in dispatch
+    response = self.handle_exception(exc)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/pc-2026-1/Desktop/DZbridge/DzBridge_Platform2/django_backend/venv/lib/python3.12/site-packages/rest_framework/views.py", line 475, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "/home/pc-2026-1/Desktop/DZbridge/DzBridge_Platform2/django_backend/venv/lib/python3.12/site-packages/rest_framework/views.py", line 486, in raise_uncaught_exception
+    raise exc
+  File "/home/pc-2026-1/Desktop/DZbridge/DzBridge_Platform2/django_backend/venv/lib/python3.12/site-packages/rest_framework/views.py", line 512, in dispatch
+    response = handler(request, *args, **kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/pc-2026-1/Desktop/DZbridge/DzBridge_Platform2/django_backend/venv/lib/python3.12/site-packages/rest_framework_simplejwt/views.py", line 46, in post
+    serializer.is_valid(raise_exception=True)
+  File "/home/pc-2026-1/Desktop/DZbridge/DzBridge_Platform2/django_backend/venv/lib/python3.12/site-packages/rest_framework/serializers.py", line 225, in is_valid
+    self._validated_data = self.run_validation(self.initial_data)
+                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/pc-2026-1/Desktop/DZbridge/DzBridge_Platform2/django_backend/venv/lib/python3.12/site-packages/rest_framework/serializers.py", line 459, in run_validation
+    value = self.validate(value)
+            ^^^^^^^^^^^^^^^^^^^^
+  File "/home/pc-2026-1/Desktop/DZbridge/DzBridge_Platform2/django_backend/apps/users/serializers.py", line 86, in validate
+    user = User.objects.filter(Q(email__iexact=clean_identifier) | Q(username__iexact=clean_identifier)).first()
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/pc-2026-1/Desktop/DZbridge/DzBridge_Platform2/django_backend/venv/lib/python3.12/site-packages/django/db/models/manager.py", line 87, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/pc-2026-1/Desktop/DZbridge/DzBridge_Platform2/django_backend/venv/lib/python3.12/site-packages/django/db/models/query.py", line 1478, in filter
+    return self._filter_or_exclude(False, args, kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/pc-2026-1/Desktop/DZbridge/DzBridge_Platform2/django_backend/venv/lib/python3.12/site-packages/django/db/models/query.py", line 1496, in _filter_or_exclude
+    clone._filter_or_exclude_inplace(negate, args, kwargs)
+  File "/home/pc-2026-1/Desktop/DZbridge/DzBridge_Platform2/django_backend/venv/lib/python3.12/site-packages/django/db/models/query.py", line 1506, in _filter_or_exclude_inplace
+    self._query.add_q(Q(*args, **kwargs))
+  File "/home/pc-2026-1/Desktop/DZbridge/DzBridge_Platform2/django_backend/venv/lib/python3.12/site-packages/django/db/models/sql/query.py", line 1609, in add_q
+    clause, _ = self._add_q(q_object, self.used_aliases)
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/pc-2026-1/Desktop/DZbridge/DzBridge_Platform2/django_backend/venv/lib/python3.12/site-packages/django/db/models/sql/query.py", line 1641, in _add_q
+    child_clause, needed_inner = self.build_filter(
+                                 ^^^^^^^^^^^^^^^^^^
+  File "/home/pc-2026-1/Desktop/DZbridge/DzBridge_Platform2/django_backend/venv/lib/python3.12/site-packages/django/db/models/sql/query.py", line 1468, in build_filter
+    return self._add_q(
+           ^^^^^^^^^^^^
+  File "/home/pc-2026-1/Desktop/DZbridge/DzBridge_Platform2/django_backend/venv/lib/python3.12/site-packages/django/db/models/sql/query.py", line 1641, in _add_q
+    child_clause, needed_inner = self.build_filter(
+                                 ^^^^^^^^^^^^^^^^^^
+  File "/home/pc-2026-1/Desktop/DZbridge/DzBridge_Platform2/django_backend/venv/lib/python3.12/site-packages/django/db/models/sql/query.py", line 1491, in build_filter
+    lookups, parts, reffed_expression = self.solve_lookup_type(arg, summarize)
+                                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/pc-2026-1/Desktop/DZbridge/DzBridge_Platform2/django_backend/venv/lib/python3.12/site-packages/django/db/models/sql/query.py", line 1303, in solve_lookup_type
+    _, field, _, lookup_parts = self.names_to_path(lookup_splitted, self.get_meta())
+                                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/pc-2026-1/Desktop/DZbridge/DzBridge_Platform2/django_backend/venv/lib/python3.12/site-packages/django/db/models/sql/query.py", line 1769, in names_to_path
+    raise FieldError(
+django.core.exceptions.FieldError: Cannot resolve keyword 'username' into field. Choices are: activitylog, availabilities, created_at, date_joined, email, email_verification_token, email_verified_at, expert_collaborations, first_name, groups, id, is_active, is_staff, is_superuser, last_login, last_name, logentry, matches, org_collaborations, password, profile, projects, projectstatushistory, received_ratings, role, status, submitted_ratings, updated_at, user_permissions
+[26/Oct/2026 18:14:24] "POST /api/auth/login/ HTTP/1.1" 500 178940
+[26/Oct/2026 18:14:24,494] - Broken pipe from ('127.0.0.1', 54376)
+[26/Oct/2026 18:14:25] "POST /api/auth/login/ HTTP/1.1" 200 1326
+Internal Server Error: /api/auth/login/
+Traceback (most recent call last):
+  File "/home/pc-2026-1/Desktop/DZbridge/DzBridge_Platform2/django_backend/venv/lib/python3.12/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/pc-2026-1/Desktop/DZbridge/DzBridge_Platform2/django_backend/venv/lib/python3.12/site-packages/django/core/handlers/base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/pc-2026-1/Desktop/DZbridge/DzBridge_Platform2/django_backend/venv/lib/python3.12/site-packages/django/views/decorators/csrf.py", line 65, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/pc-2026-1/Desktop/DZbridge/DzBridge_Platform2/django_backend/venv/lib/python3.12/site-packages/django/views/generic/base.py", line 105, in view
+    return self.dispatch(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/pc-2026-1/Desktop/DZbridge/DzBridge_Platform2/django_backend/venv/lib/python3.12/site-packages/rest_framework/views.py", line 515, in dispatch
+    response = self.handle_exception(exc)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/pc-2026-1/Desktop/DZbridge/DzBridge_Platform2/django_backend/venv/lib/python3.12/site-packages/rest_framework/views.py", line 475, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "/home/pc-2026-1/Desktop/DZbridge/DzBridge_Platform2/django_backend/venv/lib/python3.12/site-packages/rest_framework/views.py", line 486, in raise_uncaught_exception
+    raise exc
+  File "/home/pc-2026-1/Desktop/DZbridge/DzBridge_Platform2/django_backend/venv/lib/python3.12/site-packages/rest_framework/views.py", line 512, in dispatch
+    response = handler(request, *args, **kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/pc-2026-1/Desktop/DZbridge/DzBridge_Platform2/django_backend/venv/lib/python3.12/site-packages/rest_framework_simplejwt/views.py", line 46, in post
+    serializer.is_valid(raise_exception=True)
+  File "/home/pc-2026-1/Desktop/DZbridge/DzBridge_Platform2/django_backend/venv/lib/python3.12/site-packages/rest_framework/serializers.py", line 225, in is_valid
+    self._validated_data = self.run_validation(self.initial_data)
+                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/pc-2026-1/Desktop/DZbridge/DzBridge_Platform2/django_backend/venv/lib/python3.12/site-packages/rest_framework/serializers.py", line 459, in run_validation
+    value = self.validate(value)
+            ^^^^^^^^^^^^^^^^^^^^
+  File "/home/pc-2026-1/Desktop/DZbridge/DzBridge_Platform2/django_backend/apps/users/serializers.py", line 86, in validate
+    user = User.objects.filter(Q(email__iexact=clean_identifier) | Q(username__iexact=clean_identifier)).first()
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/pc-2026-1/Desktop/DZbridge/DzBridge_Platform2/django_backend/venv/lib/python3.12/site-packages/django/db/models/manager.py", line 87, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/pc-2026-1/Desktop/DZbridge/DzBridge_Platform2/django_backend/venv/lib/python3.12/site-packages/django/db/models/query.py", line 1478, in filter
+    return self._filter_or_exclude(False, args, kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/pc-2026-1/Desktop/DZbridge/DzBridge_Platform2/django_backend/venv/lib/python3.12/site-packages/django/db/models/query.py", line 1496, in _filter_or_exclude
+    clone._filter_or_exclude_inplace(negate, args, kwargs)
+  File "/home/pc-2026-1/Desktop/DZbridge/DzBridge_Platform2/django_backend/venv/lib/python3.12/site-packages/django/db/models/query.py", line 1506, in _filter_or_exclude_inplace
+    self._query.add_q(Q(*args, **kwargs))
+  File "/home/pc-2026-1/Desktop/DZbridge/DzBridge_Platform2/django_backend/venv/lib/python3.12/site-packages/django/db/models/sql/query.py", line 1609, in add_q
+    clause, _ = self._add_q(q_object, self.used_aliases)
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/pc-2026-1/Desktop/DZbridge/DzBridge_Platform2/django_backend/venv/lib/python3.12/site-packages/django/db/models/sql/query.py", line 1641, in _add_q
+    child_clause, needed_inner = self.build_filter(
+                                 ^^^^^^^^^^^^^^^^^^
+  File "/home/pc-2026-1/Desktop/DZbridge/DzBridge_Platform2/django_backend/venv/lib/python3.12/site-packages/django/db/models/sql/query.py", line 1468, in build_filter
+    return self._add_q(
+           ^^^^^^^^^^^^
+  File "/home/pc-2026-1/Desktop/DZbridge/DzBridge_Platform2/django_backend/venv/lib/python3.12/site-packages/django/db/models/sql/query.py", line 1641, in _add_q
+    child_clause, needed_inner = self.build_filter(
+                                 ^^^^^^^^^^^^^^^^^^
+  File "/home/pc-2026-1/Desktop/DZbridge/DzBridge_Platform2/django_backend/venv/lib/python3.12/site-packages/django/db/models/sql/query.py", line 1491, in build_filter
+    lookups, parts, reffed_expression = self.solve_lookup_type(arg, summarize)
+                                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/pc-2026-1/Desktop/DZbridge/DzBridge_Platform2/django_backend/venv/lib/python3.12/site-packages/django/db/models/sql/query.py", line 1303, in solve_lookup_type
+    _, field, _, lookup_parts = self.names_to_path(lookup_splitted, self.get_meta())
+                                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/pc-2026-1/Desktop/DZbridge/DzBridge_Platform2/django_backend/venv/lib/python3.12/site-packages/django/db/models/sql/query.py", line 1769, in names_to_path
+    raise FieldError(
+django.core.exceptions.FieldError: Cannot resolve keyword 'username' into field. Choices are: activitylog, availabilities, created_at, date_joined, email, email_verification_token, email_verified_at, expert_collaborations, first_name, groups, id, is_active, is_staff, is_superuser, last_login, last_name, logentry, matches, org_collaborations, password, profile, projects, projectstatushistory, received_ratings, role, status, submitted_ratings, updated_at, user_permissions
+[26/Oct/2026 18:14:29] "POST /api/auth/login/ HTTP/1.1" 500 178972
+Internal Server Error: /api/auth/login/
+Traceback (most recent call last):
+  File "/home/pc-2026-1/Desktop/DZbridge/DzBridge_Platform2/django_backend/venv/lib/python3.12/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/pc-2026-1/Desktop/DZbridge/DzBridge_Platform2/django_backend/venv/lib/python3.12/site-packages/django/core/handlers/base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/pc-2026-1/Desktop/DZbridge/DzBridge_Platform2/django_backend/venv/lib/python3.12/site-packages/django/views/decorators/csrf.py", line 65, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/pc-2026-1/Desktop/DZbridge/DzBridge_Platform2/django_backend/venv/lib/python3.12/site-packages/django/views/generic/base.py", line 105, in view
+    return self.dispatch(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/pc-2026-1/Desktop/DZbridge/DzBridge_Platform2/django_backend/venv/lib/python3.12/site-packages/rest_framework/views.py", line 515, in dispatch
+    response = self.handle_exception(exc)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/pc-2026-1/Desktop/DZbridge/DzBridge_Platform2/django_backend/venv/lib/python3.12/site-packages/rest_framework/views.py", line 475, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "/home/pc-2026-1/Desktop/DZbridge/DzBridge_Platform2/django_backend/venv/lib/python3.12/site-packages/rest_framework/views.py", line 486, in raise_uncaught_exception
+    raise exc
+  File "/home/pc-2026-1/Desktop/DZbridge/DzBridge_Platform2/django_backend/venv/lib/python3.12/site-packages/rest_framework/views.py", line 512, in dispatch
+    response = handler(request, *args, **kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/pc-2026-1/Desktop/DZbridge/DzBridge_Platform2/django_backend/venv/lib/python3.12/site-packages/rest_framework_simplejwt/views.py", line 46, in post
+    serializer.is_valid(raise_exception=True)
+  File "/home/pc-2026-1/Desktop/DZbridge/DzBridge_Platform2/django_backend/venv/lib/python3.12/site-packages/rest_framework/serializers.py", line 225, in is_valid
+    self._validated_data = self.run_validation(self.initial_data)
+                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/pc-2026-1/Desktop/DZbridge/DzBridge_Platform2/django_backend/venv/lib/python3.12/site-packages/rest_framework/serializers.py", line 459, in run_validation
+    value = self.validate(value)
+            ^^^^^^^^^^^^^^^^^^^^
+  File "/home/pc-2026-1/Desktop/DZbridge/DzBridge_Platform2/django_backend/apps/users/serializers.py", line 86, in validate
+    user = User.objects.filter(Q(email__iexact=clean_identifier) | Q(username__iexact=clean_identifier)).first()
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/pc-2026-1/Desktop/DZbridge/DzBridge_Platform2/django_backend/venv/lib/python3.12/site-packages/django/db/models/manager.py", line 87, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/pc-2026-1/Desktop/DZbridge/DzBridge_Platform2/django_backend/venv/lib/python3.12/site-packages/django/db/models/query.py", line 1478, in filter
+    return self._filter_or_exclude(False, args, kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/pc-2026-1/Desktop/DZbridge/DzBridge_Platform2/django_backend/venv/lib/python3.12/site-packages/django/db/models/query.py", line 1496, in _filter_or_exclude
+    clone._filter_or_exclude_inplace(negate, args, kwargs)
+  File "/home/pc-2026-1/Desktop/DZbridge/DzBridge_Platform2/django_backend/venv/lib/python3.12/site-packages/django/db/models/query.py", line 1506, in _filter_or_exclude_inplace
+    self._query.add_q(Q(*args, **kwargs))
+  File "/home/pc-2026-1/Desktop/DZbridge/DzBridge_Platform2/django_backend/venv/lib/python3.12/site-packages/django/db/models/sql/query.py", line 1609, in add_q
+    clause, _ = self._add_q(q_object, self.used_aliases)
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/pc-2026-1/Desktop/DZbridge/DzBridge_Platform2/django_backend/venv/lib/python3.12/site-packages/django/db/models/sql/query.py", line 1641, in _add_q
+    child_clause, needed_inner = self.build_filter(
+                                 ^^^^^^^^^^^^^^^^^^
+  File "/home/pc-2026-1/Desktop/DZbridge/DzBridge_Platform2/django_backend/venv/lib/python3.12/site-packages/django/db/models/sql/query.py", line 1468, in build_filter
+    return self._add_q(
+           ^^^^^^^^^^^^
+  File "/home/pc-2026-1/Desktop/DZbridge/DzBridge_Platform2/django_backend/venv/lib/python3.12/site-packages/django/db/models/sql/query.py", line 1641, in _add_q
+    child_clause, needed_inner = self.build_filter(
+                                 ^^^^^^^^^^^^^^^^^^
+  File "/home/pc-2026-1/Desktop/DZbridge/DzBridge_Platform2/django_backend/venv/lib/python3.12/site-packages/django/db/models/sql/query.py", line 1491, in build_filter
+    lookups, parts, reffed_expression = self.solve_lookup_type(arg, summarize)
+                                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/pc-2026-1/Desktop/DZbridge/DzBridge_Platform2/django_backend/venv/lib/python3.12/site-packages/django/db/models/sql/query.py", line 1303, in solve_lookup_type
+    _, field, _, lookup_parts = self.names_to_path(lookup_splitted, self.get_meta())
+                                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/pc-2026-1/Desktop/DZbridge/DzBridge_Platform2/django_backend/venv/lib/python3.12/site-packages/django/db/models/sql/query.py", line 1769, in names_to_path
+    raise FieldError(
+django.core.exceptions.FieldError: Cannot resolve keyword 'username' into field. Choices are: activitylog, availabilities, created_at, date_joined, email, email_verification_token, email_verified_at, expert_collaborations, first_name, groups, id, is_active, is_staff, is_superuser, last_login, last_name, logentry, matches, org_collaborations, password, profile, projects, projectstatushistory, received_ratings, role, status, submitted_ratings, updated_at, user_permissions
+[26/Oct/2026 18:14:35] "POST /api/auth/login/ HTTP/1.1" 500 178972
+/home/pc-2026-1/Desktop/DZbridge/DzBridge_Platform2/django_backend/apps/users/serializers.py changed, reloading.
+Performing system checks...
+
+System check identified no issues (0 silenced).
+October 26, 2026 - 18:11:58
+Django version 5.1.15, using settings 'core.settings'
+Starting development server at http://0.0.0.0:8000/
+Quit the server with CONTROL-C.
+
+Watching for file changes with StatReloader
+[26/Oct/2026 18:14:56] "POST /api/auth/login/ HTTP/1.1" 200 1315
+[26/Oct/2026 18:14:57] "POST /api/auth/login/ HTTP/1.1" 200 1326
+[26/Oct/2026 18:14:58] "POST /api/auth/login/ HTTP/1.1" 200 1326
+[26/Oct/2026 18:15:15] "POST /api/auth/login/ HTTP/1.1" 200 1315
+[26/Oct/2026 18:15:19] "HEAD /organization-dashboard.html HTTP/1.1" 200 0
+[26/Oct/2026 18:16:21] "GET / HTTP/1.1" 200 238258
+[26/Oct/2026 18:16:21] "GET /login.html HTTP/1.1" 200 58107
+[26/Oct/2026 18:16:21] "GET /organization-dashboard.html HTTP/1.1" 200 56623
+Watching for file changes with StatReloader
+[26/Oct/2026 18:17:39] "GET / HTTP/1.1" 200 238258
+Not Found: /fonts/fonts.css
+[26/Oct/2026 18:17:39] "GET /fonts/fonts.css HTTP/1.1" 404 10260
+[26/Oct/2026 18:20:44] "GET /login.html HTTP/1.1" 200 58107
+Not Found: /fonts/fonts.css
+[26/Oct/2026 18:20:44] "GET /fonts/fonts.css HTTP/1.1" 404 10260
+Not Found: /DZ Bridge Favicon.png
+[26/Oct/2026 18:20:44] "GET /DZ%20Bridge%20Favicon.png HTTP/1.1" 404 10282
+[26/Oct/2026 18:20:45] "GET /expert-dashboard.html HTTP/1.1" 200 162219
+Not Found: /fonts/fonts.css
+[26/Oct/2026 18:20:45] "GET /fonts/fonts.css HTTP/1.1" 404 10260
+[26/Oct/2026 18:20:45] "GET /api/profile/me HTTP/1.1" 200 774
+[26/Oct/2026 18:20:47] "GET /expert-profile.html HTTP/1.1" 200 134998
+Not Found: /fonts/fonts.css
+[26/Oct/2026 18:20:47] "GET /fonts/fonts.css HTTP/1.1" 404 10260
+[26/Oct/2026 18:20:47] "GET /api/profile/me HTTP/1.1" 200 774
+Not Found: /api/profile/draft
+[26/Oct/2026 18:20:52] "POST /api/profile/draft HTTP/1.1" 404 10267
+[26/Oct/2026 18:20:57] "GET /landing_page.html HTTP/1.1" 302 0
+[26/Oct/2026 18:20:57] "GET / HTTP/1.1" 200 238258
+Not Found: /fonts/fonts.css
+[26/Oct/2026 18:20:58] "GET /fonts/fonts.css HTTP/1.1" 404 10260
+[26/Oct/2026 18:21:04] "GET /login.html HTTP/1.1" 200 58107
+Not Found: /fonts/fonts.css
+[26/Oct/2026 18:21:04] "GET /fonts/fonts.css HTTP/1.1" 404 10260
+Not Found: /DZ Bridge Favicon.png
+[26/Oct/2026 18:21:04] "GET /DZ%20Bridge%20Favicon.png HTTP/1.1" 404 10282
+[26/Oct/2026 18:21:05] "GET /expert-dashboard.html HTTP/1.1" 200 162219
+Not Found: /fonts/fonts.css
+[26/Oct/2026 18:21:05] "GET /fonts/fonts.css HTTP/1.1" 404 10260
+[26/Oct/2026 18:21:05] "GET /api/profile/me HTTP/1.1" 200 774
+[26/Oct/2026 18:21:07] "GET /expert-profile.html HTTP/1.1" 200 134998
+Not Found: /fonts/fonts.css
+[26/Oct/2026 18:21:07] "GET /fonts/fonts.css HTTP/1.1" 404 10260
+[26/Oct/2026 18:21:07] "GET /api/profile/me HTTP/1.1" 200 774
+/home/pc-2026-1/Desktop/DZbridge/DzBridge_Platform2/django_backend/core/urls.py changed, reloading.
+Performing system checks...
+
+System check identified no issues (0 silenced).
+October 26, 2026 - 18:16:58
+Django version 5.1.15, using settings 'core.settings'
+Starting development server at http://0.0.0.0:8000/
+Quit the server with CONTROL-C.
+
+Watching for file changes with StatReloader
+[26/Oct/2026 18:21:40] "GET /landing_page.html HTTP/1.1" 200 238258
+Not Found: /fonts/fonts.css
+[26/Oct/2026 18:21:40] "GET /fonts/fonts.css HTTP/1.1" 404 10954
+[26/Oct/2026 18:21:51] "GET / HTTP/1.1" 200 27788
+[26/Oct/2026 18:21:51] "GET /landing_page.html HTTP/1.1" 200 238258
+[26/Oct/2026 18:22:17] "GET / HTTP/1.1" 200 27788
+[26/Oct/2026 18:22:17] "GET /index.html HTTP/1.1" 200 27788
+[26/Oct/2026 18:22:17] "GET /landing_page.html HTTP/1.1" 200 238258
+Watching for file changes with StatReloader
+[26/Oct/2026 18:23:05] "GET / HTTP/1.1" 200 27788
+[26/Oct/2026 18:23:11] "GET / HTTP/1.1" 200 27788
+Not Found: /fonts/fonts.css
+[26/Oct/2026 18:23:11] "GET /fonts/fonts.css HTTP/1.1" 404 10954
+Not Found: /DZ Bridge Favicon.png
+[26/Oct/2026 18:23:11] "GET /DZ%20Bridge%20Favicon.png HTTP/1.1" 404 10976
+[26/Oct/2026 18:23:15] "GET /landing_page.html HTTP/1.1" 200 238258
+Not Found: /fonts/fonts.css
+[26/Oct/2026 18:23:15] "GET /fonts/fonts.css HTTP/1.1" 404 10954
+[26/Oct/2026 18:23:17] "GET /landing_page.html HTTP/1.1" 200 238258
+Not Found: /fonts/fonts.css
+[26/Oct/2026 18:23:17] "GET /fonts/fonts.css HTTP/1.1" 404 10954
+[26/Oct/2026 18:23:17] "GET /landing_page.html HTTP/1.1" 200 238258
+Not Found: /fonts/fonts.css
+[26/Oct/2026 18:23:17] "GET /fonts/fonts.css HTTP/1.1" 404 10954
+[26/Oct/2026 18:23:18] "GET /landing_page.html HTTP/1.1" 200 238258
+Not Found: /fonts/fonts.css
+[26/Oct/2026 18:23:18] "GET /fonts/fonts.css HTTP/1.1" 404 10954
+[26/Oct/2026 18:23:18] "GET /landing_page.html HTTP/1.1" 200 238258
+Not Found: /fonts/fonts.css
+[26/Oct/2026 18:23:18] "GET /fonts/fonts.css HTTP/1.1" 404 10954
+[26/Oct/2026 18:23:24] "GET /landing_page.html HTTP/1.1" 200 238258
+Not Found: /fonts/fonts.css
+[26/Oct/2026 18:23:24] "GET /fonts/fonts.css HTTP/1.1" 404 10954
+[26/Oct/2026 18:23:25] "GET /landing_page.html HTTP/1.1" 200 238258
+Not Found: /fonts/fonts.css
+[26/Oct/2026 18:23:25] "GET /fonts/fonts.css HTTP/1.1" 404 10954
+[26/Oct/2026 18:23:26] "GET /login.html HTTP/1.1" 200 58107
+Not Found: /fonts/fonts.css
+[26/Oct/2026 18:23:26] "GET /fonts/fonts.css HTTP/1.1" 404 10954
+Not Found: /DZ Bridge Favicon.png
+[26/Oct/2026 18:23:26] "GET /DZ%20Bridge%20Favicon.png HTTP/1.1" 404 10976
+[26/Oct/2026 18:23:26] "GET /expert-dashboard.html HTTP/1.1" 200 162219
+Not Found: /fonts/fonts.css
+[26/Oct/2026 18:23:26] "GET /fonts/fonts.css HTTP/1.1" 404 10954
+[26/Oct/2026 18:23:26] "GET /api/profile/me HTTP/1.1" 200 774
+Not Found: /DZ Bridge Favicon.png
+[26/Oct/2026 18:23:27] "GET /DZ%20Bridge%20Favicon.png HTTP/1.1" 404 10976
+[26/Oct/2026 18:23:31] "GET /landing_page.html HTTP/1.1" 200 238258
+Not Found: /fonts/fonts.css
+[26/Oct/2026 18:23:31] "GET /fonts/fonts.css HTTP/1.1" 404 10954
+[26/Oct/2026 18:23:33] "GET /landing_page.html HTTP/1.1" 200 238258
+Not Found: /fonts/fonts.css
+[26/Oct/2026 18:23:33] "GET /fonts/fonts.css HTTP/1.1" 404 10954
+[26/Oct/2026 18:23:33] "GET /landing_page.html HTTP/1.1" 200 238258
+Not Found: /fonts/fonts.css
+[26/Oct/2026 18:23:33] "GET /fonts/fonts.css HTTP/1.1" 404 10954
+[26/Oct/2026 18:23:38] "GET / HTTP/1.1" 200 27788
+Not Found: /fonts/fonts.css
+[26/Oct/2026 18:23:38] "GET /fonts/fonts.css HTTP/1.1" 404 10954
+Not Found: /DZ Bridge Favicon.png
+[26/Oct/2026 18:23:39] "GET /DZ%20Bridge%20Favicon.png HTTP/1.1" 404 10976
+[26/Oct/2026 18:23:45] "GET /index.html HTTP/1.1" 200 27788
+Not Found: /fonts/fonts.css
+[26/Oct/2026 18:23:45] "GET /fonts/fonts.css HTTP/1.1" 404 10954
+Not Found: /DZ Bridge Favicon.png
+[26/Oct/2026 18:23:45] "GET /DZ%20Bridge%20Favicon.png HTTP/1.1" 404 10976
+[26/Oct/2026 18:23:47] "GET /index.html HTTP/1.1" 200 27788
+Not Found: /fonts/fonts.css
+[26/Oct/2026 18:23:47] "GET /fonts/fonts.css HTTP/1.1" 404 10954
+[26/Oct/2026 18:23:48] "GET /landing_page.html HTTP/1.1" 200 238258
+Not Found: /fonts/fonts.css
+[26/Oct/2026 18:23:48] "GET /fonts/fonts.css HTTP/1.1" 404 10954
+[26/Oct/2026 18:23:50] "GET /landing_page.html HTTP/1.1" 200 238258
+Not Found: /fonts/fonts.css
+[26/Oct/2026 18:23:50] "GET /fonts/fonts.css HTTP/1.1" 404 10954
+[26/Oct/2026 18:23:51] "GET /landing_page.html HTTP/1.1" 200 238258
+Not Found: /fonts/fonts.css
+[26/Oct/2026 18:23:51] "GET /fonts/fonts.css HTTP/1.1" 404 10954
+[26/Oct/2026 18:23:51] "GET /landing_page.html HTTP/1.1" 200 238258
+Not Found: /fonts/fonts.css
+[26/Oct/2026 18:23:51] "GET /fonts/fonts.css HTTP/1.1" 404 10954
+[26/Oct/2026 18:23:52] "GET /login.html HTTP/1.1" 200 58107
+Not Found: /fonts/fonts.css
+[26/Oct/2026 18:23:52] "GET /fonts/fonts.css HTTP/1.1" 404 10954
+Not Found: /DZ Bridge Favicon.png
+[26/Oct/2026 18:23:52] "GET /DZ%20Bridge%20Favicon.png HTTP/1.1" 404 10976
+[26/Oct/2026 18:23:53] "GET /expert-dashboard.html HTTP/1.1" 200 162219
+Not Found: /fonts/fonts.css
+[26/Oct/2026 18:23:53] "GET /fonts/fonts.css HTTP/1.1" 404 10954
+[26/Oct/2026 18:23:53] "GET /api/profile/me HTTP/1.1" 200 774
+[26/Oct/2026 18:23:57] "GET /login.html HTTP/1.1" 200 58107
+Not Found: /fonts/fonts.css
+[26/Oct/2026 18:23:57] "GET /fonts/fonts.css HTTP/1.1" 404 10954
+Not Found: /DZ Bridge Favicon.png
+[26/Oct/2026 18:23:57] "GET /DZ%20Bridge%20Favicon.png HTTP/1.1" 404 10976
+[26/Oct/2026 18:23:58] "GET /landing_page.html HTTP/1.1" 200 238258
+Not Found: /fonts/fonts.css
+[26/Oct/2026 18:23:58] "GET /fonts/fonts.css HTTP/1.1" 404 10954
+[26/Oct/2026 18:23:59] "GET /landing_page.html HTTP/1.1" 200 238258
+Not Found: /fonts/fonts.css
+[26/Oct/2026 18:23:59] "GET /fonts/fonts.css HTTP/1.1" 404 10954
+[26/Oct/2026 18:24:00] "GET /login.html HTTP/1.1" 200 58107
+Not Found: /fonts/fonts.css
+[26/Oct/2026 18:24:00] "GET /fonts/fonts.css HTTP/1.1" 404 10954
+[26/Oct/2026 18:26:51] "GET /login.html HTTP/1.1" 200 58107
+Not Found: /fonts/fonts.css
+[26/Oct/2026 18:26:51] "GET /fonts/fonts.css HTTP/1.1" 404 10954
+[26/Oct/2026 18:26:54] "GET / HTTP/1.1" 200 27788
+Not Found: /fonts/fonts.css
+[26/Oct/2026 18:26:54] "GET /fonts/fonts.css HTTP/1.1" 404 10954
+[26/Oct/2026 18:26:56] "GET /landing_page.html HTTP/1.1" 200 238258
+Not Found: /fonts/fonts.css
+[26/Oct/2026 18:26:56] "GET /fonts/fonts.css HTTP/1.1" 404 10954
+Not Found: /images/event-1.png
+[26/Oct/2026 18:26:56] "GET /images/event-1.png HTTP/1.1" 404 10963
+Not Found: /images/event-2.png
+[26/Oct/2026 18:26:56] "GET /images/event-2.png HTTP/1.1" 404 10963
+Not Found: /images/event-3.png
+[26/Oct/2026 18:26:56] "GET /images/event-3.png HTTP/1.1" 404 10963
+[26/Oct/2026 18:26:57] "GET /landing_page.html HTTP/1.1" 200 238258
+Not Found: /fonts/fonts.css
+[26/Oct/2026 18:26:57] "GET /fonts/fonts.css HTTP/1.1" 404 10954
+Not Found: /images/event-1.png
+Not Found: /images/event-2.png
+[26/Oct/2026 18:26:57] "GET /images/event-2.png HTTP/1.1" 404 10963
+[26/Oct/2026 18:26:57] "GET /images/event-1.png HTTP/1.1" 404 10963
+Not Found: /images/event-3.png
+[26/Oct/2026 18:26:57] "GET /images/event-3.png HTTP/1.1" 404 10963
+[26/Oct/2026 18:26:59] "GET /landing_page.html HTTP/1.1" 200 238258
+Not Found: /fonts/fonts.css
+[26/Oct/2026 18:26:59] "GET /fonts/fonts.css HTTP/1.1" 404 10954
+Not Found: /images/event-2.png
+[26/Oct/2026 18:26:59] "GET /images/event-2.png HTTP/1.1" 404 10963
+Not Found: /images/event-1.png
+[26/Oct/2026 18:26:59] "GET /images/event-1.png HTTP/1.1" 404 10963
+Not Found: /images/event-3.png
+[26/Oct/2026 18:26:59] "GET /images/event-3.png HTTP/1.1" 404 10963
+[26/Oct/2026 18:27:00] "GET /landing_page.html HTTP/1.1" 200 238258
+Not Found: /fonts/fonts.css
+[26/Oct/2026 18:27:00] "GET /fonts/fonts.css HTTP/1.1" 404 10954
+Not Found: /images/event-1.png
+[26/Oct/2026 18:27:00] "GET /images/event-1.png HTTP/1.1" 404 10963
+Not Found: /images/event-2.png
+Not Found: /images/event-3.png
+[26/Oct/2026 18:27:00] "GET /images/event-2.png HTTP/1.1" 404 10963
+[26/Oct/2026 18:27:00] "GET /images/event-3.png HTTP/1.1" 404 10963
+[26/Oct/2026 18:27:00] "GET /landing_page.html HTTP/1.1" 200 238258
+Not Found: /fonts/fonts.css
+[26/Oct/2026 18:27:00] "GET /fonts/fonts.css HTTP/1.1" 404 10954
+Not Found: /images/event-2.png
+Not Found: /images/event-3.png
+Not Found: /images/event-1.png
+[26/Oct/2026 18:27:00] "GET /images/event-1.png HTTP/1.1" 404 10963
+[26/Oct/2026 18:27:00] "GET /images/event-2.png HTTP/1.1" 404 10963
+[26/Oct/2026 18:27:00] "GET /images/event-3.png HTTP/1.1" 404 10963
+[26/Oct/2026 18:27:00] "GET /landing_page.html HTTP/1.1" 200 238258
+Not Found: /fonts/fonts.css
+[26/Oct/2026 18:27:00] "GET /fonts/fonts.css HTTP/1.1" 404 10954
+Not Found: /images/event-1.png
+[26/Oct/2026 18:27:00] "GET /images/event-1.png HTTP/1.1" 404 10963
+Not Found: /images/event-2.png
+[26/Oct/2026 18:27:00] "GET /images/event-2.png HTTP/1.1" 404 10963
+Not Found: /images/event-3.png
+[26/Oct/2026 18:27:00] "GET /images/event-3.png HTTP/1.1" 404 10963
+[26/Oct/2026 18:27:00] "GET /landing_page.html HTTP/1.1" 200 238258
+Not Found: /fonts/fonts.css
+[26/Oct/2026 18:27:00] "GET /fonts/fonts.css HTTP/1.1" 404 10954
+Not Found: /images/event-1.png
+Not Found: /images/event-2.png
+[26/Oct/2026 18:27:00] "GET /images/event-2.png HTTP/1.1" 404 10963
+Not Found: /images/event-3.png
+[26/Oct/2026 18:27:00] "GET /images/event-3.png HTTP/1.1" 404 10963
+[26/Oct/2026 18:27:00] "GET /images/event-1.png HTTP/1.1" 404 10963
+[26/Oct/2026 18:27:13] "GET / HTTP/1.1" 200 27788
+Not Found: /fonts/fonts.css
+[26/Oct/2026 18:27:13] "GET /fonts/fonts.css HTTP/1.1" 404 10954
+[26/Oct/2026 18:27:14] "GET /landing_page.html HTTP/1.1" 200 238258
+Not Found: /fonts/fonts.css
+[26/Oct/2026 18:27:14] "GET /fonts/fonts.css HTTP/1.1" 404 10954
+Not Found: /images/event-1.png
+Not Found: /images/event-2.png
+[26/Oct/2026 18:27:14] "GET /images/event-1.png HTTP/1.1" 404 10963
+[26/Oct/2026 18:27:14] "GET /images/event-2.png HTTP/1.1" 404 10963
+Not Found: /images/event-3.png
+[26/Oct/2026 18:27:14] "GET /images/event-3.png HTTP/1.1" 404 10963
+[26/Oct/2026 18:29:37] "GET /login.html HTTP/1.1" 200 58107
+Not Found: /fonts/fonts.css
+[26/Oct/2026 18:29:37] "GET /fonts/fonts.css HTTP/1.1" 404 10954
+[26/Oct/2026 18:31:10] "POST /api/auth/login HTTP/1.1" 200 1388
+[26/Oct/2026 18:31:10] "GET /expert-dashboard.html HTTP/1.1" 200 162219
+Not Found: /fonts/fonts.css
+[26/Oct/2026 18:31:10] "GET /fonts/fonts.css HTTP/1.1" 404 10954
+[26/Oct/2026 18:31:10] "GET /api/profile/me HTTP/1.1" 200 774
+Watching for file changes with StatReloader
+[29/Oct/2026 23:57:35] "GET / HTTP/1.1" 200 27788
+Not Found: /fonts/fonts.css
+[29/Oct/2026 23:57:35] "GET /fonts/fonts.css HTTP/1.1" 404 10954
+Not Found: /DZ Bridge Favicon.png
+[29/Oct/2026 23:57:36] "GET /DZ%20Bridge%20Favicon.png HTTP/1.1" 404 10976
+[29/Oct/2026 23:57:42] "GET /landing_page.html HTTP/1.1" 200 238258
+Not Found: /fonts/fonts.css
+[29/Oct/2026 23:57:42] "GET /fonts/fonts.css HTTP/1.1" 404 10954
+[29/Oct/2026 23:57:44] "GET /signup.html?role=expert HTTP/1.1" 200 46537
+Not Found: /fonts/fonts.css
+[29/Oct/2026 23:57:44] "GET /fonts/fonts.css HTTP/1.1" 404 10954
+[29/Oct/2026 23:57:55] "GET /landing_page.html HTTP/1.1" 200 238258
+Not Found: /fonts/fonts.css
+[29/Oct/2026 23:57:55] "GET /fonts/fonts.css HTTP/1.1" 404 10954
+[29/Oct/2026 23:57:59] "GET /signup.html?role=expert HTTP/1.1" 200 46537
+Not Found: /fonts/fonts.css
+[29/Oct/2026 23:57:59] "GET /fonts/fonts.css HTTP/1.1" 404 10954
+[29/Oct/2026 23:58:01] "GET /landing_page.html HTTP/1.1" 200 238258
+Not Found: /fonts/fonts.css
+[29/Oct/2026 23:58:01] "GET /fonts/fonts.css HTTP/1.1" 404 10954
+[29/Oct/2026 23:58:02] "GET /login.html HTTP/1.1" 200 58107
+Not Found: /fonts/fonts.css
+[29/Oct/2026 23:58:02] "GET /fonts/fonts.css HTTP/1.1" 404 10954
+[30/Oct/2026 00:10:06] "GET / HTTP/1.1" 200 27788
+Not Found: /fonts/fonts.css
+[30/Oct/2026 00:10:06] "GET /fonts/fonts.css HTTP/1.1" 404 10954
+Not Found: /DZ Bridge Favicon.png
+[30/Oct/2026 00:10:06] "GET /DZ%20Bridge%20Favicon.png HTTP/1.1" 404 10976
+[30/Oct/2026 00:10:09] "GET /landing_page.html HTTP/1.1" 200 238258
+Not Found: /fonts/fonts.css
+[30/Oct/2026 00:10:09] "GET /fonts/fonts.css HTTP/1.1" 404 10954
+Not Found: /images/event-1.png
+[30/Oct/2026 00:10:09] "GET /images/event-1.png HTTP/1.1" 404 10963
+Not Found: /images/event-2.png
+[30/Oct/2026 00:10:09] "GET /images/event-2.png HTTP/1.1" 404 10963
+[30/Oct/2026 00:10:10] "GET /login.html HTTP/1.1" 200 58107
+Not Found: /fonts/fonts.css
+[30/Oct/2026 00:10:10] "GET /fonts/fonts.css HTTP/1.1" 404 10954
+Watching for file changes with StatReloader
+[02/Nov/2026 07:32:32] "GET / HTTP/1.1" 200 27788
+Not Found: /fonts/fonts.css
+[02/Nov/2026 07:32:32] "GET /fonts/fonts.css HTTP/1.1" 404 10954
+Not Found: /fonts/fonts.css
+[02/Nov/2026 07:32:32] "GET /fonts/fonts.css HTTP/1.1" 404 10954
+Not Found: /DZ Bridge Favicon.png
+[02/Nov/2026 07:32:33] "GET /DZ%20Bridge%20Favicon.png HTTP/1.1" 404 10976
+[02/Nov/2026 07:32:37] "GET /landing_page.html HTTP/1.1" 200 238258
+Not Found: /fonts/fonts.css
+[02/Nov/2026 07:32:37] "GET /fonts/fonts.css HTTP/1.1" 404 10954
+Not Found: /images/event-1.png
+[02/Nov/2026 07:32:38] "GET /images/event-1.png HTTP/1.1" 404 10963
+Not Found: /images/event-3.png
+Not Found: /images/event-2.png
+[02/Nov/2026 07:32:38] "GET /images/event-2.png HTTP/1.1" 404 10963
+[02/Nov/2026 07:32:38] "GET /images/event-3.png HTTP/1.1" 404 10963
+[02/Nov/2026 07:32:40] "GET /login.html HTTP/1.1" 200 58107
+Not Found: /fonts/fonts.css
+[02/Nov/2026 07:32:40] "GET /fonts/fonts.css HTTP/1.1" 404 10954
+[02/Nov/2026 07:32:41] "GET /health/ HTTP/1.1" 200 158
+[02/Nov/2026 07:33:28] "GET /health/ HTTP/1.1" 200 158
+[02/Nov/2026 07:33:58] "GET /health/ HTTP/1.1" 200 158
+[02/Nov/2026 07:34:28] "GET /health/ HTTP/1.1" 200 158
+[02/Nov/2026 07:34:58] "GET /health/ HTTP/1.1" 200 158
+[02/Nov/2026 07:35:28] "GET /health/ HTTP/1.1" 200 158
+[02/Nov/2026 07:35:58] "GET /health/ HTTP/1.1" 200 158
+[02/Nov/2026 07:48:30] "GET /health/ HTTP/1.1" 200 158
+[02/Nov/2026 07:48:46] "GET /health/ HTTP/1.1" 200 158
+[02/Nov/2026 07:49:23] "GET /health/ HTTP/1.1" 200 158
