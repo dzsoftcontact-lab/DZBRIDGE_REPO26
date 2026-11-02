@@ -83,7 +83,7 @@ All test accounts use the password: **`DzBridge2026!`**
 
 | Role | Email | Name / Affiliation |
 | :--- | :--- | :--- |
-| **Super Admin** | `admin@dz-bridge.dz` | Directeur Général DZ-Bridge (MESRS) |
-| **Diaspora Expert** | `belgacem.haba@algerian-scholars.dz` | Prof. Belgacem Haba (Adeia / Silicon Valley) |
-| **Diaspora Expert** | `amina.benali@cnrs.fr` | Dr. Amina Benali (CNRS Paris & Sorbonne) |
-| **University Host** | `contact@esi.dz` | Dr. Rachid Haddad (ESI Algiers) |
+| **Super Admin** | `admin@dz-bridge.dz` | Directeur Général DZ-Bridg) |
+| **Diaspora Expert** | `belgacem.haba@algerian-scholars.dz` | Prof. Belgacem Haba |
+| **Diaspora Expert** | `amina.benali@cnrs.fr` | Dr. Amina  |
+| **University Host** | `contact@esi.dz` | Dr. Rachid  |
